@@ -9,7 +9,7 @@ export default function Posts(props: Props) {
   const { posts } = props
 
   return (
-    <div className="">
+    <div className="mt-8 flex flex-col gap-y-4">
       {posts.map((post) => {
         const { id, title, date, text, postedByName, postedByLink } = post
 

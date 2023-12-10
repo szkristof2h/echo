@@ -24,6 +24,9 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#00BFB2] to-[#f0f3bd]">
+        <h1 className="mt-8 font-mono text-7xl subpixel-antialiased drop-shadow-lg">
+          Echo
+        </h1>
         <Posts posts={[...posts, ...posts, ...posts, ...posts, ...posts]} />
       </main>
     </>
