@@ -26,11 +26,15 @@ export default function Profile() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="w-128">
-        <h2>{displayName}</h2>
-        <span>{hasConnections ? "your friend" : "add as friend"}</span>
-        <div>{bio}</div>I like:{" "}
+        <div className="flex border-b border-slate-600">
+          <h2 className="inline-block">{displayName}</h2>
+          <span className="ml-auto inline-block">
+            {hasConnections ? "your friend" : "add as friend"}
+          </span>
+        </div>
+        <div className="mb-4 border-b border-slate-600 py-4">{bio}</div>I like:{" "}
         {interests.map((interest) => (
-          <span key={interest}>{interest}</span>
+          <span key={interest}>{interest}, </span>
         ))}
       </div>
     </>
