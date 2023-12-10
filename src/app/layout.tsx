@@ -17,7 +17,7 @@ export default function RootLayout({
           <h1 className="mt-8 font-mono text-7xl subpixel-antialiased drop-shadow-lg">
             Echo
           </h1>
-          {children}
+          <div className="h-full">{children}</div>
         </main>
       </body>
     </html>
