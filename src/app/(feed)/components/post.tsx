@@ -1,5 +1,5 @@
 import Link from "next/link"
-import type { Post } from "."
+import type { Post } from ".."
 
 type Props = Post
 
