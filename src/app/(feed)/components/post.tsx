@@ -7,7 +7,7 @@ export default function Post(props: Props) {
   const { id, title, date, text, postedByName, postedByLink } = props
 
   return (
-    <div className="backdrop-blur-m w-128 h-64 overflow-hidden rounded-lg bg-white/30 p-4 drop-shadow-lg backdrop-hue-rotate-15">
+    <div className="backdrop-blur-m w-128 h-64 overflow-hidden bg-white/80 p-4 drop-shadow-lg">
       <h1>{title}</h1>
       <div>{date.toDateString()}</div>
       <Link href={postedByLink}>{postedByName}</Link>
