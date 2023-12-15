@@ -1,7 +1,11 @@
 import Head from "next/head"
 import Container from "~/app/components/container"
+import { sql } from "@vercel/postgres"
+import { drizzle } from "drizzle-orm/vercel-postgres"
 
 async function getData(id: string) {
+  const db = drizzle(sql)
+  // const result = await db.select().from(...);
   // const res = await fetch(`https://echo.com/user/${id}`)
   // The return value is *not* serialized
   // You can return Date, Map, Set, etc.
