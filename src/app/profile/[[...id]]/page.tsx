@@ -1,10 +1,11 @@
 import Head from "next/head"
-import Container from "../components/container"
+import Container from "../../components/container"
 import Link from "next/link"
+import { getUser, getCurrentUser } from "~/data/users"
 
 const text =
   "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat."
-const user: User = {
+const user2: User = {
   displayName: "Darth Vader",
   bio: text,
   interests: ["asdasd", "asdas", "dnrfgnwenfji", "erngtyernf"],
@@ -18,8 +19,13 @@ type User = {
   hasConnections: boolean
 }
 
-export default function Profile() {
-  const { displayName, bio, interests, hasConnections } = user
+export default async function Profile({ params }: { params: { id?: number } }) {
+  const id = params.id
+  const user = id ? await getUser(id) : getCurrentUser()
+  const displayName = user?.displayName ?? ""
+
+  // const { displayName, bio } = user
+  const { interests, hasConnections } = user2
   return (
     <>
       <Head>
