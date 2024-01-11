@@ -14,10 +14,16 @@ export default function Error({
   }, [error])
 
   return (
-    <div>
-      <h2>Something went wrong!</h2>
-      <p>{error?.message}</p>
-      <button onClick={() => reset()}>Try again</button>
-    </div>
+    <html lang="en">
+      <body>
+        <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#00BFB2] to-[#f0f3bd] bg-fixed text-slate-600">
+          <div>
+            <h2>Something went wrong!</h2>
+            <p>{error?.message}</p>
+            <button onClick={() => reset()}>Try again</button>
+          </div>
+        </main>
+      </body>
+    </html>
   )
 }
