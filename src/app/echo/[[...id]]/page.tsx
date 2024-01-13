@@ -1,36 +1,17 @@
 import Head from "next/head"
 import Container from "~/app/components/container"
-import { sql } from "@vercel/postgres"
-import { drizzle } from "drizzle-orm/vercel-postgres"
+import { createEcho } from "~/app/lib/actions"
 
-async function getData(id: string) {
-  const db = drizzle(sql)
-  // const result = await db.select().from(...);
-  // const res = await fetch(`https://echo.com/user/${id}`)
-  // The return value is *not* serialized
-  // You can return Date, Map, Set, etc.
-  // if (!res.ok) {
-  // This will activate the closest `error.js` Error Boundary
-  // throw new Error("Failed to fetch data")
-  // }
-  // return res.json()
-}
-
-export default async function Submit({ params }: { params: { id: string } }) {
-  async function createEcho(formData: FormData) {
-    "use server"
-
-    const rawFormData = {
-      text: formData.get("text"),
-    }
-
-    // mutate data
-    // revalidate cache
-    console.log("here", formData.get("text"))
-  }
-
+export default async function Submit({ params }: { params: { id: number } }) {
   const { id } = params
-  // const data = await getData(id)
+  const handleSubmit = createEcho.bind(null, id)
+
+  // async function handleSubmit(formData: FormData) {
+  //   const res = await
+
+  //   if (res.hasOwnProperty("errors")) console.log(res.errors)
+  //   else console.log("echo creation successful")
+  // }
 
   return (
     <>
@@ -40,7 +21,7 @@ export default async function Submit({ params }: { params: { id: string } }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Container>
-        <form action={createEcho} className="flex flex-col gap-y-2">
+        <form action={handleSubmit} className="flex flex-col gap-y-2">
           <label>Send an echo to...</label>
           <textarea name="text" autoFocus className="outline-none" />
           <button
