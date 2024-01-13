@@ -22,7 +22,8 @@ type User = {
 export default async function Profile({ params }: { params: { id?: number } }) {
   const id = params.id
   const user = id ? await getUser(id) : getCurrentUser()
-  const displayName = user?.displayName ?? ""
+  const displayName = 'user?.displayName ?? ""'
+  const bio = 'user?.bio ?? ""'
 
   // const { displayName, bio } = user
   const { interests, hasConnections } = user2
