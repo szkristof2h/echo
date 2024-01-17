@@ -1,17 +1,10 @@
+"use client"
 import Head from "next/head"
 import Container from "~/app/components/container"
-import { createEcho } from "~/app/lib/actions"
+import Form from "./form"
 
 export default async function Submit({ params }: { params: { id: number } }) {
   const { id } = params
-  const handleSubmit = createEcho.bind(null, id)
-
-  // async function handleSubmit(formData: FormData) {
-  //   const res = await
-
-  //   if (res.hasOwnProperty("errors")) console.log(res.errors)
-  //   else console.log("echo creation successful")
-  // }
 
   return (
     <>
@@ -21,11 +14,7 @@ export default async function Submit({ params }: { params: { id: number } }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Container>
-        <form action={handleSubmit} className="flex flex-col gap-y-2">
-          <label>Send an echo to...</label>
-          <textarea name="text" autoFocus className="outline-none" />
-          <SubmitButton />
-        </form>
+        <Form id={id} />
       </Container>
     </>
   )
