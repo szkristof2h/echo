@@ -24,12 +24,7 @@ export default async function Submit({ params }: { params: { id: number } }) {
         <form action={handleSubmit} className="flex flex-col gap-y-2">
           <label>Send an echo to...</label>
           <textarea name="text" autoFocus className="outline-none" />
-          <button
-            type="submit"
-            className="mx-auto mt-4 w-40 bg-teal-400 py-2 text-white hover:bg-teal-600"
-          >
-            Submit
-          </button>
+          <SubmitButton />
         </form>
       </Container>
     </>
