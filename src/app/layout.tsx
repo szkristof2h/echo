@@ -1,3 +1,4 @@
+import Link from "next/link"
 import "~/styles/globals.css"
 
 export const metadata = {
@@ -14,9 +15,11 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#00BFB2] to-[#f0f3bd] bg-fixed text-slate-600">
-          <h1 className="mt-8 font-mono text-7xl subpixel-antialiased drop-shadow-lg">
-            Echo
-          </h1>
+          <Link href="/">
+            <h1 className="mt-8 font-mono text-7xl subpixel-antialiased drop-shadow-lg">
+              Echo
+            </h1>
+          </Link>
           <div className="h-full">{children}</div>
         </main>
       </body>
