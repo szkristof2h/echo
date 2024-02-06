@@ -14,8 +14,8 @@ export async function createEcho(id: number, formData: FormData) {
   // TODO: add validation
   const rawFormData = {
     text: formData.get("text")?.toString(),
-    idSender: id,
-    idUser: 2,
+    idSender: 2, // get it from cookie
+    idUser: id,
   }
 
   if (
