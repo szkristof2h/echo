@@ -1,0 +1,1 @@
+ALTER TABLE "echos" RENAME COLUMN "timestamp4" TO "timestamp";
