@@ -6,30 +6,32 @@ export type CreateEchoData = {
   idSender?: number
   idUser?: number
   text?: string
+  title?: string
 }
 export type UpdateEchoData = {
   id?: number
 } & CreateEchoData
 
 export async function createEcho(echo: CreateEchoData) {
-  // const idSender = echo?.idSender
-  const idSender = 5
+  const idSender = echo?.idSender
   const idUser = echo?.idUser
   const text = echo?.text
+  const title = echo?.title
 
   if (!text) return { message: "No text" }
-  if (!idUser) return { message: "No target user" }
-  if (!idSender) return { message: "No sender" }
+  if (!title) return { message: "No title" }
+  if (!idUser) return { message: "Log in" }
+  if (!idSender) return { message: "Didn't find user" }
 
   console.log({ text, idUser, idSender })
   try {
-    const newEcho: NewEcho = { idSender, idUser, text }
+    const newEcho: NewEcho = { idSender, idUser, text, title }
     const result = await db.insert(echos).values(newEcho).returning()
 
     return result
   } catch (error) {
-    console.log("db create echo error")
-    console.log(error)
+    console.error("db create echo error")
+    console.error(error)
     return { message: "Database error: failed echo creation" }
   }
 }
