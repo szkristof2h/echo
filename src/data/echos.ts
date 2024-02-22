@@ -36,6 +36,34 @@ export async function createEcho(echo: CreateEchoData) {
   }
 }
 
+export async function getEchos(offset = 0) {
+  try {
+    const echos = await db.query.echos.findMany({
+      with: {
+        postedBy: {
+          columns: {
+            bio: false,
+          },
+        },
+        echodTo: {
+          columns: {
+            bio: false,
+          },
+        },
+      },
+      limit: 10,
+      offset,
+    })
+
+    return echos
+  } catch (error) {
+    console.error("db get echos error")
+    console.error(error)
+
+    return []
+  }
+}
+
 // export async function getEcho(id: number) {
 //   console.log("should be at server")
 //   try {
