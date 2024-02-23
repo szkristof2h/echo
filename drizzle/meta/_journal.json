@@ -29,6 +29,13 @@
       "when": 1708625126888,
       "tag": "0003_daily_quentin_quire",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1708705161603,
+      "tag": "0004_common_swordsman",
+      "breakpoints": true
     }
   ]
 }
