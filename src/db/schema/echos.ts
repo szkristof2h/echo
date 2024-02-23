@@ -14,7 +14,7 @@ export const echos = pgTable("echos", {
   idUser: integer("idUser").notNull(),
   text: varchar("display_name", { length: 512 }).notNull(),
   title: varchar("title", { length: 64 }).notNull(),
-  date: timestamp("timestamp").default(sql`now()`),
+  date: timestamp("date").default(sql`now()`),
 })
 
 export const echosRelations = relations(echos, ({ one }) => ({
