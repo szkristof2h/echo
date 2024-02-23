@@ -64,27 +64,39 @@ export async function getEchos(offset = 0) {
   }
 }
 
-// export async function getEcho(id: number) {
-//   console.log("should be at server")
-//   try {
-//     const echo = await db.query.echos.findFirst({ where: eq(echos.id, id) })
+export async function getEcho(id: number) {
+  try {
+    const echo = await db.query.echos.findFirst({
+      where: eq(echos.id, id),
+      with: {
+        postedBy: {
+          columns: {
+            bio: false,
+          },
+        },
+        echodTo: {
+          columns: {
+            bio: false,
+          },
+        },
+      },
+    })
 
-//     if (!echo) return { message: "echo not found" }
+    if (!echo) return null
 
-//     return {
-//       id: echo.id,
-//       displayName: echo.displayName,
-//       bio: echo.bio,
-//     }
-//   } catch (error) {
-//     return { message: "Database error: getting echo creation" }
-//   }
-// }
-// export async function getCurrentEcho() {
-//   //
-//   const id = 5
+    return echo
+  } catch (error) {
+    console.error("Database error: getting echo creation")
+    console.error(error)
+    return null
+  }
+}
+export async function getCurrentEcho() {
+  //
+  const id = 5
 
-//   return await getEcho(id)
-// }
+  return await getEcho(id)
+}
+
 export async function updateEcho(echo: UpdateEchoData) {}
 export async function deleteEcho(id: string) {}
