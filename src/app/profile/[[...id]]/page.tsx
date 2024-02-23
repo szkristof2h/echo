@@ -21,11 +21,10 @@ type User = {
 
 export default async function Profile({ params }: { params: { id?: number } }) {
   const id = params.id
-  const user = id ? await getUser(id) : getCurrentUser()
-  const displayName = 'user?.displayName ?? ""'
-  const bio = 'user?.bio ?? ""'
+  const user = id ? await getUser(id) : await getCurrentUser()
+  const displayName = user?.displayName ?? ""
+  const bio = user?.bio ?? ""
 
-  // const { displayName, bio } = user
   const { interests, hasConnections } = user2
   return (
     <>
@@ -40,7 +39,7 @@ export default async function Profile({ params }: { params: { id?: number } }) {
           <span className="ml-auto inline-block">
             {hasConnections ? "your friend" : "add as friend"}
           </span>
-          <Link className="ml-4 inline-block" href="echo">
+          <Link className="ml-4 inline-block" href={`echoTo/${user?.id}`}>
             echo
           </Link>
         </div>

@@ -32,7 +32,7 @@ export async function getUser(id: number) {
   try {
     const user = await db.query.users.findFirst({ where: eq(users.id, id) })
 
-    if (!user) return { message: "User not found" }
+    if (!user) return null
 
     return {
       id: user.id,
@@ -40,7 +40,8 @@ export async function getUser(id: number) {
       bio: user.bio,
     }
   } catch (error) {
-    return error
+    console.error("Database error: failed getting user")
+    console.error(error)
   }
 }
 export async function getCurrentUser() {

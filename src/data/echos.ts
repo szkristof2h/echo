@@ -57,7 +57,7 @@ export async function getEchos(offset = 0) {
 
     return echos
   } catch (error) {
-    console.error("db get echos error")
+    console.error("Database error: getting echos")
     console.error(error)
 
     return []
@@ -86,16 +86,10 @@ export async function getEcho(id: number) {
 
     return echo
   } catch (error) {
-    console.error("Database error: getting echo creation")
+    console.error("Database error: getting echo")
     console.error(error)
     return null
   }
-}
-export async function getCurrentEcho() {
-  //
-  const id = 5
-
-  return await getEcho(id)
 }
 
 export async function updateEcho(echo: UpdateEchoData) {}
