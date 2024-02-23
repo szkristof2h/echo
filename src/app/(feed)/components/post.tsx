@@ -11,10 +11,16 @@ export default function Post(props: Props) {
 
   return (
     <Container>
-      <h1>{title}</h1>
-      <div>{new Date(date ?? "").toDateString()}</div>
-      <Link href={url}>{postedBy.displayName}</Link>
-      <div className="h-40 overflow-hidden">{text}</div>
+      <h1 className="text-xl">{title}</h1>
+      <div className="max-h-40 overflow-hidden">{text}</div>
+      <div className="flex justify-between text-sm">
+        <span>
+          <Link href={url}>{postedBy.displayName}</Link>
+          {" > "}
+          <Link href={url}>{echodTo.displayName}</Link>
+        </span>
+        <span>{new Date(date ?? "").toDateString()}</span>
+      </div>
     </Container>
   )
 }
