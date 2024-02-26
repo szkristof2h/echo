@@ -28,7 +28,9 @@ export async function createEcho(echo: CreateEchoData) {
     const newEcho: NewEcho = { idSender, idUser, text, title }
     const result = await db.insert(echos).values(newEcho).returning()
 
-    return result
+    if (!result[0]) throw new Error("some error")
+
+    return result[0]
   } catch (error) {
     console.error("db create echo error")
     console.error(error)
