@@ -1,3 +1,4 @@
+import "server-only"
 import { NewUser, users } from "~/db/schema/users"
 import db from "~/db"
 import { eq } from "drizzle-orm"
@@ -44,6 +45,7 @@ export async function getUser(id: number) {
     console.error(error)
   }
 }
+
 export async function getCurrentUser() {
   //
   const id = 5
