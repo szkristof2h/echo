@@ -1,9 +1,8 @@
-"use client"
 import Head from "next/head"
 import Container from "~/app/components/container"
-import Form from "./form"
+import FormWrapper from "./components/form-wrapper"
 
-export default async function Submit({ params }: { params: { id: number } }) {
+export default function Submit({ params }: { params: { id?: number } }) {
   const { id } = params
 
   return (
@@ -14,7 +13,7 @@ export default async function Submit({ params }: { params: { id: number } }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Container>
-        <Form id={id} />
+        <FormWrapper id={id} />
       </Container>
     </>
   )
