@@ -5,10 +5,10 @@ import { useFormState } from "react-dom"
 export default async function EchoForm(props: { id?: number }) {
   const { id } = props
   const handleSubmit = (prevState: ActionResponse, formData: FormData) =>
-    createEcho(formData)
+    createEcho(formData, id)
   const [state, formAction] = useFormState(handleSubmit, {
     status: "",
-    idUser: id,
+    errors: [],
   })
 
   console.log("state")
