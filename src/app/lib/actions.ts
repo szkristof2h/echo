@@ -1,5 +1,6 @@
 "use server"
 import { revalidatePath } from "next/cache"
+import { redirect } from "next/navigation"
 import { createEcho as createEchoData } from "~/data/echos"
 
 export type ActionResponse = {
@@ -7,15 +8,16 @@ export type ActionResponse = {
   status: string
 }
 
-export async function createEcho(id: number, formData: FormData) {
+export async function createEcho( formData: FormData,id?: number) {
   setTimeout(() => {
     console.log("Delayed for 3 second.")
   }, 3000)
   // TODO: add validation
+  const idUser = id
   const rawFormData = {
     text: formData.get("text")?.toString(),
     idSender: 2, // get it from cookie
-    idUser: id,
+    idUser,
   }
 
   if (
@@ -27,14 +29,12 @@ export async function createEcho(id: number, formData: FormData) {
 
   const res = await createEchoData(rawFormData)
 
-  if (!Array.isArray(res) && res.hasOwnProperty("message"))
+  if (res && "message" in res)
     return { errors: [res.message], status: "failure" }
 
-  revalidatePath("/echo/[[...id]]", "page")
+  // revalidatePath("/echo/[[...id]]", "page")
+  redirect(`echo/${res.id}`)
 
-  return {
-    status: "success",
-  }
   // mutate data
   // revalidate cache
 }
