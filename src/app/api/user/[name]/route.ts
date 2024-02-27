@@ -9,16 +9,23 @@ export async function GET(
 ) {
   const name = context.params.name
 
-  if (!name || name.length < 3) return NextResponse.json(null, { status: 400 })
+  if (!name || name.length < 3)
+    return NextResponse.json({ users: [] }, { status: 400 })
 
-  const matchedUsers = await db
-    .select({
-      id: users.id,
-      displayName: users.displayName,
-    })
-    .from(users)
-    .where(ilike(users.displayName, `%${name}%`))
-    .limit(5)
+  try {
+    const matchedUsers = await db
+      .select({
+        id: users.id,
+        displayName: users.displayName,
+      })
+      .from(users)
+      .where(ilike(users.displayName, `%${name}%`))
+      .limit(5)
 
-  return NextResponse.json({ users: matchedUsers }, { status: 200 })
+    return NextResponse.json({ users: matchedUsers }, { status: 200 })
+  } catch (error) {
+    console.error("error get user route")
+    console.error(error)
+    return NextResponse.json({ users: [] }, { status: 400 })
+  }
 }
