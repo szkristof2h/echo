@@ -9,7 +9,7 @@ export async function GET(
 ) {
   const name = context.params.name
 
-  if (!name || name.length < 3) return null
+  if (!name || name.length < 3) return NextResponse.json(null, { status: 400 })
 
   const matchedUsers = await db
     .select({
