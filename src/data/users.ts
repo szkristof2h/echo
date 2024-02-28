@@ -43,6 +43,7 @@ export async function getUser(id: number) {
   } catch (error) {
     console.error("Database error: failed getting user")
     console.error(error)
+    return null
   }
 }
 
