@@ -18,6 +18,7 @@ export default function EchoForm(props: { id?: number }) {
     <p>Echo posted successfully!</p>
   ) : (
     <form action={formAction} className="mt-4 flex flex-col gap-y-2">
+      <label>What's on your mind?</label>
       <textarea name="text" autoFocus className="outline-none" />
       <SubmitButton text="Submit" />
     </form>
