@@ -2,7 +2,7 @@ import { ActionResponse, createEcho } from "~/app/lib/actions"
 import { SubmitButton } from "./submit-button"
 import { useFormState } from "react-dom"
 
-export default async function EchoForm(props: { id?: number }) {
+export default function EchoForm(props: { id?: number }) {
   const { id } = props
   const handleSubmit = (prevState: ActionResponse, formData: FormData) =>
     createEcho(formData, id)
@@ -17,7 +17,7 @@ export default async function EchoForm(props: { id?: number }) {
   return state.status === "success" ? (
     <p>Echo posted successfully!</p>
   ) : (
-    <form action={formAction} className="flex flex-col gap-y-2">
+    <form action={formAction} className="mt-4 flex flex-col gap-y-2">
       <textarea name="text" autoFocus className="outline-none" />
       <SubmitButton text="Submit" />
     </form>
