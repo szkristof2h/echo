@@ -19,9 +19,13 @@ type User = {
   hasConnections: boolean
 }
 
-export default async function Profile({ params }: { params: { id?: number } }) {
-  const id = params.id
-  const user = id ? await getUser(id) : await getCurrentUser()
+export default async function Profile({
+  params,
+}: {
+  params: { id?: string[] }
+}) {
+  const id = params.id?.[0] ?? null
+  const user = id ? await getUser(parseInt(id, 10)) : await getCurrentUser()
   const displayName = user?.displayName ?? ""
   const bio = user?.bio ?? ""
 
@@ -39,7 +43,7 @@ export default async function Profile({ params }: { params: { id?: number } }) {
           <span className="ml-auto inline-block">
             {hasConnections ? "your friend" : "add as friend"}
           </span>
-          <Link className="ml-4 inline-block" href={`echoTo/${user?.id}`}>
+          <Link className="ml-4 inline-block" href={`/echoTo/${user?.id}`}>
             echo
           </Link>
         </div>
