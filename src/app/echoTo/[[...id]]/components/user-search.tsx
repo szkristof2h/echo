@@ -8,7 +8,7 @@ export default function UserSearch(props: {
   setIdSelected: Dispatch<SetStateAction<number | undefined>>
 }) {
   const { userName, setIdSelected } = props
-  const [users, setUsers] = useState<Omit<User, "bio">[]>([])
+  const [users, setUsers] = useState<Pick<User, "id" | "displayName">[]>([])
 
   const handleOnClick = (id: number) => setIdSelected(id)
 
@@ -21,7 +21,7 @@ export default function UserSearch(props: {
       try {
         const res = await fetch(`api/user/${userName}`, { signal })
         const data = await res.json()
-        const users = data?.users as Omit<User, "bio">[]
+        const users = data?.users as Pick<User, "id" | "displayName">[]
 
         if (users) setUsers(users)
       } catch (error) {
