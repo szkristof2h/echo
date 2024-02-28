@@ -3,14 +3,21 @@ import EchoForm from "./echo-form"
 import UserForm from "./user-form"
 import { useState } from "react"
 
-export default function FormWrapper(props: { id?: number }) {
-  const { id } = props
-  const [idSelected, setIdSelected] = useState(id)
+export default function FormWrapper(props: {
+  idDefault?: number
+  defaultName?: string
+}) {
+  const { idDefault, defaultName } = props
+  const [idSelected, setIdSelected] = useState(idDefault)
 
   return (
     <>
-      ID: {idSelected}
-      <UserForm id={id} setIdSelected={setIdSelected} />
+      <UserForm
+        idDefault={idDefault}
+        defaultName={defaultName}
+        setIdSelected={setIdSelected}
+        idSelected={idSelected}
+      />
       <EchoForm id={idSelected} />
     </>
   )

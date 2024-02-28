@@ -4,11 +4,19 @@ import { Dispatch, SetStateAction, useEffect, useState } from "react"
 import { User } from "~/db/schema/users"
 
 export default function UserSearch(props: {
-  userName: string
+  inputUserName: string
+  idSelected?: number
   setIdSelected: Dispatch<SetStateAction<number | undefined>>
+  idDefault?: number
+  defaultName?: string
 }) {
-  const { userName, setIdSelected } = props
+  const { inputUserName, idSelected, setIdSelected, idDefault, defaultName } =
+    props
   const [users, setUsers] = useState<Pick<User, "id" | "displayName">[]>([])
+  const selectedUserName =
+    !inputUserName && !!defaultName
+      ? defaultName
+      : users.find(({ id }) => id === idSelected)?.displayName
 
   const handleOnClick = (id: number) => setIdSelected(id)
 
@@ -17,32 +25,41 @@ export default function UserSearch(props: {
     const signal = controller.signal
 
     const handleOnChange = async () => {
-      console.log("fetching", userName, " ", Date.now())
       try {
-        const res = await fetch(`api/user/${userName}`, { signal })
+        const res = await fetch(`/api/userByName/${inputUserName}`, { signal })
         const data = await res.json()
         const users = data?.users as Pick<User, "id" | "displayName">[]
 
         if (users) setUsers(users)
       } catch (error) {
-        console.error("ERRROR")
+        console.error("REQUEST ERRROR")
       }
     }
 
-    handleOnChange()
+    if (!!inputUserName) handleOnChange()
 
     return () => {
       controller.abort()
     }
-  }, [userName])
+  }, [inputUserName])
 
   return (
-    <ul>
-      {users.map((user) => (
-        <li key={user.id} onClick={() => handleOnClick(user.id)}>
-          {user.displayName}
-        </li>
-      ))}
-    </ul>
+    <>
+      {!idSelected && (
+        <ul>
+          {inputUserName &&
+            users.map((user) => (
+              <li
+                key={user.id}
+                className="cursor-pointer hover:underline"
+                onClick={() => handleOnClick(user.id)}
+              >
+                {user.displayName}
+              </li>
+            ))}
+        </ul>
+      )}
+      <div>{selectedUserName}</div>
+    </>
   )
 }

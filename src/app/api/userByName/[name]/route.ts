@@ -3,6 +3,8 @@ import { ilike } from "drizzle-orm"
 import { users } from "~/db/schema/users"
 import db from "~/db"
 
+// TODO: add return type? add route constant?
+
 export async function GET(
   request: Request,
   context: { params: { name?: string } },
