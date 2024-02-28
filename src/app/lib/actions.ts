@@ -8,15 +8,13 @@ export type ActionResponse = {
   status: string
 }
 
-export async function createEcho( formData: FormData,id?: number) {
-  setTimeout(() => {
-    console.log("Delayed for 3 second.")
-  }, 3000)
+export async function createEcho(formData: FormData, id?: number) {
   // TODO: add validation
   const idUser = id
   const rawFormData = {
     text: formData.get("text")?.toString(),
-    idSender: 2, // get it from cookie
+    title: formData.get("title")?.toString(),
+    idSender: 3, // get it from cookie
     idUser,
   }
 
@@ -33,7 +31,7 @@ export async function createEcho( formData: FormData,id?: number) {
     return { errors: [res.message], status: "failure" }
 
   // revalidatePath("/echo/[[...id]]", "page")
-  redirect(`echo/${res.id}`)
+  redirect(`/echo/${res.id}`)
 
   // mutate data
   // revalidate cache
