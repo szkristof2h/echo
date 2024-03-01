@@ -3,20 +3,9 @@ import Container from "../../components/container"
 import Link from "next/link"
 import { getUser, getCurrentUser } from "~/data/users"
 
-const text =
-  "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat."
-const user2: User = {
-  displayName: "Darth Vader",
-  bio: text,
+const user2 = {
   interests: ["asdasd", "asdas", "dnrfgnwenfji", "erngtyernf"],
   hasConnections: false,
-}
-
-type User = {
-  displayName: string
-  bio: string
-  interests: string[]
-  hasConnections: boolean
 }
 
 export default async function Profile({
@@ -47,10 +36,13 @@ export default async function Profile({
             echo
           </Link>
         </div>
-        <div className="mb-4 border-b border-slate-600 py-4">{bio}</div>I like:{" "}
-        {interests.map((interest) => (
-          <span key={interest}>{interest}, </span>
-        ))}
+        <div className="mb-4 border-b border-slate-600 py-4">{bio}</div>
+        <div>
+          I like:{" "}
+          {interests.map((interest) => (
+            <span key={interest}>{interest}, </span>
+          ))}
+        </div>
       </Container>
     </>
   )
