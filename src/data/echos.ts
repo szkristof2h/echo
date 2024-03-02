@@ -1,6 +1,6 @@
 import { NewEcho, echos } from "~/db/schema/echos"
 import db from "~/db"
-import { eq } from "drizzle-orm"
+import { eq, and, gt } from "drizzle-orm"
 
 export type CreateEchoData = {
   idSender?: number
@@ -66,10 +66,10 @@ export async function getEchos(offset = 0) {
   }
 }
 
-export async function getEcho(id: number) {
+export async function getEcho(idUser: number) {
   try {
     const echo = await db.query.echos.findFirst({
-      where: eq(echos.id, id),
+      where: eq(echos.idSender, idUser),
       with: {
         postedBy: {
           columns: {
@@ -89,6 +89,30 @@ export async function getEcho(id: number) {
     return echo
   } catch (error) {
     console.error("Database error: getting echo")
+    console.error(error)
+    return null
+  }
+}
+
+export async function getDailyEchoCount() {
+  const idUser = 5
+  const twentyFourHoursBefore = new Date()
+  twentyFourHoursBefore.setHours(twentyFourHoursBefore.getHours() - 24)
+
+  try {
+    const echo = await db
+      .select()
+      .from(echos)
+      .where(
+        and(eq(echos.idSender, idUser), gt(echos.date, twentyFourHoursBefore)),
+      )
+      .limit(5)
+
+    if (!echo) return null
+
+    return echo.length
+  } catch (error) {
+    console.error("Database error: getting daily echo count")
     console.error(error)
     return null
   }
