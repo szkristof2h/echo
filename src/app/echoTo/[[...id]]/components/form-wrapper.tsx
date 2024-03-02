@@ -5,13 +5,19 @@ import { useState } from "react"
 
 export default function FormWrapper(props: {
   idDefault?: number
+  echoCount?: number | null
   defaultName?: string
 }) {
-  const { idDefault, defaultName } = props
+  const { echoCount, idDefault, defaultName } = props
   const [idSelected, setIdSelected] = useState(idDefault)
 
   return (
     <>
+      {(!!echoCount || echoCount === 0) && (
+        <div className="mb-4 text-center">
+          Echos remaining today: {5 - echoCount}
+        </div>
+      )}
       <UserForm
         idDefault={idDefault}
         defaultName={defaultName}
