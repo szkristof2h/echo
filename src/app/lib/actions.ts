@@ -18,13 +18,6 @@ export async function createEcho(formData: FormData, id?: number) {
     idUser,
   }
 
-  if (
-    rawFormData.text == null ||
-    rawFormData.idSender == null ||
-    rawFormData.idUser == null
-  )
-    return { errors: ["invalid field value"], status: "failure" }
-
   const res = await createEchoData(rawFormData)
 
   if (res && "message" in res)

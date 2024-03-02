@@ -1,4 +1,4 @@
-import { NewEcho, echos } from "~/db/schema/echos"
+import { echos, insertEchoSchema } from "~/db/schema/echos"
 import db from "~/db"
 import { eq, and, gt } from "drizzle-orm"
 
@@ -18,22 +18,28 @@ export async function createEcho(echo: CreateEchoData) {
   const text = echo?.text
   const title = echo?.title
 
-  if (!text) return { message: "No text" }
-  if (!title) return { message: "No title" }
-  if (!idUser) return { message: "Log in" }
-  if (!idSender) return { message: "Didn't find user" }
-
-  console.log({ text, idUser, idSender })
   try {
-    const newEcho: NewEcho = { idSender, idUser, text, title }
-    const result = await db.insert(echos).values(newEcho).returning()
+    const validatedEcho = insertEchoSchema.parse({
+      text,
+      title,
+      idSender,
+      idUser,
+    })
+
+    const result = await db.insert(echos).values(validatedEcho).returning()
 
     if (!result[0]) throw new Error("some error")
 
     return result[0]
   } catch (error) {
-    console.error("db create echo error")
-    console.error(error)
+    if (error && typeof error === "object" && "issues" in error)
+      if (Array.isArray(error.issues))
+        error.issues.forEach((e) => {
+          console.error("--------- ECHO VALIDATION ERROR ---------")
+          if ("message" in e) console.error(e?.message)
+          if ("path" in e) console.error(e?.path)
+        })
+
     return { message: "Database error: failed echo creation" }
   }
 }
@@ -95,7 +101,7 @@ export async function getEcho(id: number) {
 }
 
 export async function getDailyEchoCount() {
-  const idUser = 5
+  const idUser = 3
   const twentyFourHoursBefore = new Date()
   twentyFourHoursBefore.setHours(twentyFourHoursBefore.getHours() - 24)
 
