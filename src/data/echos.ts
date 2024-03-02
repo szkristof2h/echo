@@ -66,10 +66,10 @@ export async function getEchos(offset = 0) {
   }
 }
 
-export async function getEcho(idUser: number) {
+export async function getEcho(id: number) {
   try {
     const echo = await db.query.echos.findFirst({
-      where: eq(echos.idSender, idUser),
+      where: eq(echos.id, id),
       with: {
         postedBy: {
           columns: {
