@@ -4,6 +4,7 @@ import {
   integer,
   varchar,
   timestamp,
+  index,
 } from "drizzle-orm/pg-core"
 import { relations, sql } from "drizzle-orm"
 import { createInsertSchema } from "drizzle-zod"
@@ -12,14 +13,22 @@ import { User, users } from "./users"
 const MAX_TEXT_LENGTH = 512
 const MAX_TITLE_LENGTH = 64
 
-export const echos = pgTable("echos", {
-  id: serial("id").primaryKey().notNull(),
-  idSender: integer("idSender").notNull(),
-  idUser: integer("idUser").notNull(),
-  text: varchar("display_name", { length: MAX_TEXT_LENGTH }).notNull(),
-  title: varchar("title", { length: MAX_TITLE_LENGTH }).notNull(),
-  date: timestamp("date").default(sql`now()`),
-})
+export const echos = pgTable(
+  "echos",
+  {
+    id: serial("id").primaryKey().notNull(),
+    idSender: integer("idSender").notNull(),
+    idUser: integer("idUser").notNull(),
+    text: varchar("display_name", { length: MAX_TEXT_LENGTH }).notNull(),
+    title: varchar("title", { length: MAX_TITLE_LENGTH }).notNull(),
+    date: timestamp("date").default(sql`now()`),
+  },
+  (table) => {
+    return {
+      nameIdx: index("date_idx").on(table.date),
+    }
+  },
+)
 
 export const echosRelations = relations(echos, ({ one }) => ({
   postedBy: one(users, { fields: [echos.idSender], references: [users.id] }),
