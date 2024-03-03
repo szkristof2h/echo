@@ -1,6 +1,6 @@
 import { echos, insertEchoSchema } from "~/db/schema/echos"
 import db from "~/db"
-import { eq, and, gt } from "drizzle-orm"
+import { eq, and, gt, desc } from "drizzle-orm"
 
 export type CreateEchoData = {
   idSender?: number
@@ -46,7 +46,7 @@ export async function createEcho(echo: CreateEchoData) {
 
 export async function getEchos(offset = 0) {
   try {
-    const echos = await db.query.echos.findMany({
+    const echosByDate = await db.query.echos.findMany({
       with: {
         postedBy: {
           columns: {
@@ -59,11 +59,12 @@ export async function getEchos(offset = 0) {
           },
         },
       },
+      orderBy: [desc(echos.date)],
       limit: 10,
       offset,
     })
 
-    return echos
+    return echosByDate
   } catch (error) {
     console.error("Database error: getting echos")
     console.error(error)
