@@ -36,6 +36,13 @@
       "when": 1708705161603,
       "tag": "0004_common_swordsman",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "5",
+      "when": 1709466571756,
+      "tag": "0005_warm_slapstick",
+      "breakpoints": true
     }
   ]
 }
