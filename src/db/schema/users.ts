@@ -7,7 +7,7 @@ import {
   timestamp,
   varchar,
 } from "drizzle-orm/pg-core"
-import { relations, sql } from "drizzle-orm"
+import { sql } from "drizzle-orm"
 
 export const users = pgTable(
   "users",
@@ -36,9 +36,8 @@ export const connections = pgTable(
   }),
 )
 
-export const usersRelations = relations(users, ({ many }) => ({
-  connections: many(connections, { relationName: "connections" }),
-}))
-
 export type User = typeof users.$inferSelect // return type when queried
 export type NewUser = typeof users.$inferInsert // insert type
+
+export type Connection = typeof connections.$inferSelect // return type when queried
+export type NewConnection = typeof connections.$inferInsert // insert type
