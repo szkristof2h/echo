@@ -1,19 +1,17 @@
 "use client"
 import { createConnection } from "~/app/lib/actions"
 
-const user2 = {
-  interests: ["asdasd", "asdas", "dnrfgnwenfji", "erngtyernf"],
-  hasConnections: false,
-}
-
-export default async function ConnectionButton() {
-  const { hasConnections } = user2
+export default async function ConnectionButton(props: {
+  hasConnection: boolean
+  isPending: boolean
+}) {
+  const { hasConnection, isPending } = props
   return (
     <span
-      className="ml-auto inline-block"
-      onClick={() => createConnection({ idUser: 1, idFriend: 2 })}
+      className="ml-auto inline-block cursor-pointer hover:underline"
+      onClick={() => createConnection({ idUser: 1, idConnection: 2 })}
     >
-      {hasConnections ? "your friend" : "add as friend"}
+      {hasConnection ? (isPending ? "sent" : "your connection") : "connect"}
     </span>
   )
 }
