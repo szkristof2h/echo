@@ -1,6 +1,7 @@
 "use server"
 import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation"
+import { addConnection } from "~/data/connections"
 import { createEcho as createEchoData } from "~/data/echos"
 
 export type ActionResponse = {
@@ -28,4 +29,14 @@ export async function createEcho(formData: FormData, id?: number) {
 
   // mutate data
   // revalidate cache
+}
+
+export async function createConnection({
+  idUser,
+  idFriend,
+}: {
+  idUser: number
+  idFriend: number
+}) {
+  await addConnection({ idUser, idFriend })
 }
