@@ -34,3 +34,32 @@ export async function addConnection({
     return error
   }
 }
+
+export async function getConnections(
+  id: number,
+  options?: { isPending: boolean | undefined },
+) {
+  console.log("should be at server")
+
+  const isPending = options?.isPending
+  console.log(isPending !== undefined)
+  const where = or(eq(connections.idUser, id), eq(connections.idFriend, id))
+  const whereWithPending =
+    isPending !== undefined
+      ? and(where, eq(connections.isPending, isPending))
+      : where
+
+  try {
+    const userConnections = await db.query.connections.findMany({
+      where: whereWithPending,
+      limit: 10,
+      orderBy: [desc(connections.date)],
+    })
+
+    return userConnections
+  } catch (error) {
+    console.error("Database error: failed getting user")
+    console.error(error)
+    return null
+  }
+}
