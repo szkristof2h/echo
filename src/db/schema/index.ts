@@ -1,4 +1,4 @@
-import { connections, users, usersRelations } from "./users"
+import { connections, users } from "./users"
 import { echos, echosRelations } from "./echos"
 
 export default {
@@ -6,5 +6,4 @@ export default {
   connections,
   echos,
   echosRelations,
-  usersRelations,
 }
