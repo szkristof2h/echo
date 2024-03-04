@@ -64,3 +64,29 @@ export async function getConnections(
     return null
   }
 }
+
+export async function getConnection(idUser: number, idConnection: number) {
+  console.log("should be at server")
+
+  // TODO: auth user
+  try {
+    const userConnection = await db.query.connections.findFirst({
+      where: or(
+        and(
+          eq(connections.idUser, idUser),
+          eq(connections.idConnection, idConnection),
+        ),
+        and(
+          eq(connections.idUser, idConnection),
+          eq(connections.idConnection, idUser),
+        ),
+      ),
+    })
+
+    return userConnection
+  } catch (error) {
+    console.error("Database error: failed getting user")
+    console.error(error)
+    return null
+  }
+}

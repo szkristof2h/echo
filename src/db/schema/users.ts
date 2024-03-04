@@ -27,12 +27,12 @@ export const connections = pgTable(
   "connections",
   {
     idUser: serial("id_user").references(() => users.id),
-    idFriend: serial("id_friend").references(() => users.id),
+    idConnection: serial("id_friend").references(() => users.id),
     date: timestamp("date").default(sql`now()`),
     isPending: boolean("is_pending").default(true),
   },
   (table) => ({
-    pk: primaryKey({ columns: [table.idUser, table.idFriend] }),
+    pk: primaryKey({ columns: [table.idUser, table.idConnection] }),
   }),
 )
 
