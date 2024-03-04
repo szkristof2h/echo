@@ -33,10 +33,10 @@ export async function createEcho(formData: FormData, id?: number) {
 
 export async function createConnection({
   idUser,
-  idFriend,
+  idConnection,
 }: {
   idUser: number
-  idFriend: number
+  idConnection: number
 }) {
-  await addConnection({ idUser, idFriend })
+  await addConnection({ idUser, idConnection })
 }

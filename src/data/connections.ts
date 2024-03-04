@@ -5,16 +5,17 @@ import { and, desc, eq, or } from "drizzle-orm"
 
 export async function addConnection({
   idUser,
-  idFriend,
+  idConnection,
 }: {
   idUser: number
-  idFriend: number
+  idConnection: number
 }) {
+  // TODO: auth user
   console.log("should be at server")
   try {
     const user = await db.query.users.findFirst({ where: eq(users.id, idUser) })
     const friend = await db.query.users.findFirst({
-      where: eq(users.id, idFriend),
+      where: eq(users.id, idConnection),
     })
 
     if (!user || !friend)
@@ -23,7 +24,7 @@ export async function addConnection({
 
     const connection = {
       idUser,
-      idFriend,
+      idConnection,
       isPending: true,
     }
 
@@ -39,11 +40,11 @@ export async function getConnections(
   id: number,
   options?: { isPending: boolean | undefined },
 ) {
+  // TODO: auth user
   console.log("should be at server")
 
   const isPending = options?.isPending
-  console.log(isPending !== undefined)
-  const where = or(eq(connections.idUser, id), eq(connections.idFriend, id))
+  const where = or(eq(connections.idUser, id), eq(connections.idConnection, id))
   const whereWithPending =
     isPending !== undefined
       ? and(where, eq(connections.isPending, isPending))
