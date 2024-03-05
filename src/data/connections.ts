@@ -21,11 +21,11 @@ export async function addConnection({
 
     const validatedConnection = insertConnectionSchema.parse(connection)
     const user = await db.query.users.findFirst({ where: eq(users.id, idUser) })
-    const friend = await db.query.users.findFirst({
+    const connectionUser = await db.query.users.findFirst({
       where: eq(users.id, idConnection),
     })
 
-    if (!user || !friend)
+    if (!user || !connectionUser)
       // return some error
       return
 
@@ -49,6 +49,68 @@ export async function addConnection({
     return { message: "Database error: failed connection creation" }
   }
 }
+
+export async function updateConnection({
+  idUser,
+  idConnection,
+  isPending,
+}: {
+  idUser: number
+  idConnection: number
+  isPending: boolean
+}) {
+  // TODO: auth user
+  console.log("should be at server")
+  try {
+    const connection = {
+      idUser,
+      idConnection,
+      isPending,
+    }
+
+    insertConnectionSchema.parse(connection)
+
+    const user = await db.query.users.findFirst({ where: eq(users.id, idUser) })
+    const connectionUser = await db.query.users.findFirst({
+      where: eq(users.id, idConnection),
+    })
+
+    if (!user || !connectionUser)
+      // return some error
+      return
+
+    const result = await db
+      .update(connections)
+      .set({ isPending })
+      .where(
+        or(
+          and(
+            eq(connections.idUser, idUser),
+            eq(connections.idConnection, idConnection),
+          ),
+          and(
+            eq(connections.idUser, idConnection),
+            eq(connections.idConnection, idUser),
+          ),
+        ),
+      )
+      .returning()
+
+    if (!result[0]) throw new Error("some error")
+
+    return result[0]
+  } catch (error) {
+    if (error && typeof error === "object" && "issues" in error)
+      if (Array.isArray(error.issues))
+        error.issues.forEach((e) => {
+          console.error("--------- CONNECTION VALIDATION ERROR ---------")
+          if ("message" in e) console.error(e?.message)
+          if ("path" in e) console.error(e?.path)
+        })
+
+    return { message: "Database error: failed connection update" }
+  }
+}
 export async function removeConnection({
   idUser,
   idConnection,
@@ -60,11 +122,11 @@ export async function removeConnection({
   console.log("should be at server")
   try {
     const user = await db.query.users.findFirst({ where: eq(users.id, idUser) })
-    const friend = await db.query.users.findFirst({
+    const connectionUser = await db.query.users.findFirst({
       where: eq(users.id, idConnection),
     })
 
-    if (!user || !friend)
+    if (!user || !connectionUser)
       // return some error
       return
 
@@ -88,7 +150,7 @@ export async function removeConnection({
 
     return result[0]
   } catch (error) {
-    return { message: "Database error: failed connection creation" }
+    return { message: "Database error: failed connection removal" }
   }
 }
 
