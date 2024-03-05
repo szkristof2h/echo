@@ -38,5 +38,11 @@ export async function createConnection({
   idUser: number
   idConnection: number
 }) {
-  await addConnection({ idUser, idConnection })
+  const res = await addConnection({ idUser, idConnection })
+
+  // TODO: add proper error handling
+  // if (res && "message" in res)
+  //   return { errors: [res.message], status: "failure" }
+
+  revalidatePath("/profile/[[...id]]", "page")
 }
