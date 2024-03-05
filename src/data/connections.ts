@@ -49,6 +49,48 @@ export async function addConnection({
     return { message: "Database error: failed connection creation" }
   }
 }
+export async function removeConnection({
+  idUser,
+  idConnection,
+}: {
+  idUser: number
+  idConnection: number
+}) {
+  // TODO: auth user
+  console.log("should be at server")
+  try {
+    const user = await db.query.users.findFirst({ where: eq(users.id, idUser) })
+    const friend = await db.query.users.findFirst({
+      where: eq(users.id, idConnection),
+    })
+
+    if (!user || !friend)
+      // return some error
+      return
+
+    const result = await db
+      .delete(connections)
+      .where(
+        or(
+          and(
+            eq(connections.idUser, idUser),
+            eq(connections.idConnection, idConnection),
+          ),
+          and(
+            eq(connections.idUser, idConnection),
+            eq(connections.idConnection, idUser),
+          ),
+        ),
+      )
+      .returning()
+
+    if (!result[0]) throw new Error("some error")
+
+    return result[0]
+  } catch (error) {
+    return { message: "Database error: failed connection creation" }
+  }
+}
 
 export async function getConnections(
   id: number,
