@@ -1,7 +1,11 @@
 "use server"
 import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation"
-import { addConnection, removeConnection } from "~/data/connections"
+import {
+  addConnection,
+  removeConnection,
+  updateConnection,
+} from "~/data/connections"
 import { createEcho as createEchoData } from "~/data/echos"
 
 export type ActionResponse = {
@@ -61,4 +65,20 @@ export async function deleteConnection({
   //   return { errors: [res.message], status: "failure" }
 
   revalidatePath("/profile/[[...id]]", "page")
+}
+
+export async function acceptConnection({
+  idUser,
+  idConnection,
+}: {
+  idUser: number
+  idConnection: number
+}) {
+  const res = await updateConnection({ idUser, idConnection, isPending: true })
+
+  // TODO: add proper error handling
+  // if (res && "message" in res)
+  //   return { errors: [res.message], status: "failure" }
+
+  revalidatePath("/connections", "page")
 }
