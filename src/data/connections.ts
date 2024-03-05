@@ -2,6 +2,7 @@ import "server-only"
 import { users, connections, insertConnectionSchema } from "~/db/schema/users"
 import db from "~/db"
 import { and, desc, eq, or } from "drizzle-orm"
+import validationErrorHandler from "./validationErrorHandler"
 
 export async function addConnection({
   idUser,
@@ -38,13 +39,7 @@ export async function addConnection({
 
     return result[0]
   } catch (error) {
-    if (error && typeof error === "object" && "issues" in error)
-      if (Array.isArray(error.issues))
-        error.issues.forEach((e) => {
-          console.error("--------- CONNECTION VALIDATION ERROR ---------")
-          if ("message" in e) console.error(e?.message)
-          if ("path" in e) console.error(e?.path)
-        })
+    validationErrorHandler(error)
 
     return { message: "Database error: failed connection creation" }
   }
@@ -100,13 +95,7 @@ export async function updateConnection({
 
     return result[0]
   } catch (error) {
-    if (error && typeof error === "object" && "issues" in error)
-      if (Array.isArray(error.issues))
-        error.issues.forEach((e) => {
-          console.error("--------- CONNECTION VALIDATION ERROR ---------")
-          if ("message" in e) console.error(e?.message)
-          if ("path" in e) console.error(e?.path)
-        })
+    validationErrorHandler(error)
 
     return { message: "Database error: failed connection update" }
   }

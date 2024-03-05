@@ -1,6 +1,7 @@
 import { echos, insertEchoSchema } from "~/db/schema/echos"
 import db from "~/db"
 import { eq, and, gt, desc } from "drizzle-orm"
+import validationErrorHandler from "./validationErrorHandler"
 
 export type CreateEchoData = {
   idSender?: number
@@ -32,13 +33,7 @@ export async function createEcho(echo: CreateEchoData) {
 
     return result[0]
   } catch (error) {
-    if (error && typeof error === "object" && "issues" in error)
-      if (Array.isArray(error.issues))
-        error.issues.forEach((e) => {
-          console.error("--------- ECHO VALIDATION ERROR ---------")
-          if ("message" in e) console.error(e?.message)
-          if ("path" in e) console.error(e?.path)
-        })
+    validationErrorHandler(error)
 
     return { message: "Database error: failed echo creation" }
   }
