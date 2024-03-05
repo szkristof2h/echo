@@ -120,5 +120,5 @@ export async function getDailyEchoCount() {
   }
 }
 
-export async function updateEcho(echo: UpdateEchoData) {}
-export async function deleteEcho(id: string) {}
+// export async function updateEcho(echo: UpdateEchoData) {}
+// export async function deleteEcho(id: string) {}

@@ -1,7 +1,7 @@
 import Link from "next/link"
 import type { Post } from ".."
 import Container from "~/app/components/container"
-import { EchoWithUser } from "~/db/schema/echos"
+import type { EchoWithUser } from "~/db/schema/echos"
 
 type Props = EchoWithUser
 

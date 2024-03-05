@@ -1,4 +1,5 @@
-import { ActionResponse, createEcho } from "~/app/lib/actions"
+import type { ActionResponse } from "~/app/lib/actions"
+import { createEcho } from "~/app/lib/actions"
 import { SubmitButton } from "./submit-button"
 import { useFormState } from "react-dom"
 

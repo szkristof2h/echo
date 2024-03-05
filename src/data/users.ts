@@ -1,5 +1,6 @@
 import "server-only"
-import { NewUser, users } from "~/db/schema/users"
+import type { NewUser } from "~/db/schema/users"
+import { users } from "~/db/schema/users"
 import db from "~/db"
 import { eq } from "drizzle-orm"
 
@@ -53,5 +54,5 @@ export async function getCurrentUser() {
 
   return await getUser(id)
 }
-export async function updateUser(user: UpdateUserData) {}
-export async function deleteUser(id: string) {}
+// export async function updateUser(user: UpdateUserData) {}
+// export async function deleteUser(id: string) {}

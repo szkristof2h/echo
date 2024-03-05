@@ -1,4 +1,4 @@
-import { EchoWithUser } from "~/db/schema/echos"
+import type { EchoWithUser } from "~/db/schema/echos"
 import Post from "./post"
 
 type Props = {

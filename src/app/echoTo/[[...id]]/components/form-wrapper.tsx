@@ -19,7 +19,6 @@ export default function FormWrapper(props: {
         </div>
       )}
       <UserForm
-        idDefault={idDefault}
         defaultName={defaultName}
         setIdSelected={setIdSelected}
         idSelected={idSelected}

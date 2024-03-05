@@ -1,17 +1,16 @@
 "use client"
 
-import { Dispatch, SetStateAction, useEffect, useState } from "react"
-import { User } from "~/db/schema/users"
+import type { Dispatch, SetStateAction } from "react"
+import type { User } from "~/db/schema/users"
+import { useEffect, useState } from "react"
 
 export default function UserSearch(props: {
   inputUserName: string
   idSelected?: number
   setIdSelected: Dispatch<SetStateAction<number | undefined>>
-  idDefault?: number
   defaultName?: string
 }) {
-  const { inputUserName, idSelected, setIdSelected, idDefault, defaultName } =
-    props
+  const { inputUserName, idSelected, setIdSelected, defaultName } = props
   const [users, setUsers] = useState<Pick<User, "id" | "displayName">[]>([])
   const selectedUserName =
     !inputUserName && !!defaultName
@@ -27,10 +26,15 @@ export default function UserSearch(props: {
     const handleOnChange = async () => {
       try {
         const res = await fetch(`/api/userByName/${inputUserName}`, { signal })
-        const data = await res.json()
-        const users = data?.users as Pick<User, "id" | "displayName">[]
 
-        if (users) setUsers(users)
+        if (res && "json" in res) {
+          const data = (await res.json()) as unknown
+
+          if (data && typeof data === "object" && "users" in data) {
+            const users = data.users as Pick<User, "id" | "displayName">[]
+            if (users) setUsers(users)
+          }
+        }
       } catch (error) {
         console.error("REQUEST ERRROR")
       }

@@ -1,7 +1,7 @@
 "use client"
 import { createConnection, deleteConnection } from "~/app/lib/actions"
 
-export default async function ConnectionButton(props: {
+export default function ConnectionButton(props: {
   idConnection: number
   hasConnection: boolean
   isPending: boolean

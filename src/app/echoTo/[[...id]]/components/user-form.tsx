@@ -1,19 +1,13 @@
-import {
-  ChangeEvent,
-  Dispatch,
-  SetStateAction,
-  useDeferredValue,
-  useState,
-} from "react"
+import type { ChangeEvent, Dispatch, SetStateAction } from "react"
+import { useDeferredValue, useState } from "react"
 import UserSearch from "./user-search"
 
 export default function UserForm(props: {
-  idDefault?: number
   defaultName?: string
   idSelected?: number
   setIdSelected: Dispatch<SetStateAction<number | undefined>>
 }) {
-  const { setIdSelected, idSelected, idDefault, defaultName } = props
+  const { setIdSelected, idSelected, defaultName } = props
   const [inputUserName, setInputUserName] = useState("")
   const deferredUserName = useDeferredValue(inputUserName)
 
@@ -36,7 +30,6 @@ export default function UserForm(props: {
         inputUserName={deferredUserName}
         setIdSelected={setIdSelected}
         idSelected={idSelected}
-        idDefault={idDefault}
         defaultName={defaultName}
       />
     </>

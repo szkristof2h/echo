@@ -8,7 +8,8 @@ import {
 } from "drizzle-orm/pg-core"
 import { relations, sql } from "drizzle-orm"
 import { createInsertSchema } from "drizzle-zod"
-import { User, users } from "./users"
+import type { User } from "./users"
+import { users } from "./users"
 
 const MAX_TEXT_LENGTH = 512
 const MAX_TITLE_LENGTH = 64
