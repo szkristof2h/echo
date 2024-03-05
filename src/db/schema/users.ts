@@ -46,6 +46,8 @@ export const insertUserSchema = createInsertSchema(users, {
   bio: (schema) => schema.bio.min(3).max(MAX_BIO_LENGTH),
 })
 
+export const insertConnectionSchema = createInsertSchema(connections)
+
 export type User = typeof users.$inferSelect // return type when queried
 export type NewUser = typeof users.$inferInsert // insert type
 

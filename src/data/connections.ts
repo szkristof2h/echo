@@ -1,5 +1,5 @@
 import "server-only"
-import { users, connections } from "~/db/schema/users"
+import { users, connections, insertConnectionSchema } from "~/db/schema/users"
 import db from "~/db"
 import { and, desc, eq, or } from "drizzle-orm"
 
@@ -13,6 +13,13 @@ export async function addConnection({
   // TODO: auth user
   console.log("should be at server")
   try {
+    const connection = {
+      idUser,
+      idConnection,
+      isPending: true,
+    }
+
+    const validatedConnection = insertConnectionSchema.parse(connection)
     const user = await db.query.users.findFirst({ where: eq(users.id, idUser) })
     const friend = await db.query.users.findFirst({
       where: eq(users.id, idConnection),
@@ -22,17 +29,24 @@ export async function addConnection({
       // return some error
       return
 
-    const connection = {
-      idUser,
-      idConnection,
-      isPending: true,
-    }
+    const result = await db
+      .insert(connections)
+      .values(validatedConnection)
+      .returning()
 
-    await db.insert(connections).values(connection)
+    if (!result[0]) throw new Error("some error")
 
-    // return result
+    return result[0]
   } catch (error) {
-    return error
+    if (error && typeof error === "object" && "issues" in error)
+      if (Array.isArray(error.issues))
+        error.issues.forEach((e) => {
+          console.error("--------- CONNECTION VALIDATION ERROR ---------")
+          if ("message" in e) console.error(e?.message)
+          if ("path" in e) console.error(e?.path)
+        })
+
+    return { message: "Database error: failed connection creation" }
   }
 }
 
