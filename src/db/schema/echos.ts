@@ -36,7 +36,7 @@ export const echosRelations = relations(echos, ({ one }) => ({
 }))
 
 export const insertEchoSchema = createInsertSchema(echos, {
-  title: (schema) => schema.text.min(3).max(MAX_TITLE_LENGTH),
+  title: (schema) => schema.title.min(3).max(MAX_TITLE_LENGTH),
   text: (schema) => schema.text.min(3).max(MAX_TEXT_LENGTH),
 })
 
