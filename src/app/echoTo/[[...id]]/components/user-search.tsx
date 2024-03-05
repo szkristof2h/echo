@@ -40,6 +40,7 @@ export default function UserSearch(props: {
       }
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
     if (!!inputUserName) handleOnChange()
 
     return () => {
