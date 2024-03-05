@@ -2,7 +2,7 @@ import Container from "../../components/container"
 import Link from "next/link"
 import Head from "~/app/components/head"
 import { getUser, getCurrentUser } from "~/data/users"
-import ConnectionButton from "./components/connectionButton"
+import ConnectionButton from "./components/connection-button"
 import { getConnection } from "~/data/connections"
 
 const user2 = {
