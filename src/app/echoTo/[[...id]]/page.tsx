@@ -15,8 +15,6 @@ export default async function Submit({
   const defaultName = defaultUser?.displayName
   const idDefault = defaultUser?.id
 
-  console.log("{ echoCount }")
-  console.log({ echoCount })
   return (
     <>
       <Head title="Echo" />
