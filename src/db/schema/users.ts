@@ -8,6 +8,10 @@ import {
   varchar,
 } from "drizzle-orm/pg-core"
 import { sql } from "drizzle-orm"
+import { createInsertSchema } from "drizzle-zod"
+
+const MAX_DISPLAY_NAME_LENGTH = 64
+const MAX_BIO_LENGTH = 512
 
 export const users = pgTable(
   "users",
@@ -35,6 +39,12 @@ export const connections = pgTable(
     pk: primaryKey({ columns: [table.idUser, table.idConnection] }),
   }),
 )
+
+export const insertUserSchema = createInsertSchema(users, {
+  displayName: (schema) =>
+    schema.displayName.min(3).max(MAX_DISPLAY_NAME_LENGTH),
+  bio: (schema) => schema.bio.min(3).max(MAX_BIO_LENGTH),
+})
 
 export type User = typeof users.$inferSelect // return type when queried
 export type NewUser = typeof users.$inferInsert // insert type
