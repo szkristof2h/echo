@@ -42,7 +42,6 @@ export async function createConnection({
   idUser: number
   idConnection: number
 }) {
-  const res = await addConnection({ idUser, idConnection })
 
   // TODO: add proper error handling
   // if (res && "message" in res)
@@ -74,7 +73,7 @@ export async function acceptConnection({
   idUser: number
   idConnection: number
 }) {
-  const res = await updateConnection({ idUser, idConnection, isPending: true })
+  const res = await updateConnection({ idUser, idConnection, isPending: false })
 
   // TODO: add proper error handling
   // if (res && "message" in res)
