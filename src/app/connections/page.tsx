@@ -29,9 +29,11 @@ export default async function Connections() {
         <h2>Connections</h2>
         <ul>
           {acceptedConnections?.map((connection) => (
-            <Link href={`/profile/${connection.id}`}>
-              {connection.displayName}
-            </Link>
+            <li key={connection.id}>
+              <Link href={`/profile/${connection.id}`}>
+                {connection.displayName}
+              </Link>
+            </li>
           ))}
         </ul>
       </Container>
