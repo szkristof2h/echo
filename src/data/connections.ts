@@ -1,7 +1,7 @@
 import "server-only"
 import { users, connections, insertConnectionSchema } from "~/db/schema/users"
 import db from "~/db"
-import { and, desc, eq, or } from "drizzle-orm"
+import { and, eq, ne, or } from "drizzle-orm"
 import validationErrorHandler from "./validationErrorHandler"
 
 export async function addConnection({
@@ -17,7 +17,6 @@ export async function addConnection({
     const connection = {
       idUser,
       idConnection,
-      isPending: true,
     }
 
     const validatedConnection = insertConnectionSchema.parse(connection)
@@ -158,13 +157,29 @@ export async function getConnections(
       : where
 
   try {
-    const userConnections = await db.query.connections.findMany({
-      where: whereWithPending,
-      limit: 10,
-      orderBy: [desc(connections.date)],
-    })
+    // TODO: add limit etc
+    const connectionsWithUsers = await db
+      .select({
+        idUser: connections.idUser,
+        idConnection: connections.idConnection,
+        isPending: connections.isPending,
+        displayName: users.displayName,
+        id: users.id,
+      })
+      .from(connections)
+      .where(whereWithPending)
+      .leftJoin(
+        users,
+        or(
+          and(eq(users.id, connections.idUser), ne(connections.idUser, id)),
+          and(
+            eq(users.id, connections.idConnection),
+            ne(connections.idConnection, id),
+          ),
+        ),
+      )
 
-    return userConnections
+    return connectionsWithUsers
   } catch (error) {
     console.error("Database error: failed getting user")
     console.error(error)
