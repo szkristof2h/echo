@@ -50,6 +50,13 @@
       "when": 1709496165901,
       "tag": "0006_steady_odin",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "5",
+      "when": 1709826637490,
+      "tag": "0007_wide_electro",
+      "breakpoints": true
     }
   ]
 }

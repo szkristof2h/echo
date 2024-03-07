@@ -18,8 +18,12 @@ export const echos = pgTable(
   "echos",
   {
     id: serial("id").primaryKey().notNull(),
-    idSender: integer("idSender").notNull(),
-    idUser: integer("idUser").notNull(),
+    idSender: integer("idSender")
+      .notNull()
+      .references(() => users.id),
+    idUser: integer("idUser")
+      .notNull()
+      .references(() => users.id),
     text: varchar("display_name", { length: MAX_TEXT_LENGTH }).notNull(),
     title: varchar("title", { length: MAX_TITLE_LENGTH }).notNull(),
     date: timestamp("date").default(sql`now()`),
