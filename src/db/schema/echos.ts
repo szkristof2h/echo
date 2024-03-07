@@ -24,6 +24,7 @@ export const echos = pgTable(
     idUser: integer("idUser")
       .notNull()
       .references(() => users.id),
+    idParent: integer("id_parent"),
     text: varchar("display_name", { length: MAX_TEXT_LENGTH }).notNull(),
     title: varchar("title", { length: MAX_TITLE_LENGTH }).notNull(),
     date: timestamp("date").default(sql`now()`),

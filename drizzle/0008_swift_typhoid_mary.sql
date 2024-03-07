@@ -1,0 +1,1 @@
+ALTER TABLE "echos" ADD COLUMN "id_parent" integer;
