@@ -6,6 +6,7 @@ import validationErrorHandler from "./validationErrorHandler"
 export type CreateEchoData = {
   idSender?: number
   idUser?: number
+  idParent?: number
   text?: string
   title?: string
 }
@@ -16,6 +17,7 @@ export type UpdateEchoData = {
 export async function createEcho(echo: CreateEchoData) {
   const idSender = echo?.idSender
   const idUser = echo?.idUser
+  const idParent = echo?.idParent
   const text = echo?.text
   const title = echo?.title
 
@@ -25,6 +27,7 @@ export async function createEcho(echo: CreateEchoData) {
       title,
       idSender,
       idUser,
+      idParent,
     })
 
     const result = await db.insert(echos).values(validatedEcho).returning()
@@ -39,7 +42,7 @@ export async function createEcho(echo: CreateEchoData) {
   }
 }
 
-export async function getEchos(offset = 0) {
+export async function getEchos(offset = 0, idParent?: number) {
   try {
     const echosByDate = await db.query.echos.findMany({
       with: {
@@ -57,6 +60,7 @@ export async function getEchos(offset = 0) {
       orderBy: [desc(echos.date)],
       limit: 10,
       offset,
+      ...(idParent ? { where: eq(echos.idParent, idParent) } : {}),
     })
 
     return echosByDate
