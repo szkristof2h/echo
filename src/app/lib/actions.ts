@@ -44,6 +44,7 @@ export async function createConnection({
 }) {
 
   // TODO: add proper error handling
+  const res = await addConnection({ idUser, idConnection })
   // if (res && "message" in res)
   //   return { errors: [res.message], status: "failure" }
 
