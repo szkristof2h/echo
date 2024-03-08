@@ -1,6 +1,7 @@
 import Head from "~/app/components/head"
 import { getEcho } from "~/data/echos"
 import Post from "../../components/post"
+import Comments from "../../components/comments"
 
 export default async function Home({ params }: { params: { id?: number } }) {
   const id = params.id
@@ -14,6 +15,8 @@ export default async function Home({ params }: { params: { id?: number } }) {
     <>
       <Head title={echo?.title ?? "..."} />
       {!!echo ? <Post {...echo} /> : "Couldn't load echo"}
+
+      <Comments id={id} />
     </>
   )
 }
