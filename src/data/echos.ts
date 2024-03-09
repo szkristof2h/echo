@@ -1,6 +1,6 @@
 import { echos, insertEchoSchema } from "~/db/schema/echos"
 import db from "~/db"
-import { eq, and, gt, desc } from "drizzle-orm"
+import { eq, and, gt, desc, isNull } from "drizzle-orm"
 import validationErrorHandler from "./validationErrorHandler"
 
 export type CreateEchoData = {
@@ -78,7 +78,7 @@ export async function getEchos(offset = 0, idParent?: number) {
       orderBy: [desc(echos.date)],
       limit: 20,
       offset,
-      ...(idParent ? { where: eq(echos.idParent, idParent) } : {}),
+      where: idParent ? eq(echos.idParent, idParent) : isNull(echos.idParent),
     })
 
     return echosByDate

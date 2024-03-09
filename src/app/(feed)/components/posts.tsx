@@ -22,6 +22,7 @@ export default function Posts(props: Props) {
             text={text}
             postedBy={postedBy}
             echodTo={echodTo}
+            idParent={null}
           />
         )
       })}
