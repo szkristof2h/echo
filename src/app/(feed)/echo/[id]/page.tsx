@@ -3,8 +3,8 @@ import { getEcho } from "~/data/echos"
 import Post from "../../components/post"
 import Comments from "../../components/comments"
 
-export default async function Home({ params }: { params: { id?: number } }) {
-  const id = params.id
+export default async function Home({ params }: { params: { id?: string } }) {
+  const id = params?.id ? parseInt(params?.id, 10) : null
 
   // TODO: do this nicer
   if (!id) return <div>WWWW</div>
@@ -16,7 +16,7 @@ export default async function Home({ params }: { params: { id?: number } }) {
       <Head title={echo?.title ?? "..."} />
       {!!echo ? <Post {...echo} /> : "Couldn't load echo"}
 
-      <Comments id={id} />
+      {echo && <Comments idUser={echo?.postedBy.id} id={id} />}
     </>
   )
 }

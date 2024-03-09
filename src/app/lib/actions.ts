@@ -13,13 +13,18 @@ export type ActionResponse = {
   status: string
 }
 
-export async function createEcho(formData: FormData, id?: number) {
+export async function createEcho(
+  formData: FormData,
+  id?: number,
+  idParent?: number,
+) {
   // TODO: add validation
   const idUser = id
   const rawFormData = {
     text: formData.get("text")?.toString(),
     title: formData.get("title")?.toString(),
-    idSender: 3, // get it from cookie
+    idSender: 1, // get it from cookie
+    idParent, // get it from cookie
     idUser,
   }
 
@@ -28,11 +33,8 @@ export async function createEcho(formData: FormData, id?: number) {
   if (res && "message" in res)
     return { errors: [res.message], status: "failure" }
 
-  // revalidatePath("/echo/[[...id]]", "page")
-  redirect(`/echo/${res.id}`)
-
-  // mutate data
-  // revalidate cache
+  if (!!idParent) redirect(`/echo/${res.id}`)
+  else revalidatePath("/echo/[[...id]]", "page")
 }
 
 export async function createConnection({
@@ -42,7 +44,6 @@ export async function createConnection({
   idUser: number
   idConnection: number
 }) {
-
   // TODO: add proper error handling
   const res = await addConnection({ idUser, idConnection })
   // if (res && "message" in res)

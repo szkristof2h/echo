@@ -19,9 +19,18 @@ export async function createEcho(echo: CreateEchoData) {
   const idUser = echo?.idUser
   const idParent = echo?.idParent
   const text = echo?.text
-  const title = echo?.title
 
   try {
+    const echoParent = !!idParent
+      ? await db
+          .select({ title: echos.title })
+          .from(echos)
+          .where(eq(echos.id, idParent))
+      : null
+
+    if (!!idParent && !echoParent) throw new Error("invalid sth")
+
+    const title = echoParent?.[0]?.title ?? echo?.title
     const validatedEcho = insertEchoSchema.parse({
       text,
       title,
@@ -58,7 +67,7 @@ export async function getEchos(offset = 0, idParent?: number) {
         },
       },
       orderBy: [desc(echos.date)],
-      limit: 10,
+      limit: 20,
       offset,
       ...(idParent ? { where: eq(echos.idParent, idParent) } : {}),
     })
