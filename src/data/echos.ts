@@ -16,21 +16,30 @@ export type UpdateEchoData = {
 
 export async function createEcho(echo: CreateEchoData) {
   const idSender = echo?.idSender
-  const idUser = echo?.idUser
   const idParent = echo?.idParent
   const text = echo?.text
 
   try {
     const echoParent = !!idParent
-      ? await db
-          .select({ title: echos.title })
-          .from(echos)
-          .where(eq(echos.id, idParent))
+      ? await db.query.echos.findFirst({
+          columns: {
+            title: true,
+          },
+          where: eq(echos.id, idParent),
+          with: {
+            postedBy: {
+              columns: {
+                id: true,
+              },
+            },
+          },
+        })
       : null
 
     if (!!idParent && !echoParent) throw new Error("invalid sth")
 
-    const title = echoParent?.[0]?.title ?? echo?.title
+    const title = echoParent?.title ?? echo?.title
+    const idUser = echoParent?.postedBy.id ?? echo?.idUser
     const validatedEcho = insertEchoSchema.parse({
       text,
       title,
