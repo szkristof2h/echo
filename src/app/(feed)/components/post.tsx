@@ -2,14 +2,13 @@ import Link from "next/link"
 import type { Post } from ".."
 import Container from "~/app/components/container"
 import type { EchoWithUser } from "~/db/schema/echos"
+import ProfileLink from "./profile-link"
 
 type Props = EchoWithUser
 
 export default function Post(props: Props) {
   const { id, title, date, text, postedBy, echodTo } = props
   const echoUrl = `/echo/${id}`
-  const postedByUrl = `/profile/${postedBy.id}`
-  const echodToUrl = `/profile/${echodTo.id}`
 
   return (
     <Container>
@@ -19,9 +18,12 @@ export default function Post(props: Props) {
       <div className="max-h-40 overflow-hidden">{text}</div>
       <div className="flex justify-between text-sm">
         <span>
-          <Link href={postedByUrl}>{postedBy.displayName}</Link>
+          <ProfileLink
+            idUser={postedBy.id}
+            displayName={postedBy.displayName}
+          />
           {" > "}
-          <Link href={echodToUrl}>{echodTo.displayName}</Link>
+          <ProfileLink idUser={echodTo.id} displayName={echodTo.displayName} />
         </span>
         <span>{new Date(date ?? "").toDateString()}</span>
       </div>

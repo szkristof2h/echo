@@ -14,7 +14,10 @@ export default function ProfileLink(props: {
   }
 
   return (
-    <span className="hover:underline" onClick={handleOnClick}>
+    <span
+      className="hover:cursor-pointer hover:underline"
+      onClick={handleOnClick}
+    >
       @{displayName}
     </span>
   )
