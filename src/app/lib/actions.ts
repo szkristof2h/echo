@@ -18,14 +18,12 @@ export async function createEcho(
   id?: number,
   idParent?: number,
 ) {
-  // TODO: add validation
-  const idUser = id
   const rawFormData = {
     text: formData.get("text")?.toString(),
     title: formData.get("title")?.toString(),
     idSender: 1, // get it from cookie
-    idParent, // get it from cookie
-    idUser,
+    idParent,
+    idUser: id,
   }
 
   const res = await createEchoData(rawFormData)
@@ -33,8 +31,11 @@ export async function createEcho(
   if (res && "message" in res)
     return { errors: [res.message], status: "failure" }
 
-  if (!!idParent) redirect(`/echo/${res.id}`)
-  else revalidatePath("/echo/[[...id]]", "page")
+  if (!idParent) redirect(`/echo/${res.id}`)
+  else {
+    revalidatePath("/echo/[[...id]]", "page")
+    return { errors: [], status: "success" }
+  }
 }
 
 export async function createConnection({

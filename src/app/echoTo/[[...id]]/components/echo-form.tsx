@@ -12,7 +12,7 @@ export default function EchoForm(props: { id?: number; idParent?: number }) {
     errors: [],
   })
 
-  return state.status === "success" ? (
+  return state?.status === "success" ? (
     <p>Echo posted successfully!</p>
   ) : (
     <form action={formAction} className="mt-4 flex flex-col gap-y-2">
