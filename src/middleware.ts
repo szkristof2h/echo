@@ -7,8 +7,7 @@ export default authMiddleware({
     "/profile/:id",
     "/echoTo",
     "/echoTo/:id",
-    "/sign-in",
-    "/sign-up",
+    "/login",
   ],
 })
 export const config = {
