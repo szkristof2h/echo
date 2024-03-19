@@ -11,8 +11,7 @@ export const env = createEnv({
       .enum(["development", "test", "production"])
       .default("development"),
     // Add ` on ID and SECRET if you want to make sure they're not empty
-    GOOGLE_CLIENT_ID: z.string(),
-    GOOGLE_CLIENT_SECRET: z.string(),
+    CLERK_SECRET_KEY: z.string(),
     POSTGRES_DATABASE: z.string(),
     POSTGRES_HOST: z.string(),
     POSTGRES_PASSWORD: z.string(),
@@ -29,6 +28,11 @@ export const env = createEnv({
    */
   client: {
     // NEXT_PUBLIC_CLIENTVAR: z.string(),
+    NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: z.string(),
+    NEXT_PUBLIC_CLERK_SIGN_IN_URL: z.string(),
+    NEXT_PUBLIC_CLERK_SIGN_UP_URL: z.string(),
+    NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL: z.string(),
+    NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL: z.string(),
   },
 
   /**
@@ -37,8 +41,15 @@ export const env = createEnv({
    */
   runtimeEnv: {
     NODE_ENV: process.env.NODE_ENV,
-    GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
-    GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
+    NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY:
+      process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY,
+    NEXT_PUBLIC_CLERK_SIGN_IN_URL: process.env.NEXT_PUBLIC_CLERK_SIGN_IN_URL,
+    NEXT_PUBLIC_CLERK_SIGN_UP_URL: process.env.NEXT_PUBLIC_CLERK_SIGN_UP_URL,
+    NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL:
+      process.env.NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL,
+    NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL:
+      process.env.NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL,
+    CLERK_SECRET_KEY: process.env.CLERK_SECRET_KEY,
     // NEXT_PUBLIC_CLIENTVAR: process.env.NEXT_PUBLIC_CLIENTVAR,
     POSTGRES_DATABASE: process.env.POSTGRES_DATABASE,
     POSTGRES_HOST: process.env.POSTGRES_HOST,

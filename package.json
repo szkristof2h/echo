@@ -12,6 +12,7 @@
     "db-migrate": "pnpm tsc scripts/migrate.ts"
   },
   "dependencies": {
+    "@clerk/nextjs": "^4.29.9",
     "@t3-oss/env-nextjs": "^0.7.1",
     "@vercel/postgres": "^0.5.1",
     "drizzle-orm": "^0.29.1",

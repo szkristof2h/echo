@@ -4,6 +4,7 @@ import Head from "~/app/components/head"
 import { getUser, getCurrentUser } from "~/data/users"
 import ConnectionButton from "./components/connection-button"
 import { getConnection } from "~/data/connections"
+import { SignOutButton } from "@clerk/nextjs"
 
 const user2 = {
   interests: ["asdasd", "asdas", "dnrfgnwenfji", "erngtyernf"],
@@ -53,6 +54,11 @@ export default async function Profile({
             <span key={interest}>{interest}, </span>
           ))}
         </div>
+        <SignOutButton>
+          <span className="mt-4 inline-block cursor-pointer rounded bg-slate-400 px-4 py-2 hover:bg-slate-300">
+            Sign out
+          </span>
+        </SignOutButton>
       </Container>
     </>
   )
