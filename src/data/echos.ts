@@ -63,18 +63,6 @@ export async function createEcho(echo: CreateEchoData) {
 export async function getEchos(offset = 0, idParent?: number) {
   try {
     const echosByDate = await db.query.echos.findMany({
-      with: {
-        postedBy: {
-          columns: {
-            bio: false,
-          },
-        },
-        echodTo: {
-          columns: {
-            bio: false,
-          },
-        },
-      },
       orderBy: [desc(echos.date)],
       limit: 20,
       offset,
@@ -100,7 +88,7 @@ export async function getEcho(id: number) {
             bio: false,
           },
         },
-        echodTo: {
+        postedTo: {
           columns: {
             bio: false,
           },

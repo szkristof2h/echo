@@ -2,7 +2,7 @@
 import { useRouter } from "next/navigation"
 
 export default function ProfileLink(props: {
-  idUser: number
+  idUser: string
   displayName: string
 }) {
   const { idUser, displayName } = props

@@ -21,8 +21,8 @@ export default async function Comments(props: { id: number; idUser: number }) {
               className="backdrop-blur-m ml-8 mt-4 overflow-hidden bg-white/80 p-4 drop-shadow-lg"
             >
               <ProfileLink
-                idUser={subEcho.echodTo.id}
-                displayName={subEcho.echodTo.displayName}
+                idUser={subEcho.postedTo.id}
+                displayName={subEcho.postedTo.displayName}
               />{" "}
               {subEcho.text}
             </li>

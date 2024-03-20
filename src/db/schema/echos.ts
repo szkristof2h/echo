@@ -38,7 +38,7 @@ export const echos = pgTable(
 
 export const echosRelations = relations(echos, ({ one }) => ({
   postedBy: one(users, { fields: [echos.idSender], references: [users.id] }),
-  echodTo: one(users, { fields: [echos.idUser], references: [users.id] }),
+  postedTo: one(users, { fields: [echos.idUser], references: [users.id] }),
 }))
 
 export const insertEchoSchema = createInsertSchema(echos, {
@@ -51,5 +51,5 @@ export type NewEcho = typeof echos.$inferInsert // insert type
 
 export type EchoWithUser = Omit<Echo, "idSender" | "idUser"> & {
   postedBy: Omit<User, "bio">
-  echodTo: Omit<User, "bio">
+  postedTo: Omit<User, "bio">
 }
