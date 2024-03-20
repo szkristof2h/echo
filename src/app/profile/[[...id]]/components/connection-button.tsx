@@ -2,22 +2,21 @@
 import { createConnection, deleteConnection } from "~/app/lib/actions"
 
 export default function ConnectionButton(props: {
-  idConnection: number
+  idConnection: string
   hasConnection: boolean
   isPending: boolean
 }) {
   const { idConnection, hasConnection, isPending } = props
 
-  // TODO: rename args
-  const handleOnClick = async (idUser: number, id2: number) => {
-    if (!hasConnection) await createConnection({ idUser, idConnection: id2 })
-    else await deleteConnection({ idUser, idConnection: id2 })
+  const handleOnClick = async (id: string) => {
+    if (!hasConnection) await createConnection(id)
+    else await deleteConnection(id)
   }
 
   return (
     <span
       className="ml-auto inline-block cursor-pointer hover:underline"
-      onClick={() => handleOnClick(1, idConnection)}
+      onClick={() => handleOnClick(idConnection)}
     >
       {hasConnection ? (isPending ? "sent" : "your connection") : "connect"}
     </span>

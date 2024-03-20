@@ -17,7 +17,7 @@ export default async function Profile({
   const bio = (user?.publicMetadata?.bio as string | undefined) ?? ""
   const interests =
     (user?.publicMetadata?.interests as string[] | undefined) ?? []
-  const connection = id ? await getConnection(1, id) : null
+  const connection = id ? await getConnection(id) : null
   const hasConnection = !!connection?.date ?? false
   const isPending = connection?.isPending ?? false
 

@@ -1,29 +1,23 @@
 import "server-only"
-import { users, connections, insertConnectionSchema } from "~/db/schema/users"
+import { connections, insertConnectionSchema } from "~/db/schema/users"
 import db from "~/db"
-import { and, eq, ne, or } from "drizzle-orm"
+import { and, eq, or } from "drizzle-orm"
 import validationErrorHandler from "./validationErrorHandler"
+import { auth, clerkClient } from "@clerk/nextjs"
 
-export async function addConnection({
-  idUser,
-  idConnection,
-}: {
-  idUser: number
-  idConnection: number
-}) {
-  // TODO: auth user
+export async function addConnection(idUser: string, idConnection: string) {
   console.log("should be at server")
+
   try {
     const connection = {
       idUser,
       idConnection,
+      isPending: true,
     }
 
     const validatedConnection = insertConnectionSchema.parse(connection)
-    const user = await db.query.users.findFirst({ where: eq(users.id, idUser) })
-    const connectionUser = await db.query.users.findFirst({
-      where: eq(users.id, idConnection),
-    })
+    const user = await clerkClient.users.getUser(idUser)
+    const connectionUser = await clerkClient.users.getUser(idConnection)
 
     if (!user || !connectionUser)
       // return some error
@@ -44,17 +38,13 @@ export async function addConnection({
   }
 }
 
-export async function updateConnection({
-  idUser,
-  idConnection,
-  isPending,
-}: {
-  idUser: number
-  idConnection: number
-  isPending: boolean
-}) {
-  // TODO: auth user
+export async function updateConnection(
+  idUser: string,
+  idConnection: string,
+  isPending?: boolean,
+) {
   console.log("should be at server")
+
   try {
     const connection = {
       idUser,
@@ -64,10 +54,8 @@ export async function updateConnection({
 
     insertConnectionSchema.parse(connection)
 
-    const user = await db.query.users.findFirst({ where: eq(users.id, idUser) })
-    const connectionUser = await db.query.users.findFirst({
-      where: eq(users.id, idConnection),
-    })
+    const user = await clerkClient.users.getUser(idUser)
+    const connectionUser = await clerkClient.users.getUser(idConnection)
 
     if (!user || !connectionUser)
       // return some error
@@ -77,15 +65,9 @@ export async function updateConnection({
       .update(connections)
       .set({ isPending })
       .where(
-        or(
-          and(
-            eq(connections.idUser, idUser),
-            eq(connections.idConnection, idConnection),
-          ),
-          and(
-            eq(connections.idUser, idConnection),
-            eq(connections.idConnection, idUser),
-          ),
+        and(
+          eq(connections.idUser, idUser),
+          eq(connections.idConnection, idConnection),
         ),
       )
       .returning()
@@ -99,20 +81,12 @@ export async function updateConnection({
     return { message: "Database error: failed connection update" }
   }
 }
-export async function removeConnection({
-  idUser,
-  idConnection,
-}: {
-  idUser: number
-  idConnection: number
-}) {
-  // TODO: auth user
+export async function removeConnection(idUser: string, id: string) {
   console.log("should be at server")
+
   try {
-    const user = await db.query.users.findFirst({ where: eq(users.id, idUser) })
-    const connectionUser = await db.query.users.findFirst({
-      where: eq(users.id, idConnection),
-    })
+    const user = await clerkClient.users.getUser(idUser)
+    const connectionUser = await clerkClient.users.getUser(id)
 
     if (!user || !connectionUser)
       // return some error
@@ -122,14 +96,8 @@ export async function removeConnection({
       .delete(connections)
       .where(
         or(
-          and(
-            eq(connections.idUser, idUser),
-            eq(connections.idConnection, idConnection),
-          ),
-          and(
-            eq(connections.idUser, idConnection),
-            eq(connections.idConnection, idUser),
-          ),
+          and(eq(connections.idUser, idUser), eq(connections.idConnection, id)),
+          and(eq(connections.idUser, id), eq(connections.idConnection, idUser)),
         ),
       )
       .returning()
@@ -142,15 +110,19 @@ export async function removeConnection({
   }
 }
 
-export async function getConnections(
-  id: number,
-  options?: { isPending: boolean | undefined },
-) {
-  // TODO: auth user
+export async function getConnections(options?: {
+  isPending: boolean | undefined
+}) {
   console.log("should be at server")
+  const { userId: idUser } = auth()
+
+  if (!idUser) return null
 
   const isPending = options?.isPending
-  const where = or(eq(connections.idUser, id), eq(connections.idConnection, id))
+  const where = or(
+    eq(connections.idUser, idUser),
+    eq(connections.idConnection, idUser),
+  )
   const whereWithPending =
     isPending !== undefined
       ? and(where, eq(connections.isPending, isPending))
@@ -158,39 +130,32 @@ export async function getConnections(
 
   try {
     // TODO: add limit etc
-    const connectionsWithUsers = await db
+    const connectionsList = await db
       .select({
         idUser: connections.idUser,
         idConnection: connections.idConnection,
         isPending: connections.isPending,
-        displayName: users.displayName,
-        id: users.id,
       })
       .from(connections)
       .where(whereWithPending)
-      .leftJoin(
-        users,
-        or(
-          and(eq(users.id, connections.idUser), ne(connections.idUser, id)),
-          and(
-            eq(users.id, connections.idConnection),
-            ne(connections.idConnection, id),
-          ),
-        ),
-      )
 
-    return connectionsWithUsers
+    if (connectionsList.length === 0) return []
+
+    return connectionsList
   } catch (error) {
-    console.error("Database error: failed getting user")
+    console.error("Database error: failed getting connections")
     console.error(error)
     return null
   }
 }
 
-export async function getConnection(idUser: number, idConnection: number) {
+export async function getConnection(idConnection: string) {
   console.log("should be at server")
 
-  // TODO: auth user
+  const { userId: idUser } = auth()
+
+  if (!idUser) return null
+
   try {
     const userConnection = await db.query.connections.findFirst({
       where: or(
@@ -207,7 +172,7 @@ export async function getConnection(idUser: number, idConnection: number) {
 
     return userConnection
   } catch (error) {
-    console.error("Database error: failed getting user")
+    console.error("Database error: failed getting connection")
     console.error(error)
     return null
   }

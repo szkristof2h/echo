@@ -1,4 +1,5 @@
 "use server"
+import { auth } from "@clerk/nextjs"
 import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation"
 import {
@@ -38,29 +39,23 @@ export async function createEcho(
   }
 }
 
-export async function createConnection({
-  idUser,
-  idConnection,
-}: {
-  idUser: number
-  idConnection: number
-}) {
+export async function createConnection(id: string) {
   // TODO: add proper error handling
-  const res = await addConnection({ idUser, idConnection })
+
+  const { userId: idUser } = auth()
+
+  if (idUser) await addConnection(idUser, id)
+
   // if (res && "message" in res)
   //   return { errors: [res.message], status: "failure" }
 
   revalidatePath("/profile/[[...id]]", "page")
 }
 
-export async function deleteConnection({
-  idUser,
-  idConnection,
-}: {
-  idUser: number
-  idConnection: number
-}) {
-  const res = await removeConnection({ idUser, idConnection })
+export async function deleteConnection(id: string) {
+  const { userId: idUser } = auth()
+
+  if (idUser) await removeConnection(idUser, id)
 
   // TODO: add proper error handling
   // if (res && "message" in res)
@@ -69,14 +64,10 @@ export async function deleteConnection({
   revalidatePath("/profile/[[...id]]", "page")
 }
 
-export async function acceptConnection({
-  idUser,
-  idConnection,
-}: {
-  idUser: number
-  idConnection: number
-}) {
-  const res = await updateConnection({ idUser, idConnection, isPending: false })
+export async function acceptConnection(id: string) {
+  const { userId: idUser } = auth()
+
+  if (idUser) await updateConnection(id, idUser, false)
 
   // TODO: add proper error handling
   // if (res && "message" in res)

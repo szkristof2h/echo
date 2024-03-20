@@ -1,6 +1,4 @@
 import "server-only"
-import type { NewUser } from "~/db/schema/users"
-import { users } from "~/db/schema/users"
 import db from "~/db"
 import { eq } from "drizzle-orm"
 import { auth, clerkClient } from "@clerk/nextjs"
