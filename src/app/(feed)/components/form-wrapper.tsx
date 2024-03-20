@@ -3,7 +3,7 @@
 import EchoForm from "~/app/echoTo/[[...id]]/components/echo-form"
 
 export default function FormWrapper(props: {
-  idUser: number
+  idUser: string
   idParent?: number
 }) {
   const { idUser, idParent } = props

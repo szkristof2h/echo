@@ -4,8 +4,8 @@ import { eq, and, gt, desc, isNull } from "drizzle-orm"
 import validationErrorHandler from "./validationErrorHandler"
 
 export type CreateEchoData = {
-  idSender?: number
-  idUser?: number
+  idSender?: string
+  idUser?: string
   idParent?: number
   text?: string
   title?: string

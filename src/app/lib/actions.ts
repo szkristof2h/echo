@@ -15,13 +15,13 @@ export type ActionResponse = {
 
 export async function createEcho(
   formData: FormData,
-  id?: number,
+  id?: string,
   idParent?: number,
 ) {
   const rawFormData = {
     text: formData.get("text")?.toString(),
     title: formData.get("title")?.toString(),
-    idSender: 1, // get it from cookie
+    idSender: "1", // get it from cookie
     idParent,
     idUser: id,
   }

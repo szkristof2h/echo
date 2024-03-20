@@ -3,7 +3,7 @@ import { createEcho } from "~/app/lib/actions"
 import { SubmitButton } from "./submit-button"
 import { useFormState } from "react-dom"
 
-export default function EchoForm(props: { id?: number; idParent?: number }) {
+export default function EchoForm(props: { id?: string; idParent?: number }) {
   const { id, idParent } = props
   const handleSubmit = (prevState: ActionResponse, formData: FormData) =>
     createEcho(formData, id, idParent)
