@@ -3,7 +3,7 @@ import type { NewUser } from "~/db/schema/users"
 import { users } from "~/db/schema/users"
 import db from "~/db"
 import { eq } from "drizzle-orm"
-import { clerkClient } from "@clerk/nextjs"
+import { auth, clerkClient } from "@clerk/nextjs"
 
 export type CreateUserData = {
   displayName?: string
@@ -30,18 +30,17 @@ export async function createUser(user: CreateUserData) {
   }
 }
 
-export async function getUser(id: number) {
+export async function getUser(id: string) {
   console.log("should be at server")
+
   try {
-    const user = await db.query.users.findFirst({ where: eq(users.id, id) })
+    const user = await clerkClient.users.getUser(id)
 
     if (!user) return null
 
-    return {
-      id: user.id,
-      displayName: user.displayName,
-      bio: user.bio,
-    }
+    const { username, publicMetadata } = user
+
+    return { id, username, publicMetadata }
   } catch (error) {
     console.error("Database error: failed getting user")
     console.error(error)
@@ -72,10 +71,11 @@ export async function getUsers(ids: string[]) {
 }
 
 export async function getCurrentUser() {
-  //
-  const id = 5
+  const { userId } = auth()
 
-  return await getUser(id)
+  if (!userId) return null
+
+  return await getUser(userId)
 }
 // export async function updateUser(user: UpdateUserData) {}
 // export async function deleteUser(id: string) {}

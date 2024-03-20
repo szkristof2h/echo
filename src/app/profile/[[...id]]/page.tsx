@@ -6,25 +6,21 @@ import ConnectionButton from "./components/connection-button"
 import { getConnection } from "~/data/connections"
 import { SignOutButton } from "@clerk/nextjs"
 
-const user2 = {
-  interests: ["asdasd", "asdas", "dnrfgnwenfji", "erngtyernf"],
-  hasConnections: false,
-}
-
 export default async function Profile({
   params,
 }: {
   params: { id?: string[] }
 }) {
-  const id = params.id?.[0] ? parseInt(params.id?.[0]) : null
+  const id = params.id?.[0] ?? null
   const user = id ? await getUser(id) : await getCurrentUser()
-  const displayName = user?.displayName ?? ""
-  const bio = user?.bio ?? ""
+  const displayName = user?.username ?? ""
+  const bio = (user?.publicMetadata?.bio as string | undefined) ?? ""
+  const interests =
+    (user?.publicMetadata?.interests as string[] | undefined) ?? []
   const connection = id ? await getConnection(1, id) : null
   const hasConnection = !!connection?.date ?? false
   const isPending = connection?.isPending ?? false
 
-  const { interests } = user2
   return (
     <>
       <Head title="Profile" />

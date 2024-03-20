@@ -3,9 +3,9 @@ import { useDeferredValue, useState } from "react"
 import UserSearch from "./user-search"
 
 export default function UserForm(props: {
-  defaultName?: string
-  idSelected?: number
-  setIdSelected: Dispatch<SetStateAction<number | undefined>>
+  defaultName?: string | null
+  idSelected?: string
+  setIdSelected: Dispatch<SetStateAction<string | undefined>>
 }) {
   const { setIdSelected, idSelected, defaultName } = props
   const [inputUserName, setInputUserName] = useState("")

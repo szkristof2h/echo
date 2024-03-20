@@ -4,9 +4,9 @@ import UserForm from "./user-form"
 import { useState } from "react"
 
 export default function FormWrapper(props: {
-  idDefault?: number
+  idDefault?: string
   echoCount?: number | null
-  defaultName?: string
+  defaultName?: string | null
 }) {
   const { echoCount, idDefault, defaultName } = props
   const [idSelected, setIdSelected] = useState(idDefault)

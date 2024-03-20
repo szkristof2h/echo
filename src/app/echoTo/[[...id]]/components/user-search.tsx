@@ -1,14 +1,13 @@
 "use client"
 
 import type { Dispatch, SetStateAction } from "react"
-import type { User } from "~/db/schema/users"
 import { useEffect, useState } from "react"
 
 export default function UserSearch(props: {
   inputUserName: string
-  idSelected?: number
-  setIdSelected: Dispatch<SetStateAction<number | undefined>>
-  defaultName?: string
+  idSelected?: string
+  setIdSelected: Dispatch<SetStateAction<string | undefined>>
+  defaultName?: string | null
 }) {
   const { inputUserName, idSelected, setIdSelected, defaultName } = props
   const [users, setUsers] = useState<Pick<User, "id" | "displayName">[]>([])

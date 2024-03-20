@@ -10,9 +10,9 @@ export default async function Submit({
   params: { id?: string[] }
 }) {
   const { id } = params
-  const defaultUser = id?.[0] ? await getUser(parseInt(id?.[0], 10)) : null
+  const defaultUser = id?.[0] ? await getUser(id?.[0]) : null
   const echoCount = await getDailyEchoCount()
-  const defaultName = defaultUser?.displayName
+  const defaultName = defaultUser?.username
   const idDefault = defaultUser?.id
 
   return (
