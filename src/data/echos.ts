@@ -2,6 +2,7 @@ import { echos, insertEchoSchema } from "~/db/schema/echos"
 import db from "~/db"
 import { eq, and, gt, desc, isNull } from "drizzle-orm"
 import validationErrorHandler from "./validationErrorHandler"
+import { auth } from "@clerk/nextjs"
 
 export type CreateEchoData = {
   idSender?: string
@@ -24,22 +25,16 @@ export async function createEcho(echo: CreateEchoData) {
       ? await db.query.echos.findFirst({
           columns: {
             title: true,
+            idSender: true,
           },
           where: eq(echos.id, idParent),
-          with: {
-            postedBy: {
-              columns: {
-                id: true,
-              },
-            },
-          },
         })
       : null
 
     if (!!idParent && !echoParent) throw new Error("invalid sth")
 
     const title = echoParent?.title ?? echo?.title
-    const idUser = echoParent?.postedBy.id ?? echo?.idUser
+    const idUser = echoParent?.idSender ?? echo?.idUser
     const validatedEcho = insertEchoSchema.parse({
       text,
       title,
@@ -82,18 +77,6 @@ export async function getEcho(id: number) {
   try {
     const echo = await db.query.echos.findFirst({
       where: eq(echos.id, id),
-      with: {
-        postedBy: {
-          columns: {
-            bio: false,
-          },
-        },
-        postedTo: {
-          columns: {
-            bio: false,
-          },
-        },
-      },
     })
 
     if (!echo) return null
