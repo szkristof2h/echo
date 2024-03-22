@@ -19,6 +19,10 @@ export async function createEcho(
   id?: string,
   idParent?: number,
 ) {
+  const { userId: idUser } = auth()
+
+  if (!idUser) return redirect(`/login`)
+
   const rawFormData = {
     text: formData.get("text")?.toString(),
     title: formData.get("title")?.toString(),
