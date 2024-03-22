@@ -35,7 +35,7 @@ export default function RootLayout({
           </nav>
           <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#00BFB2] to-[#f0f3bd] bg-fixed text-slate-600">
             <Link href="/">
-              <h1 className="mt-8 font-mono text-7xl subpixel-antialiased drop-shadow-lg">
+              <h1 className="my-8 font-mono text-7xl subpixel-antialiased drop-shadow-lg">
                 Echo
               </h1>
             </Link>
