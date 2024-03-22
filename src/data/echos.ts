@@ -90,7 +90,10 @@ export async function getEcho(id: number) {
 }
 
 export async function getDailyEchoCount() {
-  const idUser = 3
+  const { userId: idUser } = auth()
+
+  if (!idUser) return null
+
   const twentyFourHoursBefore = new Date()
   twentyFourHoursBefore.setHours(twentyFourHoursBefore.getHours() - 24)
 
