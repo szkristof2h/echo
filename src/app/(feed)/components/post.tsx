@@ -1,5 +1,4 @@
 import Link from "next/link"
-import type { Post } from ".."
 import Container from "~/app/components/container"
 import type { Echo } from "~/db/schema/echos"
 import ProfileLink from "./profile-link"
