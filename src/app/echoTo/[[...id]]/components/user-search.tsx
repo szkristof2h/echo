@@ -2,6 +2,7 @@
 
 import type { Dispatch, SetStateAction } from "react"
 import { useEffect, useState } from "react"
+import type { User } from "@clerk/nextjs/server"
 
 export default function UserSearch(props: {
   inputUserName: string
@@ -10,13 +11,13 @@ export default function UserSearch(props: {
   defaultName?: string | null
 }) {
   const { inputUserName, idSelected, setIdSelected, defaultName } = props
-  const [users, setUsers] = useState<Pick<User, "id" | "displayName">[]>([])
+  const [users, setUsers] = useState<Pick<User, "id" | "username">[]>([])
   const selectedUserName =
     !inputUserName && !!defaultName
       ? defaultName
-      : users.find(({ id }) => id === idSelected)?.displayName
+      : users.find(({ id }) => id === idSelected)?.username
 
-  const handleOnClick = (id: number) => setIdSelected(id)
+  const handleOnClick = (id: string) => setIdSelected(id)
 
   useEffect(() => {
     const controller = new AbortController()
@@ -30,7 +31,7 @@ export default function UserSearch(props: {
           const data = (await res.json()) as unknown
 
           if (data && typeof data === "object" && "users" in data) {
-            const users = data.users as Pick<User, "id" | "displayName">[]
+            const users = data.users as Pick<User, "id" | "username">[]
             if (users) setUsers(users)
           }
         }
@@ -58,7 +59,7 @@ export default function UserSearch(props: {
                 className="cursor-pointer hover:underline"
                 onClick={() => handleOnClick(user.id)}
               >
-                {user.displayName}
+                {user.username}
               </li>
             ))}
         </ul>
