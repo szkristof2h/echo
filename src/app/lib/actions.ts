@@ -26,7 +26,7 @@ export async function createEcho(
   const rawFormData = {
     text: formData.get("text")?.toString(),
     title: formData.get("title")?.toString(),
-    idSender: "1", // get it from cookie
+    idSender: idUser,
     idParent,
     idUser: id,
   }
