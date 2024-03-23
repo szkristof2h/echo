@@ -8,6 +8,7 @@ import {
   updateConnection,
 } from "~/data/connections"
 import { createEcho as createEchoData } from "~/data/echos"
+import { getUser } from "~/data/users"
 
 export type ActionResponse = {
   errors?: string[]
@@ -30,6 +31,11 @@ export async function createEcho(
     idParent,
     idUser: id,
   }
+
+  const receiverUser = id ? await getUser(id) : null
+
+  if (!receiverUser)
+    return { errors: ["user doesn't exist"], status: "failure" }
 
   const res = await createEchoData(rawFormData)
 
