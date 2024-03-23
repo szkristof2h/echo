@@ -50,11 +50,13 @@ export default async function Profile({
             <span key={interest}>{interest}, </span>
           ))}
         </div>
-        <SignOutButton>
-          <span className="mt-4 inline-block cursor-pointer rounded bg-slate-400 px-4 py-2 hover:bg-slate-300">
-            Sign out
-          </span>
-        </SignOutButton>
+        {!id && (
+          <SignOutButton>
+            <span className="mt-4 inline-block cursor-pointer rounded bg-slate-400 px-4 py-2 hover:bg-slate-300">
+              Sign out
+            </span>
+          </SignOutButton>
+        )}
       </Container>
     </>
   )
