@@ -18,6 +18,7 @@ export default function UserSearch(props: {
       : users.find(({ id }) => id === idSelected)?.username
 
   const handleOnClick = (id: string) => setIdSelected(id)
+  const handleRemoveSelection = () => setIdSelected(undefined)
 
   useEffect(() => {
     const controller = new AbortController()
@@ -56,7 +57,7 @@ export default function UserSearch(props: {
             users.map((user) => (
               <li
                 key={user.id}
-                className="cursor-pointer hover:underline"
+                className="mt-4 w-fit cursor-pointer bg-emerald-700 px-2 py-1 text-white hover:underline"
                 onClick={() => handleOnClick(user.id)}
               >
                 {user.username}
@@ -64,7 +65,19 @@ export default function UserSearch(props: {
             ))}
         </ul>
       )}
-      <div>{selectedUserName}</div>
+      {idSelected && (
+        <span className="mt-4 inline-block bg-emerald-700 px-2 py-1 text-white">
+          {selectedUserName}
+        </span>
+      )}
+      {idSelected && (
+        <span
+          onClick={handleRemoveSelection}
+          className="mt-4 inline-block cursor-pointer bg-red-600 px-2 py-1 text-white"
+        >
+          X
+        </span>
+      )}
     </>
   )
 }
