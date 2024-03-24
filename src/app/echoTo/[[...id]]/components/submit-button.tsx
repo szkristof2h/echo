@@ -12,7 +12,7 @@ export function SubmitButton(props: Props) {
   return (
     <button
       type="submit"
-      className="mx-auto mt-4 w-40 bg-teal-400 py-2 text-white hover:bg-teal-600"
+      className="mt-4 w-full bg-emerald-800 p-2 text-white hover:bg-emerald-700"
       aria-disabled={pending}
     >
       {pending ? "Loading..." : text}

@@ -14,8 +14,8 @@ export default async function Comments(props: { id: number; idUser: string }) {
 
   return (
     <>
-      <div className="mt-4">Comments ({commentCount})</div>
       <FormWrapper idUser={idUser} idParent={id} />
+      <div className="text-bold mt-4 text-xl">Comments ({commentCount})</div>
       <ul>
         {subEchos.map((subEcho) => {
           const postedTo = users?.find((user) => user.id === idUser.toString())
@@ -23,7 +23,7 @@ export default async function Comments(props: { id: number; idUser: string }) {
             <Link href={`/echo/${subEcho.id}`}>
               <li
                 key={subEcho.id}
-                className="backdrop-blur-m ml-8 mt-4 overflow-hidden bg-white/80 p-4 drop-shadow-lg"
+                className="ml-8 mt-4 overflow-hidden bg-gradient-to-b from-emerald-700 to-emerald-800 p-4 text-white"
               >
                 {postedTo?.username && (
                   <ProfileLink
