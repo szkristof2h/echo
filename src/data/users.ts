@@ -48,5 +48,26 @@ export async function getCurrentUser() {
 
   return await getUser(userId)
 }
-// export async function updateUser(user: UpdateUserData) {}
+
+export async function updateUser(user: {
+  id: string
+  username: string
+  bio?: string
+  interests?: string[]
+}) {
+  const { id, username, bio, interests } = user
+
+  try {
+    await clerkClient.users.updateUser(id, {
+      username,
+      publicMetadata: {
+        bio,
+        interests,
+      },
+    })
+  } catch (error) {
+    console.error("Clerk error: failed updating profile")
+    console.error(error)
+  }
+}
 // export async function deleteUser(id: string) {}
