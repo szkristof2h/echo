@@ -20,9 +20,13 @@ export default function EchoForm(props: { id?: string; idParent?: number }) {
       className="mt-4 flex flex-col items-center text-white"
     >
       <div className="flex w-full flex-col gap-y-4">
-        {!idParent && <label>Title</label>}
         {!idParent && (
-          <input name="title" autoFocus className="px-4 outline-none" />
+          <input
+            name="title"
+            autoFocus
+            placeholder="Title"
+            className="bg-emerald-50 px-4 py-2 text-slate-600 outline-none ring-emerald-700 placeholder:text-slate-300 focus:ring-2"
+          />
         )}
         <textarea
           name="text"

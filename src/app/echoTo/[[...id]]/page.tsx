@@ -18,13 +18,13 @@ export default async function Submit({
   return (
     <>
       <Head title="Echo" />
-      <Container>
-        <FormWrapper
-          echoCount={echoCount}
-          idDefault={idDefault}
-          defaultName={defaultName}
-        />
-      </Container>
+      {/* <Container> */}
+      <FormWrapper
+        echoCount={echoCount}
+        idDefault={idDefault}
+        defaultName={defaultName}
+      />
+      {/* </Container> */}
     </>
   )
 }

@@ -19,13 +19,15 @@ export default function UserForm(props: {
 
   return (
     <>
-      <label className="mr-4">Echo to</label>
-      <input
-        name="displayName"
-        autoFocus
-        className="px-4 outline-none"
-        onChange={handleOnChange}
-      />
+      <div className="flex">
+        <label className="bg-emerald-700 px-3 text-white">Echo to:</label>
+        <input
+          name="displayName"
+          autoFocus
+          className="bg-emerald-50 px-4 py-2 text-slate-600 outline-none ring-inset ring-emerald-700 placeholder:text-slate-300 focus:ring-2"
+          onChange={handleOnChange}
+        />
+      </div>
       <UserSearch
         inputUserName={deferredUserName}
         setIdSelected={setIdSelected}
