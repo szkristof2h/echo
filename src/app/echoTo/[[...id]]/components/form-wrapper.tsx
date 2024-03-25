@@ -12,9 +12,9 @@ export default function FormWrapper(props: {
   const [idSelected, setIdSelected] = useState(idDefault)
 
   return (
-    <>
+    <div className="flex w-128 flex-col ">
       {(!!echoCount || echoCount === 0) && (
-        <div className="mb-4 text-center">
+        <div className="mb-4 bg-emerald-800 p-2 text-center text-white">
           Echos remaining today: {5 - echoCount}
         </div>
       )}
@@ -24,6 +24,6 @@ export default function FormWrapper(props: {
         idSelected={idSelected}
       />
       <EchoForm id={idSelected} />
-    </>
+    </div>
   )
 }
