@@ -3,7 +3,7 @@ export default function Container(props: {
   className?: string
 }) {
   const baseStyle =
-    "backdrop-blur-m w-128 bg-emerald-50/80 overflow-hidden  p-4 drop-shadow-lg"
+    "backdrop-blur-m w-128 bg-emerald-50/80 overflow-hidden p-4 drop-shadow-lg"
   const className = props.className
     ? `${baseStyle} ${props.className}`
     : baseStyle

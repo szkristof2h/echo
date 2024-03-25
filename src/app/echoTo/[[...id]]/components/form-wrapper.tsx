@@ -14,7 +14,7 @@ export default function FormWrapper(props: {
   return (
     <div className="flex w-128 flex-col ">
       {(!!echoCount || echoCount === 0) && (
-        <div className="mb-4 bg-emerald-800 p-2 text-center text-white">
+        <div className="mb-4 bg-emerald-50/80 p-2 text-center">
           Echos remaining today: {5 - echoCount}
         </div>
       )}
