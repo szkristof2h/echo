@@ -3,6 +3,7 @@ import { createEcho } from "~/app/lib/actions"
 import { SubmitButton } from "./submit-button"
 import { useFormState } from "react-dom"
 import { Input } from "~/app/components/input"
+import { Textarea } from "~/app/components/textarea"
 
 export default function EchoForm(props: { id?: string; idParent?: number }) {
   const { id, idParent } = props
@@ -18,16 +19,11 @@ export default function EchoForm(props: { id?: string; idParent?: number }) {
   ) : (
     <form
       action={formAction}
-      className="mt-4 flex flex-col items-center text-white"
+      className="mt-4 flex flex-col items-center gap-4 text-white"
     >
       <div className="flex w-full flex-col gap-y-4">
         {!idParent && <Input name="title" autoFocus placeholder="Title" />}
-        <textarea
-          name="text"
-          autoFocus
-          placeholder="What's on your mind?"
-          className="bg-emerald-50 p-4 text-slate-600 outline-none ring-inset ring-emerald-700 placeholder:text-slate-300 focus:ring-2"
-        />
+        <Textarea name="text" autoFocus placeholder="What's on your mind?" />
       </div>
       <SubmitButton text="&#x1F680; SUBMIT" />
     </form>
