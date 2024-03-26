@@ -1,4 +1,4 @@
-import { connections } from "./users"
+import { connections } from "./connections"
 import { echos } from "./echos"
 
 export default {
