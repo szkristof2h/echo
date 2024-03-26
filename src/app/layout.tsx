@@ -1,6 +1,7 @@
 import Link from "next/link"
 import { ClerkProvider } from "@clerk/nextjs"
 import "~/styles/globals.css"
+import { Button } from "./components/button"
 
 export const metadata = {
   title: "Next.js",
@@ -16,21 +17,15 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body>
-          <nav className="absolute right-2">
+          <nav className="absolute right-2 flex gap-4">
             <Link href="/echoTo">
-              <button className="mx-auto mr-4 mt-4 w-32 bg-teal-400 py-2 text-white hover:bg-teal-600">
-                ⭐️ ECHO ⭐️
-              </button>
+              <Button>⭐️ ECHO ⭐️</Button>
             </Link>
             <Link href="/profile">
-              <button className="mx-auto mr-4 mt-4 bg-teal-400 px-4 py-2 text-white hover:bg-teal-600">
-                🧒
-              </button>
+              <Button>🧒</Button>
             </Link>
             <Link href="/settings">
-              <button className="mx-auto mt-4 bg-teal-400 px-4 py-2 text-white hover:bg-teal-600">
-                ⚙️
-              </button>
+              <Button>⚙️</Button>
             </Link>
           </nav>
           <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#00BFB2] to-[#f0f3bd] bg-fixed text-slate-600">

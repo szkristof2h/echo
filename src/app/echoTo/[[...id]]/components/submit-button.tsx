@@ -1,5 +1,6 @@
 "use client"
 import { useFormStatus } from "react-dom"
+import { Button } from "~/app/components/button"
 
 type Props = {
   text: string
@@ -10,12 +11,8 @@ export function SubmitButton(props: Props) {
   const { pending } = useFormStatus()
 
   return (
-    <button
-      type="submit"
-      className="mt-4 w-full bg-emerald-800 p-2 text-white hover:bg-emerald-700"
-      aria-disabled={pending}
-    >
+    <Button buttonType="submit" aria-disabled={pending}>
       {pending ? "Loading..." : text}
-    </button>
+    </Button>
   )
 }
