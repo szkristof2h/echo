@@ -14,13 +14,14 @@ export default function Post(props: Props) {
   const echoUrl = `/echo/${id}`
 
   return (
-    <Container>
-      <h1 className="mb-3 text-xl">
+    <Container
+      title={
         <Link href={echoUrl}>
           {idParent ? "Reply to: " : ""}
           {title}
         </Link>
-      </h1>
+      }
+    >
       <div className="max-h-40 overflow-hidden">{text}</div>
       <div className="flex justify-between text-sm">
         <span>

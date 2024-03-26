@@ -13,8 +13,8 @@ export default {
       },
       colors: {
         primary: {
-          light: "rgba(236, 253, 245, 0.8)",
-          dark: "rgba(240, 260, 250, 0.8)",
+          light: "#ecfdf5",
+          dark: "#C6F3DD",
         },
         secondary: {
           light: "rgba(0, 163, 0, 1)",
