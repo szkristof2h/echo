@@ -1,7 +1,7 @@
 "use client"
 import { updateProfile, type ActionResponse } from "~/app/lib/actions"
 import { useFormState } from "react-dom"
-import { User } from "@clerk/nextjs/server"
+import type { User } from "@clerk/nextjs/server"
 import { SubmitButton } from "~/app/echoTo/[[...id]]/components/submit-button"
 import { Input } from "~/app/components/input"
 import { Textarea } from "~/app/components/textarea"

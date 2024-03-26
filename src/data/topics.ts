@@ -1,8 +1,6 @@
-import { echos, insertEchoSchema } from "~/db/schema/echos"
 import db from "~/db"
-import { eq, and, gt, desc, isNull } from "drizzle-orm"
+import { desc } from "drizzle-orm"
 import validationErrorHandler from "./validationErrorHandler"
-import { auth } from "@clerk/nextjs"
 import { topics } from "~/db/schema/topics"
 
 export type CreateEchoData = {
