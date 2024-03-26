@@ -35,7 +35,9 @@ export default async function Connections() {
             return (
               user?.username && (
                 <User
-                  id={user.id}
+                  idConnection={user.id}
+                  idLoggedInUser={idUser}
+                  idUser={connection.idUser}
                   displayName={user.username}
                   isPending={!!connection.isPending}
                 />
@@ -55,7 +57,7 @@ export default async function Connections() {
             return (
               user?.username && (
                 <User
-                  id={user.id}
+                  idConnection={user.id}
                   displayName={user.username}
                   isPending={!!connection.isPending}
                 />
