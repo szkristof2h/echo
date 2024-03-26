@@ -3,6 +3,8 @@ import { updateProfile, type ActionResponse } from "~/app/lib/actions"
 import { useFormState } from "react-dom"
 import { User } from "@clerk/nextjs/server"
 import { SubmitButton } from "~/app/echoTo/[[...id]]/components/submit-button"
+import { Input } from "~/app/components/input"
+import { Textarea } from "~/app/components/textarea"
 
 type Props = Pick<User, "username"> & {
   bio: string
@@ -23,20 +25,11 @@ export default function FormWrapper(props: Props) {
     <>
       <form action={formAction} className="mt-4 flex flex-col gap-y-2">
         <label>Username</label>
-        <input
-          name="username"
-          autoFocus
-          className="px-4 outline-none"
-          defaultValue={username ?? ""}
-        />
+        <Input name="username" autoFocus defaultValue={username ?? ""} />
         <label>Bio</label>
-        <textarea name="bio" className="px-4 outline-none" defaultValue={bio} />
+        <Textarea name="bio" defaultValue={bio} />
         <label>Interests (seperate with comma)</label>
-        <textarea
-          name="interests"
-          className="px-4 outline-none"
-          defaultValue={interests}
-        />
+        <Textarea name="interests" defaultValue={interests} />
         <SubmitButton text="Save" />
       </form>
       <ul>

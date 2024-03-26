@@ -15,7 +15,7 @@ export default function ConnectionButton(props: {
 
   return (
     <span
-      className="ml-auto inline-block cursor-pointer hover:underline"
+      className="flex h-16 cursor-pointer items-center bg-emerald-700 px-4 text-white hover:bg-emerald-600"
       onClick={() => handleOnClick(idConnection)}
     >
       {hasConnection ? (isPending ? "sent" : "your connection") : "connect"}

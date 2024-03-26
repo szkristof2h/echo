@@ -2,6 +2,7 @@ import type { ActionResponse } from "~/app/lib/actions"
 import { createEcho } from "~/app/lib/actions"
 import { SubmitButton } from "./submit-button"
 import { useFormState } from "react-dom"
+import { Input } from "~/app/components/input"
 
 export default function EchoForm(props: { id?: string; idParent?: number }) {
   const { id, idParent } = props
@@ -20,14 +21,7 @@ export default function EchoForm(props: { id?: string; idParent?: number }) {
       className="mt-4 flex flex-col items-center text-white"
     >
       <div className="flex w-full flex-col gap-y-4">
-        {!idParent && (
-          <input
-            name="title"
-            autoFocus
-            placeholder="Title"
-            className="bg-emerald-50 px-4 py-2 text-slate-600 outline-none ring-inset ring-emerald-700 placeholder:text-slate-300 focus:ring-2"
-          />
-        )}
+        {!idParent && <Input name="title" autoFocus placeholder="Title" />}
         <textarea
           name="text"
           autoFocus

@@ -1,4 +1,3 @@
-import Container from "../../components/container"
 import Link from "next/link"
 import Head from "~/app/components/head"
 import { getUser, getCurrentUser } from "~/data/users"
@@ -24,31 +23,41 @@ export default async function Profile({
   return (
     <>
       <Head title="Profile" />
-      <Container>
-        <div className="flex border-b border-slate-600">
-          <h2 className="inline-block">{displayName}</h2>
+      <div className="flex w-128 flex-col gap-4 p-0">
+        <div className="flex items-center justify-between ">
+          <h2 className="mr-4 flex h-16 w-full items-center bg-emerald-100 px-4 text-xl">
+            {displayName}
+          </h2>
           {id && (
-            <ConnectionButton
-              idConnection={id}
-              hasConnection={hasConnection}
-              isPending={isPending}
-            />
-          )}
-          {id && (
-            <Link
-              className="ml-4 inline-block cursor-pointer hover:underline"
-              href={`/echoTo/${user?.id}`}
-            >
-              echo
-            </Link>
+            <div className="flex gap-4">
+              <ConnectionButton
+                idConnection={id}
+                hasConnection={hasConnection}
+                isPending={isPending}
+              />
+
+              <Link
+                className="flex h-16 cursor-pointer items-center bg-emerald-700  px-4 text-white hover:bg-emerald-600"
+                href={`/echoTo/${user?.id}`}
+              >
+                echo
+              </Link>
+            </div>
           )}
         </div>
-        <div className="mb-4 border-b border-slate-600 py-4">{bio}</div>
-        <div>
-          I like:{" "}
-          {interests.map((interest) => (
-            <span key={interest}>{interest}, </span>
-          ))}
+        <div className="flex flex-col justify-center">
+          <h2 className="bg-emerald-700 p-4 text-xl text-white">Bio:</h2>
+          <div className="bg-emerald-600 p-4 text-white ">{bio}</div>
+        </div>
+        <div className="flex flex-col justify-center">
+          <h2 className="bg-emerald-700 p-4 text-xl text-white">I like:</h2>
+          <div className="flex flex-wrap gap-4 bg-emerald-600 p-4">
+            {interests.map((interest) => (
+              <span className="bg-emerald-200 p-4" key={interest}>
+                {interest}
+              </span>
+            ))}
+          </div>
         </div>
         {!id && (
           <SignOutButton>
@@ -57,7 +66,7 @@ export default async function Profile({
             </span>
           </SignOutButton>
         )}
-      </Container>
+      </div>
     </>
   )
 }
