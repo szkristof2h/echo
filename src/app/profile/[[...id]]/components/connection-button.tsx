@@ -1,4 +1,5 @@
 "use client"
+import { Button } from "~/app/components/button"
 import { createConnection, deleteConnection } from "~/app/lib/actions"
 
 export default function ConnectionButton(props: {
@@ -14,11 +15,8 @@ export default function ConnectionButton(props: {
   }
 
   return (
-    <span
-      className="flex h-16 cursor-pointer items-center bg-emerald-700 px-4 text-white hover:bg-emerald-600"
-      onClick={() => handleOnClick(idConnection)}
-    >
+    <Button className="h-16 px-4" onClick={() => handleOnClick(idConnection)}>
       {hasConnection ? (isPending ? "sent" : "your connection") : "connect"}
-    </span>
+    </Button>
   )
 }

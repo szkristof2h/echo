@@ -14,11 +14,15 @@ export default {
       colors: {
         primary: {
           light: "#ecfdf5",
-          dark: "#C6F3DD",
+          dark: "#dafbea",
         },
         secondary: {
-          light: "rgba(0, 163, 0, 1)",
-          dark: "rgba(30, 113, 69, 1)",
+          light: "#1b914f",
+          dark: "#177d44",
+        },
+        tertiary: {
+          light: "#eacd05",
+          dark: "#dcc313",
         },
         danger: {
           light: "rgba(238,17,17,1)",
