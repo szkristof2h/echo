@@ -22,7 +22,7 @@ export default function Post(props: Props) {
         </Link>
       }
     >
-      <div className="max-h-40 overflow-hidden">{text}</div>
+      <div className="mb-4 overflow-hidden">{text}</div>
       <div className="flex justify-between text-sm">
         <span>
           {postedBy?.username ? (
@@ -30,7 +30,7 @@ export default function Post(props: Props) {
           ) : (
             "..."
           )}
-          {" > "}
+          {" --> "}
           {postedTo?.username ? (
             <ProfileLink idUser={postedTo.id} displayName={postedTo.username} />
           ) : (
