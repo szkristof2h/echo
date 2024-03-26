@@ -1,5 +1,5 @@
 import "server-only"
-import { connections, insertConnectionSchema } from "~/db/schema/users"
+import { connections, insertConnectionSchema } from "~/db/schema/connections"
 import db from "~/db"
 import { and, eq, or } from "drizzle-orm"
 import validationErrorHandler from "./validationErrorHandler"

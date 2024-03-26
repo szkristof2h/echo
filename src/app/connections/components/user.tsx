@@ -1,36 +1,35 @@
 "use client"
 
-import { useAuth } from "@clerk/nextjs"
 import Link from "next/link"
 import { acceptConnection, deleteConnection } from "~/app/lib/actions"
 
 export default function User(props: {
-  id: string
+  idConnection: string
+  idUser?: string
+  idLoggedInUser?: string | null
   displayName: string
   isPending: boolean
 }) {
-  const { id, displayName, isPending } = props
-  const { userId: idUser } = useAuth()
+  const { idConnection, displayName, isPending, idUser, idLoggedInUser } = props
 
   return (
-    <li key={id}>
-      <Link href={`/profile/${id}`}>{displayName}</Link>
-      {idUser && idUser !== id && isPending && (
+    <li key={idConnection}>
+      <Link href={`/profile/${idConnection}`}>{displayName}</Link>
+      {idUser !== idLoggedInUser && isPending && (
         <span
           className="ml-4 cursor-pointer"
-          onClick={() => acceptConnection(id)}
+          onClick={() => acceptConnection(idConnection)}
         >
           ✅
         </span>
       )}
-      {idUser && (
-        <span
-          className="ml-4 cursor-pointer"
-          onClick={() => deleteConnection(id)}
-        >
-          ❌
-        </span>
-      )}
+
+      <span
+        className="ml-4 cursor-pointer"
+        onClick={() => deleteConnection(idConnection)}
+      >
+        ❌
+      </span>
     </li>
   )
 }
