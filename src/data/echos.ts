@@ -1,8 +1,9 @@
 import { echos, insertEchoSchema } from "~/db/schema/echos"
 import db from "~/db"
-import { eq, and, gt, desc, isNull } from "drizzle-orm"
+import { eq, and, gt, desc, isNull, inArray } from "drizzle-orm"
 import validationErrorHandler from "./validationErrorHandler"
 import { auth } from "@clerk/nextjs"
+import { getFollows } from "./connections"
 
 export type CreateEchoData = {
   idSender?: string
@@ -62,6 +63,35 @@ export async function getEchos(offset = 0, idParent?: number) {
       limit: 100,
       offset,
       where: idParent ? eq(echos.idParent, idParent) : isNull(echos.idParent),
+    })
+
+    return echosByDate
+  } catch (error) {
+    console.error("Database error: getting echos")
+    console.error(error)
+
+    return []
+  }
+}
+
+export async function getNotifications(offset = 0) {
+  console.log("should be at server")
+  const { userId: idUser } = auth()
+
+  if (!idUser) return null
+
+  try {
+    const follows = await getFollows()
+
+    if (!follows || follows?.length === 0) return []
+
+    const idUsers = follows.map((follow) => follow.idConnection)
+
+    const echosByDate = await db.query.echos.findMany({
+      orderBy: [desc(echos.date)],
+      limit: 100,
+      offset,
+      where: inArray(echos.idSender, idUsers),
     })
 
     return echosByDate
