@@ -59,7 +59,7 @@ export async function getEchos(offset = 0, idParent?: number) {
   try {
     const echosByDate = await db.query.echos.findMany({
       orderBy: [desc(echos.date)],
-      limit: 20,
+      limit: 100,
       offset,
       where: idParent ? eq(echos.idParent, idParent) : isNull(echos.idParent),
     })
