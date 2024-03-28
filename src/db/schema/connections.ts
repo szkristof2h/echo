@@ -14,12 +14,12 @@ export const connections = pgTable(
   {
     idUser: varchar("id_user").notNull(),
     idConnection: varchar("id_friend").notNull(),
-    type: varchar("type"),
+    type: varchar("type").notNull(),
     date: timestamp("date").default(sql`now()`),
     isPending: boolean("is_pending").default(true),
   },
   (table) => ({
-    pk: primaryKey({ columns: [table.idUser, table.idConnection] }),
+    pk: primaryKey({ columns: [table.idUser, table.idConnection, table.type] }),
     nameIdx: index("type_idx").on(table.type),
   }),
 )
