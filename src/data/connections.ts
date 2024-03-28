@@ -5,14 +5,25 @@ import { and, eq, or } from "drizzle-orm"
 import validationErrorHandler from "./validationErrorHandler"
 import { auth, clerkClient } from "@clerk/nextjs"
 
-export async function addConnection(idUser: string, idConnection: string) {
+export async function addConnection({
+  idUser,
+  idConnection,
+  type,
+  isPending = true,
+}: {
+  idUser: string
+  idConnection: string
+  isPending?: boolean
+  type: "connection" | "follow"
+}) {
   console.log("should be at server")
 
   try {
     const connection = {
       idUser,
       idConnection,
-      isPending: true,
+      isPending,
+      type,
     }
 
     const validatedConnection = insertConnectionSchema.parse(connection)
@@ -97,7 +108,13 @@ export async function removeConnection(idUser: string, id: string) {
       .where(
         or(
           and(eq(connections.idUser, idUser), eq(connections.idConnection, id)),
-          and(eq(connections.idUser, id), eq(connections.idConnection, idUser)),
+          and(
+            eq(connections.type, "connection"),
+            and(
+              eq(connections.idUser, id),
+              eq(connections.idConnection, idUser),
+            ),
+          ),
         ),
       )
       .returning()
@@ -144,6 +161,34 @@ export async function getConnections(options?: {
     return connectionsList
   } catch (error) {
     console.error("Database error: failed getting connections")
+    console.error(error)
+    return null
+  }
+}
+
+export async function getFollows() {
+  console.log("should be at server")
+  const { userId: idUser } = auth()
+
+  if (!idUser) return null
+
+  try {
+    // TODO: add limit etc
+    const follows = await db
+      .select({
+        idUser: connections.idUser,
+        idConnection: connections.idConnection,
+      })
+      .from(connections)
+      .where(
+        and(eq(connections.idUser, idUser), eq(connections.type, "follow")),
+      )
+
+    if (follows.length === 0) return []
+
+    return follows
+  } catch (error) {
+    console.error("Database error: failed getting follows")
     console.error(error)
     return null
   }

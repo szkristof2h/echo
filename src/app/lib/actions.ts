@@ -116,12 +116,36 @@ export async function updateProfile(
   redirect("/profile")
 }
 
+export async function createFollow(id: string) {
+  // TODO: add proper error handling
+
+  const { userId: idUser } = auth()
+
+  if (idUser)
+    await addConnection({
+      idUser,
+      idConnection: id,
+      isPending: false,
+      type: "follow",
+    })
+
+  // if (res && "message" in res)
+  //   return { errors: [res.message], status: "failure" }
+
+  revalidatePath("/profile/[[...id]]", "page")
+}
+
 export async function createConnection(id: string) {
   // TODO: add proper error handling
 
   const { userId: idUser } = auth()
 
-  if (idUser) await addConnection(idUser, id)
+  if (idUser)
+    await addConnection({
+      idUser,
+      idConnection: id,
+      type: "connection",
+    })
 
   // if (res && "message" in res)
   //   return { errors: [res.message], status: "failure" }
