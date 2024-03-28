@@ -5,6 +5,7 @@ import { redirect } from "next/navigation"
 import {
   addConnection,
   removeConnection,
+  removeFollow,
   updateConnection,
 } from "~/data/connections"
 import { createEcho as createEchoData } from "~/data/echos"
@@ -157,6 +158,18 @@ export async function deleteConnection(id: string) {
   const { userId: idUser } = auth()
 
   if (idUser) await removeConnection(idUser, id)
+
+  // TODO: add proper error handling
+  // if (res && "message" in res)
+  //   return { errors: [res.message], status: "failure" }
+
+  revalidatePath("/profile/[[...id]]", "page")
+}
+
+export async function deleteFollow(id: string) {
+  const { userId: idUser } = auth()
+
+  if (idUser) await removeFollow(idUser, id)
 
   // TODO: add proper error handling
   // if (res && "message" in res)

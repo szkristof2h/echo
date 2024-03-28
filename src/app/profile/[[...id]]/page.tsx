@@ -2,9 +2,10 @@ import Link from "next/link"
 import Head from "~/app/components/head"
 import { getUser, getCurrentUser } from "~/data/users"
 import ConnectionButton from "./components/connection-button"
-import { getConnection } from "~/data/connections"
+import { getConnection, getFollow } from "~/data/connections"
 import { SignOutButton } from "@clerk/nextjs"
 import Container from "~/app/components/container"
+import FollowButton from "./components/follow-button"
 
 export default async function Profile({
   params,
@@ -18,7 +19,9 @@ export default async function Profile({
   const interests =
     (user?.publicMetadata?.interests as string[] | undefined) ?? []
   const connection = id ? await getConnection(id) : null
-  const hasConnection = !!connection?.date ?? false
+  const follow = id ? await getFollow(id) : null
+  const hasConnection = !!connection ?? false
+  const isFollowing = !!follow ?? false
   const isPending = connection?.isPending ?? false
 
   return (
@@ -26,7 +29,7 @@ export default async function Profile({
       <Head title="Profile" />
       <div className="flex w-128 flex-col gap-4 p-0">
         <div className="flex items-center justify-between">
-          <h2 className="bg-secondary-dark h-16 w-full p-4 text-xl text-white">
+          <h2 className="h-16 w-full bg-secondary-dark p-4 text-xl text-white">
             {displayName}
           </h2>
           {id && (
@@ -36,9 +39,10 @@ export default async function Profile({
                 hasConnection={hasConnection}
                 isPending={isPending}
               />
+              <FollowButton idConnection={id} isFollowing={isFollowing} />
 
               <Link
-                className="bg-secondary-dark hover:bg-secondary-light flex h-16 w-full items-center p-2 px-4 text-white"
+                className="flex h-16 w-full items-center bg-secondary-dark p-2 px-4 text-white hover:bg-secondary-light"
                 href={`/echoTo/${user?.id}`}
               >
                 echo
@@ -63,7 +67,7 @@ export default async function Profile({
         </Container>
         {!id && (
           <SignOutButton>
-            <span className="bg-danger-light hover:bg-danger-dark my-4 inline-block cursor-pointer px-4 py-4 text-center text-xl text-white">
+            <span className="my-4 inline-block cursor-pointer bg-danger-light px-4 py-4 text-center text-xl text-white hover:bg-danger-dark">
               Sign out
             </span>
           </SignOutButton>

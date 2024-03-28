@@ -92,6 +92,7 @@ export async function updateConnection(
     return { message: "Database error: failed connection update" }
   }
 }
+
 export async function removeConnection(idUser: string, id: string) {
   console.log("should be at server")
 
@@ -106,15 +107,47 @@ export async function removeConnection(idUser: string, id: string) {
     const result = await db
       .delete(connections)
       .where(
-        or(
-          and(eq(connections.idUser, idUser), eq(connections.idConnection, id)),
-          and(
-            eq(connections.type, "connection"),
+        and(
+          or(
+            and(
+              eq(connections.idUser, idUser),
+              eq(connections.idConnection, id),
+            ),
             and(
               eq(connections.idUser, id),
               eq(connections.idConnection, idUser),
             ),
           ),
+          eq(connections.type, "connection"),
+        ),
+      )
+      .returning()
+
+    if (!result[0]) throw new Error("some error")
+
+    return result[0]
+  } catch (error) {
+    return { message: "Database error: failed connection removal" }
+  }
+}
+
+export async function removeFollow(idUser: string, id: string) {
+  console.log("should be at server")
+
+  try {
+    const user = await clerkClient.users.getUser(idUser)
+    const connectionUser = await clerkClient.users.getUser(id)
+
+    if (!user || !connectionUser)
+      // return some error
+      return
+
+    const result = await db
+      .delete(connections)
+      .where(
+        and(
+          and(eq(connections.idUser, idUser), eq(connections.idConnection, id)),
+          eq(connections.type, "follow"),
         ),
       )
       .returning()
@@ -136,9 +169,9 @@ export async function getConnections(options?: {
   if (!idUser) return null
 
   const isPending = options?.isPending
-  const where = or(
-    eq(connections.idUser, idUser),
-    eq(connections.idConnection, idUser),
+  const where = and(
+    or(eq(connections.idUser, idUser), eq(connections.idConnection, idUser)),
+    eq(connections.type, "connection"),
   )
   const whereWithPending =
     isPending !== undefined
@@ -203,15 +236,44 @@ export async function getConnection(idConnection: string) {
 
   try {
     const userConnection = await db.query.connections.findFirst({
-      where: or(
+      where: and(
+        eq(connections.type, "connection"),
+        or(
+          and(
+            eq(connections.idUser, idUser),
+            eq(connections.idConnection, idConnection),
+          ),
+          and(
+            eq(connections.idUser, idConnection),
+            eq(connections.idConnection, idUser),
+          ),
+        ),
+      ),
+    })
+
+    return userConnection
+  } catch (error) {
+    console.error("Database error: failed getting connection")
+    console.error(error)
+    return null
+  }
+}
+
+export async function getFollow(idConnection: string) {
+  console.log("should be at server")
+
+  const { userId: idUser } = auth()
+
+  if (!idUser) return null
+
+  try {
+    const userConnection = await db.query.connections.findFirst({
+      where: and(
         and(
           eq(connections.idUser, idUser),
           eq(connections.idConnection, idConnection),
         ),
-        and(
-          eq(connections.idUser, idConnection),
-          eq(connections.idConnection, idUser),
-        ),
+        eq(connections.type, "follow"),
       ),
     })
 
