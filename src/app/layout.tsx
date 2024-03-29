@@ -24,8 +24,8 @@ export default function RootLayout({
             <Link href="/profile">
               <Button>🧒</Button>
             </Link>
-            <Link href="/settings">
-              <Button>⚙️</Button>
+            <Link href="/notifications">
+              <Button>🔔</Button>
             </Link>
           </nav>
           <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#00BFB2] to-[#f0f3bd] bg-fixed text-slate-600">
