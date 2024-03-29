@@ -30,8 +30,10 @@ export default function Post(props: Props) {
           ) : (
             "..."
           )}
-          {" --> "}
-          {postedTo?.username ? (
+          {postedBy?.id !== postedTo?.id && " --> "}
+          {postedBy?.id === postedTo?.id ? (
+            ""
+          ) : postedTo?.username ? (
             <ProfileLink idUser={postedTo.id} displayName={postedTo.username} />
           ) : (
             "..."
