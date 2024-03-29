@@ -33,9 +33,9 @@ export async function createEcho(
     idReceiver: id ?? idUser,
   }
 
-  const receiverUser = id ? await getUser(id) : null
+  const doesUserExist = id ? await getUser(id) : true
 
-  if (!receiverUser)
+  if (!doesUserExist)
     return { errors: ["user doesn't exist"], status: "failure" }
 
   const res = await createEchoData(rawFormData)
