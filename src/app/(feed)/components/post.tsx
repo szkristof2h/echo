@@ -22,7 +22,7 @@ export default function Post(props: Props) {
         </Link>
       }
     >
-      <div className="mb-4 overflow-hidden">{text}</div>
+      <div className="mb-4 overflow-hidden whitespace-pre-line">{text}</div>
       <div className="flex justify-between text-sm">
         <span>
           {postedBy?.username ? (
