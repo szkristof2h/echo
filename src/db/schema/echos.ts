@@ -17,7 +17,7 @@ export const echos = pgTable(
   {
     id: serial("id").primaryKey().notNull(),
     idSender: varchar("idSender").notNull(),
-    idUser: varchar("idUser").notNull(),
+    idReceiver: varchar("idUser").notNull(),
     idParent: integer("id_parent"),
     text: varchar("display_name", { length: MAX_TEXT_LENGTH }).notNull(),
     title: varchar("title", { length: MAX_TITLE_LENGTH }).notNull(),

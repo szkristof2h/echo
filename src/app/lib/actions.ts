@@ -30,7 +30,7 @@ export async function createEcho(
     title: formData.get("title")?.toString(),
     idSender: idUser,
     idParent,
-    idUser: id ?? idUser,
+    idReceiver: id ?? idUser,
   }
 
   const receiverUser = id ? await getUser(id) : null

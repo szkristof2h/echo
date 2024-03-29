@@ -7,7 +7,7 @@ import { getFollows } from "./connections"
 
 export type CreateEchoData = {
   idSender?: string
-  idUser?: string
+  idReceiver?: string
   idParent?: number
   text?: string
   title?: string
@@ -35,12 +35,12 @@ export async function createEcho(echo: CreateEchoData) {
     if (!!idParent && !echoParent) throw new Error("invalid sth")
 
     const title = echoParent?.title ?? echo?.title
-    const idUser = echoParent?.idSender ?? echo?.idUser
+    const idReceiver = echoParent?.idSender ?? echo?.idReceiver
     const validatedEcho = insertEchoSchema.parse({
       text,
       title,
       idSender,
-      idUser,
+      idReceiver,
       idParent,
     })
 

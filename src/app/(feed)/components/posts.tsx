@@ -10,7 +10,7 @@ export default async function Posts(props: Props) {
   const { posts } = props
 
   const idSenders = posts?.map(({ idSender }) => idSender.toString())
-  const idReceivers = posts?.map(({ idUser }) => idUser.toString())
+  const idReceivers = posts?.map(({ idReceiver }) => idReceiver.toString())
   const users = await getUsers(
     Array.from(new Set([...idSenders, ...idReceivers])),
   )
@@ -18,9 +18,11 @@ export default async function Posts(props: Props) {
   return (
     <div className="flex flex-col gap-y-4">
       {posts.map((post) => {
-        const { id, title, date, text, idSender, idUser } = post
+        const { id, title, date, text, idSender, idReceiver } = post
         const postedBy = users?.find((user) => user.id === idSender.toString())
-        const postedTo = users?.find((user) => user.id === idUser.toString())
+        const postedTo = users?.find(
+          (user) => user.id === idReceiver.toString(),
+        )
 
         return (
           <Post
