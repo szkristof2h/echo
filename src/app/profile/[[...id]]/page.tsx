@@ -50,12 +50,20 @@ export default async function Profile({
                 </Link>
               </>
             ) : (
-              <Link
-                href="/settings"
-                className="bg-secondary-dark hover:bg-secondary-light flex h-16 items-center p-2 px-4 text-center text-white"
-              >
-                Edit profile
-              </Link>
+              <>
+                <Link
+                  href="/settings"
+                  className="bg-secondary-dark hover:bg-secondary-light flex h-16 items-center p-2 px-4 text-center text-white"
+                >
+                  Edit profile
+                </Link>
+                <Link
+                  href="/connections"
+                  className="bg-secondary-dark hover:bg-secondary-light flex h-16 items-center p-2 px-4 text-center text-white"
+                >
+                  View connections
+                </Link>
+              </>
             )}
           </div>
         </div>
