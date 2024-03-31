@@ -29,26 +29,35 @@ export default async function Profile({
       <Head title="Profile" />
       <div className="flex w-128 flex-col gap-4 p-0">
         <div className="flex items-center justify-between">
-          <h2 className="h-16 w-full bg-secondary-dark p-4 text-xl text-white">
+          <h2 className="bg-secondary-dark h-16 w-full p-4 text-xl text-white">
             {displayName}
           </h2>
-          {id && (
-            <div className="ml-4 flex gap-4">
-              <ConnectionButton
-                idConnection={id}
-                hasConnection={hasConnection}
-                isPending={isPending}
-              />
-              <FollowButton idConnection={id} isFollowing={isFollowing} />
+          <div className="ml-4 flex gap-4">
+            {id ? (
+              <>
+                <ConnectionButton
+                  idConnection={id}
+                  hasConnection={hasConnection}
+                  isPending={isPending}
+                />
+                <FollowButton idConnection={id} isFollowing={isFollowing} />
 
+                <Link
+                  className="bg-secondary-dark hover:bg-secondary-light flex h-16 w-full items-center p-2 px-4 text-white"
+                  href={`/echoTo/${user?.id}`}
+                >
+                  echo
+                </Link>
+              </>
+            ) : (
               <Link
-                className="flex h-16 w-full items-center bg-secondary-dark p-2 px-4 text-white hover:bg-secondary-light"
-                href={`/echoTo/${user?.id}`}
+                href="/settings"
+                className="bg-secondary-dark hover:bg-secondary-light flex h-16 items-center p-2 px-4 text-center text-white"
               >
-                echo
+                Edit profile
               </Link>
-            </div>
-          )}
+            )}
+          </div>
         </div>
         <Container title="Bio:" theme="secondary">
           {bio}
@@ -67,7 +76,7 @@ export default async function Profile({
         </Container>
         {!id && (
           <SignOutButton>
-            <span className="my-4 inline-block cursor-pointer bg-danger-light px-4 py-4 text-center text-xl text-white hover:bg-danger-dark">
+            <span className="bg-danger-light hover:bg-danger-dark my-4 inline-block cursor-pointer px-4 py-4 text-center text-xl text-white">
               Sign out
             </span>
           </SignOutButton>
