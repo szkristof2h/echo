@@ -50,14 +50,15 @@ export default function UserSearch(props: {
   }, [inputUserName])
 
   return (
-    <>
+    <div className="mt-4 ">
       {!idSelected && (
-        <ul>
+        <ul className="flex flex-wrap items-center gap-4">
+          Send to:
           {inputUserName &&
             users.map((user) => (
               <li
                 key={user.id}
-                className="mt-4 w-fit cursor-pointer bg-emerald-700 px-2 py-1 text-white hover:underline"
+                className="bg-secondary-light hover:bg-secondary-dark w-fit cursor-pointer px-2 py-1 text-white"
                 onClick={() => handleOnClick(user.id)}
               >
                 {user.username}
@@ -66,18 +67,19 @@ export default function UserSearch(props: {
         </ul>
       )}
       {idSelected && (
-        <span className="mt-4 inline-block bg-emerald-700 px-2 py-1 text-white">
-          {selectedUserName}
-        </span>
+        <div>
+          Send to:
+          <span className="bg-secondary-light ml-4 px-2 py-1 text-white">
+            {selectedUserName}
+          </span>
+          <span
+            onClick={handleRemoveSelection}
+            className="bg-danger-dark hover:bg-danger-light cursor-pointer px-2 py-1 text-white"
+          >
+            X
+          </span>
+        </div>
       )}
-      {idSelected && (
-        <span
-          onClick={handleRemoveSelection}
-          className="mt-4 inline-block cursor-pointer bg-red-600 px-2 py-1 text-white"
-        >
-          X
-        </span>
-      )}
-    </>
+    </div>
   )
 }
