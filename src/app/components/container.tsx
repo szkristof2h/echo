@@ -2,18 +2,20 @@ export default function Container(props: {
   children?: React.ReactNode
   className?: string
   title?: React.ReactElement | string
-  theme?: "primary" | "secondary"
+  theme?: "primary" | "secondary" | "tertiary"
 }) {
   const { children, title, theme = "primary" } = props
 
   const themeStylesLight = {
     primary: "bg-primary-light",
     secondary: "bg-secondary-light text-white",
+    tertiary: "bg-tertiary-light",
   }
 
   const themeStylesDark = {
     primary: "bg-primary-dark",
     secondary: "bg-secondary-dark text-white",
+    tertiary: "bg-tertiary-dark",
   }
 
   const contentBaseStyle = `${themeStylesLight[theme]} overflow-hidden p-4`
