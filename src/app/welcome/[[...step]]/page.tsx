@@ -53,7 +53,7 @@ const stepsContent = [
         link: "/login",
       },
       {
-        text: "Please take me back to...",
+        text: "No, I want something different",
         link: "/goodbye",
       },
     ],
@@ -67,41 +67,42 @@ export default function Welcome({ params }: { params: { step?: string[] } }) {
   return (
     <>
       <Head title="Welcome" />
-      <Container>
-        <h1>{content.title}</h1>
+      <Container className="flex flex-col gap-4" title={content.title}>
+        {/* <h1>{content.title}</h1> */}
         {content.texts.map((text, i) => (
           <p key={i}>{text}</p>
         ))}
-        {step !== 2 ? (
+        <div className="flex justify-around">
+          {step !== 2 ? (
+            <Link
+              href={content.buttons[0]?.link ?? defaultLink}
+              className="bg-secondary-dark min-w-10 inline-block cursor-pointer px-4 py-2 text-white hover:underline"
+            >
+              {content.buttons[0]?.text}
+            </Link>
+          ) : (
+            <SignUpButton>
+              <div className="bg-secondary-dark inline-block cursor-pointer px-4 py-2 text-white hover:underline">
+                I'm in! Sign me up to Echo.
+              </div>
+            </SignUpButton>
+          )}
+
           <Link
-            href={content.buttons[0]?.link ?? defaultLink}
-            className="ml-auto mr-4 inline-block cursor-pointer bg-emerald-400 px-4 py-2 text-white hover:underline"
+            href={content.buttons[1]?.link ?? defaultLink}
+            className="bg-secondary-dark min-w-10 inline-block cursor-pointer px-4 py-2 text-white hover:underline"
           >
-            {content.buttons[0]?.text}
+            {content.buttons[1]?.text}
           </Link>
-        ) : (
-          <SignUpButton>
-            <div className="ml-auto mr-4 inline-block cursor-pointer bg-emerald-400 px-4 py-2 text-white hover:underline">
-              I'm in! Sign me up to Echo.
-            </div>
-          </SignUpButton>
-        )}
-
-        <Link
-          href={content.buttons[1]?.link ?? defaultLink}
-          className="ml-auto inline-block cursor-pointer bg-emerald-400 px-4 py-2 text-white hover:underline"
-        >
-          {content.buttons[1]?.text}
-        </Link>
-
-        {step !== 2 && (
-          <SignUpButton>
-            <div className="mt-4 cursor-pointer rounded bg-slate-400 px-4 py-2 hover:bg-slate-300">
-              I'm already registered, let's login
-            </div>
-          </SignUpButton>
-        )}
+        </div>
       </Container>
+      {step !== 2 && (
+        <SignUpButton>
+          <div className="bg-tertiary-dark hover:bg-tertiary-light mt-4 cursor-pointer rounded px-4 py-2">
+            I'm already registered, let's login
+          </div>
+        </SignUpButton>
+      )}
     </>
   )
 }
