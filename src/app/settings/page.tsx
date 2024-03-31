@@ -13,9 +13,7 @@ export default async function Settings() {
   return (
     <>
       <Head title="Settings" />
-      <Container>
-        <FormWrapper username={username} bio={bio} interests={interests} />
-      </Container>
+      <FormWrapper username={username} bio={bio} interests={interests} />
     </>
   )
 }

@@ -23,22 +23,30 @@ export default function FormWrapper(props: Props) {
 
   return (
     <>
-      <form action={formAction} className="mt-4 flex flex-col gap-y-2">
-        <label>Username</label>
-        <Input name="username" autoFocus defaultValue={username ?? ""} />
-        <label>Bio</label>
-        <Textarea name="bio" defaultValue={bio} />
-        <label>Interests (seperate with comma)</label>
-        <Textarea name="interests" defaultValue={interests} />
-        <SubmitButton text="Save" />
-      </form>
       <ul>
         {state?.errors?.map((error, i) => (
-          <li className="my-4 bg-red-400 px-4 py-2 text-white" key={i}>
+          <li className="bg-danger-dark my-4 px-4 py-2 text-white" key={i}>
             Couldn't update profile: {error}
           </li>
         ))}
       </ul>
+      <form action={formAction} className="mt-4 flex flex-col gap-y-4">
+        <div className="flex flex-col">
+          <label className="bg-primary-dark px-4 py-2">Username</label>
+          <Input name="username" autoFocus defaultValue={username ?? ""} />
+        </div>
+        <div className="flex flex-col">
+          <label className="bg-primary-dark px-4 py-2">Bio</label>
+          <Textarea name="bio" defaultValue={bio} />
+        </div>
+        <div className="flex flex-col">
+          <label className="bg-primary-dark px-4 py-2">
+            Interests (seperate with comma)
+          </label>
+          <Textarea name="interests" defaultValue={interests} />
+        </div>
+        <SubmitButton text="Save" />
+      </form>
     </>
   )
 }
