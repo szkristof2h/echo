@@ -14,21 +14,26 @@ export default function User(props: {
 
   return (
     <li key={idConnection}>
-      <Link href={`/profile/${idConnection}`}>{displayName}</Link>
+      <Link
+        className="bg-secondary-dark hover:bg-secondary-light px-2 py-1 text-white"
+        href={`/profile/${idConnection}`}
+      >
+        {displayName}
+      </Link>
       {idUser !== idLoggedInUser && isPending && (
         <span
-          className="ml-4 cursor-pointer"
+          className="ml-4 cursor-pointer bg-emerald-200 px-2 py-1 hover:bg-emerald-300"
           onClick={() => acceptConnection(idConnection)}
         >
-          ✅
+          ✅ Accept
         </span>
       )}
 
       <span
-        className="ml-4 cursor-pointer"
+        className="bg-danger-light hover:bg-danger-dark ml-4 cursor-pointer px-2 py-1 text-white"
         onClick={() => deleteConnection(idConnection)}
       >
-        ❌
+        ❌ Decline
       </span>
     </li>
   )

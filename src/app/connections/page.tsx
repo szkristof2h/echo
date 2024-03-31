@@ -25,70 +25,75 @@ export default async function Connections() {
   return (
     <>
       <Head title="Connections" />
-      <Container>
-        <h2>Pending connections</h2>
-        <ul>
-          {pendingConnections?.map((connection) => {
-            const user = users?.find(
-              (user) =>
-                user.id === connection.idConnection ||
-                user.id === connection.idUser,
-            )
-
-            return (
-              user?.username && (
-                <User
-                  idConnection={user.id}
-                  idLoggedInUser={idUser}
-                  idUser={connection.idUser}
-                  displayName={user.username}
-                  isPending={!!connection.isPending}
-                />
+      <div className="flex flex-col gap-4">
+        <ul className="">
+          <Container theme="primary" title="Pending connections">
+            {pendingConnections?.map((connection) => {
+              const user = users?.find(
+                (user) =>
+                  user.id === connection.idConnection ||
+                  user.id === connection.idUser,
               )
-            )
-          })}
-        </ul>
-        <h2>Connections</h2>
-        <ul>
-          {acceptedConnections?.map((connection) => {
-            const user = users?.find(
-              (user) =>
-                user.id === connection.idConnection ||
-                user.id === connection.idUser,
-            )
 
-            return (
-              user?.username && (
-                <User
-                  idConnection={user.id}
-                  displayName={user.username}
-                  isPending={!!connection.isPending}
-                />
+              return (
+                user?.username && (
+                  <User
+                    idConnection={user.id}
+                    idLoggedInUser={idUser}
+                    idUser={connection.idUser}
+                    displayName={user.username}
+                    isPending={!!connection.isPending}
+                  />
+                )
               )
-            )
-          })}
+            })}
+          </Container>
         </ul>
-        <h2>Following</h2>
-        <ul>
-          {follows?.map((connection) => {
-            const user = users?.find(
-              (user) =>
-                user.id === connection.idConnection ||
-                user.id === connection.idUser,
-            )
 
-            return (
-              user?.username && (
-                <User
-                  idConnection={user.id}
-                  displayName={user.username}
-                  isPending={false}
-                />
+        <ul>
+          <Container title="Connections" theme="primary">
+            {acceptedConnections?.map((connection) => {
+              const user = users?.find(
+                (user) =>
+                  user.id === connection.idConnection ||
+                  user.id === connection.idUser,
               )
-            )
-          })}
+
+              return (
+                user?.username && (
+                  <User
+                    idConnection={user.id}
+                    displayName={user.username}
+                    isPending={!!connection.isPending}
+                  />
+                )
+              )
+            })}
+            {!acceptedConnections.length && "No connections :("}
+          </Container>
         </ul>
-      </Container>
+        <ul>
+          <Container title="Following" theme="primary">
+            {follows?.map((connection) => {
+              const user = users?.find(
+                (user) =>
+                  user.id === connection.idConnection ||
+                  user.id === connection.idUser,
+              )
+
+              return (
+                user?.username && (
+                  <User
+                    idConnection={user.id}
+                    displayName={user.username}
+                    isPending={false}
+                  />
+                )
+              )
+            })}
+          </Container>
+        </ul>
+      </div>
     </>
   )
 }
