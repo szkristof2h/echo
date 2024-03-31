@@ -12,11 +12,11 @@ export default async function Home() {
   return (
     <>
       <Head title="Echo" />
-      <span className="mb-4 inline-block bg-tertiary-dark p-4">
+      <span className="bg-tertiary-dark mb-4 inline-block w-full p-4 text-center">
         This week's topic is {topic?.[0]?.text}
       </span>
       <Link href="/echoTo">
-        <Button className="inline-block w-32 p-4">Write</Button>
+        <Button className="mb-4 inline-block w-full p-4">Write Echo</Button>
       </Link>
       <Posts posts={echos} />
     </>
