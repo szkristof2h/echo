@@ -26,7 +26,7 @@ export default function User(props: {
     type === "follow" ? "Unfollow" : isPending ? "Decline" : "Remove"
 
   return (
-    <li key={idConnection} className="grid grid-cols-3 gap-4">
+    <li key={idConnection} className="mb-4 grid grid-cols-3 gap-4">
       <Link className="button-primary" href={`/profile/${idConnection}`}>
         {displayName}
       </Link>
