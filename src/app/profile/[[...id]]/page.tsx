@@ -15,6 +15,7 @@ export default async function Profile({
   const id = params.id?.[0] ?? null
   const user = id ? await getUser(id) : await getCurrentUser()
   const displayName = user?.username ?? ""
+  const imageUrl = user?.imageUrl ?? ""
   const bio = (user?.publicMetadata?.bio as string | undefined) ?? ""
   const interests =
     (user?.publicMetadata?.interests as string[] | undefined) ?? []
@@ -28,11 +29,16 @@ export default async function Profile({
     <>
       <Head title="Profile" />
       <div className="flex w-128 flex-col gap-4 p-0">
-        <div className="flex items-center justify-between">
-          <h2 className="bg-secondary-dark h-16 w-full p-4 text-xl text-white">
-            {displayName}
-          </h2>
-          <div className="ml-4 flex gap-4">
+        <div className="grid grid-cols-3 gap-4">
+          <div className="col-span-2">
+            <Container title={displayName} className="h-full">
+              <img
+                src={imageUrl}
+                className="mx-auto my-4 h-40 w-auto rounded-full"
+              ></img>
+            </Container>
+          </div>
+          <div className="flex flex-col items-end gap-4">
             {id ? (
               <>
                 <ConnectionButton
@@ -43,7 +49,7 @@ export default async function Profile({
                 <FollowButton idConnection={id} isFollowing={isFollowing} />
 
                 <Link
-                  className="bg-secondary-dark hover:bg-secondary-light flex h-16 w-full items-center p-2 px-4 text-white"
+                  className=" bg-secondary-light hover:from-secondary-light hover:to-secondary-dark flex h-16 w-full items-center rounded-lg p-2 px-4 text-center text-center text-white shadow-xl hover:bg-gradient-to-b"
                   href={`/echoTo/${user?.id}`}
                 >
                   echo
@@ -53,28 +59,28 @@ export default async function Profile({
               <>
                 <Link
                   href="/settings"
-                  className="bg-secondary-dark hover:bg-secondary-light flex h-16 items-center p-2 px-4 text-center text-white"
+                  className="bg-secondary-light hover:from-secondary-light hover:to-secondary-dark flex h-16 w-full items-center rounded-lg p-2 px-4 text-center text-white shadow-xl hover:bg-gradient-to-b"
                 >
-                  Edit profile
+                  Edit
                 </Link>
                 <Link
                   href="/connections"
-                  className="bg-secondary-dark hover:bg-secondary-light flex h-16 items-center p-2 px-4 text-center text-white"
+                  className="bg-secondary-light hover:from-secondary-light hover:to-secondary-dark flex h-16 w-full items-center rounded-lg p-2 px-4 text-center text-white shadow-xl hover:bg-gradient-to-b"
                 >
-                  View connections
+                  Connections
                 </Link>
               </>
             )}
           </div>
         </div>
-        <Container title="Bio:" theme="secondary">
+        <Container title="Bio" theme="primary">
           {bio}
         </Container>
-        <Container theme="secondary" title="I like">
+        <Container theme="primary" title="I like">
           <div className="flex flex-wrap gap-4">
             {interests.map((interest) => (
               <span
-                className="bg-primary-dark p-4 text-slate-600"
+                className="bg-tertiary-dark rounded-lg p-4 shadow-md"
                 key={interest}
               >
                 {interest}
@@ -84,7 +90,7 @@ export default async function Profile({
         </Container>
         {!id && (
           <SignOutButton>
-            <span className="bg-danger-light hover:bg-danger-dark my-4 inline-block cursor-pointer px-4 py-4 text-center text-xl text-white">
+            <span className="bg-danger-light hover:bg-danger-dark my-4 inline-block cursor-pointer rounded-lg px-4 py-4 text-center text-xl text-white">
               Sign out
             </span>
           </SignOutButton>

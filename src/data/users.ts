@@ -9,9 +9,9 @@ export async function getUser(id: string) {
 
     if (!user) return null
 
-    const { username, publicMetadata } = user
+    const { username, publicMetadata, imageUrl } = user
 
-    return { id, username, publicMetadata }
+    return { id, username, publicMetadata, imageUrl }
   } catch (error) {
     console.error("Database error: failed getting user")
     console.error(error)
