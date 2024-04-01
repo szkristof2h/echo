@@ -17,9 +17,9 @@ export default function User(props: {
 }) {
   const { idConnection, displayName, isPending, idUser, idLoggedInUser, type } =
     props
-  const handleDelete = (id: string) => {
-    if (type === "follow") deleteFollow(id)
-    else deleteConnection(id)
+  const handleDelete = async (id: string) => {
+    if (type === "follow") await deleteFollow(id)
+    else await deleteConnection(id)
   }
   const declineText =
     type === "follow" ? "Unfollow" : isPending ? "Decline" : "Remove"
