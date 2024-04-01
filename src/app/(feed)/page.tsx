@@ -4,6 +4,7 @@ import { getEchos } from "~/data/echos"
 import { getCurrentTopic } from "~/data/topics"
 import { Button } from "~/app/components/button"
 import Link from "next/link"
+import Container from "../components/container"
 
 export default async function Home() {
   const echos = await getEchos()
@@ -12,9 +13,9 @@ export default async function Home() {
   return (
     <>
       <Head title="Echo" />
-      <span className="bg-tertiary-dark mb-4 inline-block w-full p-4 text-center">
+      <Container className="mb-4 text-center" theme="tertiary">
         This week's topic is {topic?.[0]?.text}
-      </span>
+      </Container>
       <Link href="/echoTo">
         <Button className="mb-8 inline-block w-full p-4">Write Echo</Button>
       </Link>
