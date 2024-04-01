@@ -26,23 +26,16 @@ export default function User(props: {
     type === "follow" ? "Unfollow" : isPending ? "Decline" : "Remove"
 
   return (
-    <li key={idConnection}>
-      <Link
-        className="bg-secondary-dark hover:bg-secondary-light px-2 py-1 text-white"
-        href={`/profile/${idConnection}`}
-      >
+    <li key={idConnection} className="grid grid-cols-3 gap-4">
+      <Link className="button-primary" href={`/profile/${idConnection}`}>
         {displayName}
       </Link>
       {idUser !== idLoggedInUser && isPending && (
-        <span
-          className="ml-4 cursor-pointer bg-emerald-200 px-2 py-1 hover:bg-emerald-300"
-          onClick={() => acceptConnection(idConnection)}
-        >
+        <Button theme="success" onClick={() => acceptConnection(idConnection)}>
           ✅ Accept
-        </span>
+        </Button>
       )}
-
-      <Button  onClick={() => handleDelete(idConnection)}>
+      <Button theme="danger" onClick={() => handleDelete(idConnection)}>
         ❌ {declineText}
       </Button>
     </li>

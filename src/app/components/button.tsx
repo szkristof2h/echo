@@ -3,7 +3,7 @@ import type { HTMLAttributes } from "react"
 interface ButtonProps extends HTMLAttributes<HTMLButtonElement> {
   buttonType?: "button" | "submit" | "reset"
   placeholder?: string
-  theme?: "primary" | "secondary" | "tertiary" | "danger"
+  theme?: "primary" | "secondary" | "tertiary" | "danger" | "success"
 }
 
 export const Button = (props: ButtonProps) => {

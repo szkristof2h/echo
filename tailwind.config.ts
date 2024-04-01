@@ -25,8 +25,12 @@ export default {
           dark: "rgba(210, 242, 167, 0.9)",
         },
         danger: {
-          light: "#de6b6b",
-          dark: "#d55b5b",
+          light: "#ed8585",
+          dark: "#ec6d6d",
+        },
+        success: {
+          light: "#7de583",
+          dark: "#61df69",
         },
       },
     },
