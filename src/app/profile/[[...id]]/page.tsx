@@ -28,17 +28,17 @@ export default async function Profile({
   return (
     <>
       <Head title="Profile" />
-      <div className="flex w-128 flex-col gap-4 p-0">
+      <div className="flex flex-col gap-4">
         <div className="grid grid-cols-3 gap-4">
           <div className="col-span-2">
             <Container title={displayName} className="h-full">
               <img
                 src={imageUrl}
-                className="mx-auto my-4 h-40 w-auto rounded-full"
+                className="mx-auto my-4 h-40 w-auto rounded-full shadow-xl"
               ></img>
             </Container>
           </div>
-          <div className="flex flex-col items-end gap-4">
+          <div className="flex flex-col gap-4">
             {id ? (
               <>
                 <ConnectionButton
@@ -48,26 +48,17 @@ export default async function Profile({
                 />
                 <FollowButton idConnection={id} isFollowing={isFollowing} />
 
-                <Link
-                  className=" bg-secondary-light hover:from-secondary-light hover:to-secondary-dark flex h-16 w-full items-center rounded-lg p-2 px-4 text-center text-center text-white shadow-xl hover:bg-gradient-to-b"
-                  href={`/echoTo/${user?.id}`}
-                >
+                <Link className="button" href={`/echoTo/${user?.id}`}>
                   echo
                 </Link>
               </>
             ) : (
               <>
-                <Link
-                  href="/settings"
-                  className="bg-secondary-light hover:from-secondary-light hover:to-secondary-dark flex h-16 w-full items-center rounded-lg p-2 px-4 text-center text-white shadow-xl hover:bg-gradient-to-b"
-                >
-                  Edit
+                <Link href="/settings" className="button">
+                  edit
                 </Link>
-                <Link
-                  href="/connections"
-                  className="bg-secondary-light hover:from-secondary-light hover:to-secondary-dark flex h-16 w-full items-center rounded-lg p-2 px-4 text-center text-white shadow-xl hover:bg-gradient-to-b"
-                >
-                  Connections
+                <Link href="/connections" className="button">
+                  connections
                 </Link>
               </>
             )}
@@ -79,18 +70,15 @@ export default async function Profile({
         <Container theme="primary" title="I like">
           <div className="flex flex-wrap gap-4">
             {interests.map((interest) => (
-              <span
-                className="bg-tertiary-dark rounded-lg p-4 shadow-md"
-                key={interest}
-              >
+              <Container className="shadow-sm" theme="tertiary" key={interest}>
                 {interest}
-              </span>
+              </Container>
             ))}
           </div>
         </Container>
         {!id && (
           <SignOutButton>
-            <span className="bg-danger-light hover:bg-danger-dark my-4 inline-block cursor-pointer rounded-lg px-4 py-4 text-center text-xl text-white">
+            <span className="bg-danger-light hover:bg-danger-dark inline-block cursor-pointer rounded-lg px-4 py-4 text-center text-xl text-white">
               Sign out
             </span>
           </SignOutButton>

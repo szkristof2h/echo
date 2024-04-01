@@ -10,9 +10,7 @@ export const Button = (props: ButtonProps) => {
   return (
     <button
       type={buttonType}
-      className={`hover:from-secondary-light hover:to-secondary-dark bg-secondary-light w-full rounded-lg p-2 text-white shadow-xl hover:bg-gradient-to-b ${
-        className ?? ""
-      }`}
+      className={`button ${className ?? ""}`}
       {...rest}
     />
   )

@@ -15,7 +15,7 @@ export default function ConnectionButton(props: {
   }
 
   return (
-    <Button className="h-16 px-4" onClick={() => handleOnClick(idConnection)}>
+    <Button onClick={() => handleOnClick(idConnection)}>
       {hasConnection ? (isPending ? "sent" : "your connection") : "connect"}
     </Button>
   )
