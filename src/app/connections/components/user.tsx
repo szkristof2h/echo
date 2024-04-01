@@ -1,7 +1,11 @@
 "use client"
 
 import Link from "next/link"
-import { acceptConnection, deleteConnection } from "~/app/lib/actions"
+import {
+  acceptConnection,
+  deleteConnection,
+  deleteFollow,
+} from "~/app/lib/actions"
 
 export default function User(props: {
   idConnection: string
@@ -9,13 +13,21 @@ export default function User(props: {
   idLoggedInUser?: string | null
   displayName: string
   isPending: boolean
+  type: "connection" | "follow"
 }) {
-  const { idConnection, displayName, isPending, idUser, idLoggedInUser } = props
+  const { idConnection, displayName, isPending, idUser, idLoggedInUser, type } =
+    props
+  const handleDelete = (id: string) => {
+    if (type === "follow") deleteFollow(id)
+    else deleteConnection(id)
+  }
+  const declineText =
+    type === "follow" ? "Unfollow" : isPending ? "Decline" : "Remove"
 
   return (
     <li key={idConnection}>
       <Link
-        className="bg-secondary-dark hover:bg-secondary-light px-2 py-1 text-white"
+        className="bg-secondary-dark px-2 py-1 text-white hover:bg-secondary-light"
         href={`/profile/${idConnection}`}
       >
         {displayName}
@@ -30,10 +42,10 @@ export default function User(props: {
       )}
 
       <span
-        className="bg-danger-light hover:bg-danger-dark ml-4 cursor-pointer px-2 py-1 text-white"
-        onClick={() => deleteConnection(idConnection)}
+        className="ml-4 cursor-pointer bg-danger-light px-2 py-1 text-white hover:bg-danger-dark"
+        onClick={() => handleDelete(idConnection)}
       >
-        ❌ Decline
+        ❌ {declineText}
       </span>
     </li>
   )

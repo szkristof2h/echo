@@ -43,6 +43,7 @@ export default async function Connections() {
                     idUser={connection.idUser}
                     displayName={user.username}
                     isPending={!!connection.isPending}
+                    type="connection"
                   />
                 )
               )
@@ -65,6 +66,7 @@ export default async function Connections() {
                     idConnection={user.id}
                     displayName={user.username}
                     isPending={!!connection.isPending}
+                    type="connection"
                   />
                 )
               )
@@ -87,6 +89,7 @@ export default async function Connections() {
                     idConnection={user.id}
                     displayName={user.username}
                     isPending={false}
+                    type="follow"
                   />
                 )
               )
