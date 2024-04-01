@@ -34,7 +34,7 @@ export default function RootLayout({
                 Echo
               </h1>
             </Link>
-            <div className="h-full w-128">{children}</div>
+            <div className="mb-12 h-full w-128">{children}</div>
           </main>
         </body>
       </html>
