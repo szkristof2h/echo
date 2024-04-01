@@ -6,10 +6,10 @@ export default function Container(props: {
 }) {
   const { children, title, theme = "primary" } = props
 
-  const themeStylesLight = {
-    primary: "bg-primary-light",
+  const themeStyles = {
+    primary: "from-primary-light to-primary-dark bg-gradient-to-b",
     secondary: "bg-secondary-light text-white",
-    tertiary: "bg-tertiary-light",
+    tertiary: "bg-tertiary-light", //"from-tertiary-light to-tertiary-dark bg-gradient-to-b",
   }
 
   const themeStylesDark = {
@@ -18,18 +18,18 @@ export default function Container(props: {
     tertiary: "bg-tertiary-dark",
   }
 
-  const contentBaseStyle = `${themeStylesLight[theme]} overflow-hidden p-4`
+  const containerBaseStyle = `${themeStyles[theme]} rounded-lg shadow-xl`
 
-  const contentClassName = props.className
-    ? `${contentBaseStyle} ${props.className}`
-    : contentBaseStyle
+  const containerClassName = props.className
+    ? `${containerBaseStyle} ${props.className}`
+    : containerBaseStyle
 
-  const titleStyle = `${themeStylesDark[theme]} text-xl p-4`
+  const titleStyle = `text-xl p-4`
 
   return (
-    <div>
+    <div className={containerClassName}>
       {!!title && <h2 className={titleStyle}>{title}</h2>}
-      {!!children && <div className={contentClassName}>{children}</div>}
+      {!!children && <div className="overflow-hidden p-4">{children}</div>}
     </div>
   )
 }

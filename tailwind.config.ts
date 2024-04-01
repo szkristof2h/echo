@@ -13,16 +13,16 @@ export default {
       },
       colors: {
         primary: {
-          light: "#ecfdf5",
-          dark: "#b5f7ce",
+          light: "rgba(255, 255, 255, 0.7)",
+          dark: "rgba(240, 240, 240, 0.7)",
         },
         secondary: {
-          light: "#1b914f",
-          dark: "#177d44",
+          light: "#0f6c6c",
+          dark: "#0c5656",
         },
         tertiary: {
-          light: "#eacd05",
-          dark: "#dcc313",
+          light: "rgba(220, 255, 175, 0.9)",
+          dark: "rgba(210, 242, 167, 0.9)",
         },
         danger: {
           light: "rgba(238,17,17,1)",
