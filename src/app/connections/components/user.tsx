@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import { Button } from "~/app/components/button"
 import {
   acceptConnection,
   deleteConnection,
@@ -27,7 +28,7 @@ export default function User(props: {
   return (
     <li key={idConnection}>
       <Link
-        className="bg-secondary-dark px-2 py-1 text-white hover:bg-secondary-light"
+        className="bg-secondary-dark hover:bg-secondary-light px-2 py-1 text-white"
         href={`/profile/${idConnection}`}
       >
         {displayName}
@@ -41,12 +42,9 @@ export default function User(props: {
         </span>
       )}
 
-      <span
-        className="ml-4 cursor-pointer bg-danger-light px-2 py-1 text-white hover:bg-danger-dark"
-        onClick={() => handleDelete(idConnection)}
-      >
+      <Button  onClick={() => handleDelete(idConnection)}>
         ❌ {declineText}
-      </span>
+      </Button>
     </li>
   )
 }

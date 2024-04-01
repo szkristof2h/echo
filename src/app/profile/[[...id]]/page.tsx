@@ -48,26 +48,26 @@ export default async function Profile({
                 />
                 <FollowButton idConnection={id} isFollowing={isFollowing} />
 
-                <Link className="button" href={`/echoTo/${user?.id}`}>
+                <Link className="button-primary" href={`/echoTo/${user?.id}`}>
                   echo
                 </Link>
               </>
             ) : (
               <>
-                <Link href="/settings" className="button">
+                <Link href="/settings" className="button-primary">
                   edit
                 </Link>
-                <Link href="/connections" className="button">
+                <Link href="/connections" className="button-primary">
                   connections
                 </Link>
               </>
             )}
           </div>
         </div>
-        <Container title="Bio" theme="primary">
+        <Container title="Bio" theme="secondary">
           {bio}
         </Container>
-        <Container theme="primary" title="I like">
+        <Container theme="secondary" title="I like">
           <div className="flex flex-wrap gap-4">
             {interests.map((interest) => (
               <Container className="shadow-sm" theme="tertiary" key={interest}>
@@ -78,9 +78,7 @@ export default async function Profile({
         </Container>
         {!id && (
           <SignOutButton>
-            <span className="bg-danger-light hover:bg-danger-dark inline-block cursor-pointer rounded-lg px-4 py-4 text-center text-xl text-white">
-              Sign out
-            </span>
+            <span className="button-danger">Sign out</span>
           </SignOutButton>
         )}
       </div>

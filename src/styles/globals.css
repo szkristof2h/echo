@@ -3,7 +3,16 @@
 @tailwind utilities;
 
 @layer components {
-  .button {
-    @apply hover:from-secondary-light hover:to-secondary-dark bg-secondary-light w-full rounded-lg p-2 text-center text-white shadow-xl hover:bg-gradient-to-b;
+  .button-primary {
+    @apply hover:from-primary-light hover:to-primary-dark bg-primary-light w-full cursor-pointer rounded-lg p-2 text-center text-white shadow-xl hover:bg-gradient-to-b;
+  }
+  .button-secondary {
+    @apply hover:from-secondary-light hover:to-secondary-dark bg-secondary-light w-full cursor-pointer rounded-lg p-2 text-center text-white shadow-xl hover:bg-gradient-to-b;
+  }
+  .button-tertiary {
+    @apply hover:from-tertiary-light hover:to-tertiary-dark bg-tertiary-light w-full cursor-pointer rounded-lg p-2 text-center text-white shadow-xl hover:bg-gradient-to-b;
+  }
+  .button-danger {
+    @apply hover:from-danger-light hover:to-danger-dark bg-danger-light w-full cursor-pointer rounded-lg p-2 text-center text-white shadow-xl hover:bg-gradient-to-b;
   }
 }

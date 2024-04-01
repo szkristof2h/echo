@@ -27,7 +27,7 @@ export default async function Connections() {
       <Head title="Connections" />
       <div className="flex flex-col gap-4">
         <ul className="">
-          <Container theme="primary" title="Pending connections">
+          <Container title="Pending connections">
             {pendingConnections?.map((connection) => {
               const user = users?.find(
                 (user) =>
@@ -52,7 +52,7 @@ export default async function Connections() {
         </ul>
 
         <ul>
-          <Container title="Connections" theme="primary">
+          <Container title="Connections" theme="secondary">
             {acceptedConnections?.map((connection) => {
               const user = users?.find(
                 (user) =>
@@ -75,7 +75,7 @@ export default async function Connections() {
           </Container>
         </ul>
         <ul>
-          <Container title="Following" theme="primary">
+          <Container title="Following" theme="secondary">
             {follows?.map((connection) => {
               const user = users?.find(
                 (user) =>

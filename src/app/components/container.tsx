@@ -4,11 +4,11 @@ export default function Container(props: {
   title?: React.ReactElement | string
   theme?: "primary" | "secondary" | "tertiary"
 }) {
-  const { children, title, theme = "primary" } = props
+  const { children, title, theme = "secondary" } = props
 
   const themeStyles = {
-    primary: "from-primary-light to-primary-dark bg-gradient-to-b",
-    secondary: "bg-secondary-light text-white",
+    primary: "from-primary-light to-primary-dark bg-gradient-to-b text-white",
+    secondary: "bg-secondary-light",
     tertiary: "bg-tertiary-light", //"from-tertiary-light to-tertiary-dark bg-gradient-to-b",
   }
 
