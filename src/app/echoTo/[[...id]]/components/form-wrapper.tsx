@@ -1,4 +1,5 @@
 "use client"
+import Container from "~/app/components/container"
 import EchoForm from "./echo-form"
 import UserForm from "./user-form"
 import { useState } from "react"
@@ -12,11 +13,11 @@ export default function FormWrapper(props: {
   const [idSelected, setIdSelected] = useState(idDefault)
 
   return (
-    <div className="flex w-128 flex-col ">
+    <div className="flex w-128 flex-col gap-4">
       {(!!echoCount || echoCount === 0) && (
-        <div className="bg-tertiary-light mb-4 p-2 text-center">
+        <Container theme="tertiary" className="text-center">
           Echos remaining today: {5 - echoCount}
-        </div>
+        </Container>
       )}
       <UserForm
         defaultName={defaultName}

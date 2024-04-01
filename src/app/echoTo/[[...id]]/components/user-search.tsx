@@ -50,7 +50,7 @@ export default function UserSearch(props: {
   }, [inputUserName])
 
   return (
-    <div className="mt-4 ">
+    <>
       {!idSelected && (
         <ul className="flex flex-wrap items-center gap-4">
           Send to:
@@ -58,7 +58,7 @@ export default function UserSearch(props: {
             users.map((user) => (
               <li
                 key={user.id}
-                className="bg-secondary-light hover:bg-secondary-dark w-fit cursor-pointer px-2 py-1 text-white"
+                className="button-primary w-auto"
                 onClick={() => handleOnClick(user.id)}
               >
                 {user.username}
@@ -69,17 +69,17 @@ export default function UserSearch(props: {
       {idSelected && (
         <div>
           Send to:
-          <span className="bg-secondary-light ml-4 px-2 py-1 text-white">
+          <span className="button-primary ml-4 rounded-r-none">
             {selectedUserName}
           </span>
           <span
             onClick={handleRemoveSelection}
-            className="bg-danger-dark hover:bg-danger-light cursor-pointer px-2 py-1 text-white"
+            className="button-danger rounded-l-none"
           >
             X
           </span>
         </div>
       )}
-    </div>
+    </>
   )
 }
