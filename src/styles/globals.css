@@ -34,7 +34,7 @@
   );
   background-origin: border-box;
   border-color: transparent;
-  animation: 2s rotate linear infinite;
+  animation: 3s rotate linear infinite;
 }
 
 @keyframes rotate {
