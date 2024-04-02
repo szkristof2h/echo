@@ -3,7 +3,7 @@ import Head from "~/app/components/head"
 import { getUser, getCurrentUser } from "~/data/users"
 import ConnectionButton from "./components/connection-button"
 import { getConnection, getFollow } from "~/data/connections"
-import { SignOutButton } from "@clerk/nextjs"
+import { SignOutButton, auth } from "@clerk/nextjs"
 import Container from "~/app/components/container"
 import FollowButton from "./components/follow-button"
 
@@ -14,7 +14,9 @@ export default async function Profile({
 }) {
   const id = params.id?.[0] ?? null
   const user = id ? await getUser(id) : await getCurrentUser()
-  const isOwnProfile = id === user?.id
+  const { userId: idLoggedInUser } = auth()
+
+  const isOwnProfile = id === idLoggedInUser
   const displayName = user?.username ?? ""
   const imageUrl = user?.imageUrl ?? ""
   const bio = (user?.publicMetadata?.bio as string | undefined) ?? ""
@@ -50,7 +52,7 @@ export default async function Profile({
                 <FollowButton idConnection={id} isFollowing={isFollowing} />
 
                 <Link className="button-primary" href={`/echoTo/${user?.id}`}>
-                  echo
+                  Echo
                 </Link>
               </>
             ) : (
