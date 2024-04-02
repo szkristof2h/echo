@@ -16,7 +16,7 @@ export default function ConnectionButton(props: {
 
   return (
     <Button onClick={() => handleOnClick(idConnection)}>
-      {hasConnection ? (isPending ? "sent" : "your connection") : "connect"}
+      {hasConnection ? (isPending ? "Sent" : "Your connection") : "Connect"}
     </Button>
   )
 }

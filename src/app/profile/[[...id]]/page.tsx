@@ -58,7 +58,7 @@ export default async function Profile({
                   edit
                 </Link>
                 <Link href="/connections" className="button-primary">
-                  connections
+                  Connections
                 </Link>
               </>
             )}

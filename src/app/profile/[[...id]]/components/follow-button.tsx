@@ -15,7 +15,7 @@ export default function FollowButton(props: {
 
   return (
     <Button onClick={() => handleOnClick(idConnection)}>
-      {isFollowing ? "following" : "follow"}
+      {isFollowing ? "Following" : "Follow"}
     </Button>
   )
 }
