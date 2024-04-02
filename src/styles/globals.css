@@ -19,3 +19,32 @@
     @apply hover:from-success-light hover:to-success-dark bg-success-light w-full cursor-pointer rounded-lg p-2 text-center shadow-xl hover:bg-gradient-to-b;
   }
 }
+
+.rainbow-border {
+  --angle: 0deg;
+  background-image: conic-gradient(
+    from var(--angle),
+    red,
+    yellow,
+    lime,
+    aqua,
+    blue,
+    magenta,
+    red
+  );
+  background-origin: border-box;
+  border-color: transparent;
+  animation: 2s rotate linear infinite;
+}
+
+@keyframes rotate {
+  to {
+    --angle: 360deg;
+  }
+}
+
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
