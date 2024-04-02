@@ -35,7 +35,7 @@ const stepsContent = [
         link: "/welcome/2",
       },
       {
-        text: "Thanks, but I like my chambers",
+        text: "Not very interesting",
         link: "/goodbye",
       },
     ],
@@ -72,25 +72,23 @@ export default function Welcome({ params }: { params: { step?: string[] } }) {
         {content.texts.map((text, i) => (
           <p key={i}>{text}</p>
         ))}
-        <div className="flex justify-around">
+        <div className="mt-4 flex justify-around gap-x-2">
           {step !== 2 ? (
             <Link
               href={content.buttons[0]?.link ?? defaultLink}
-              className="bg-secondary-dark min-w-10 inline-block cursor-pointer px-4 py-2 text-white hover:underline"
+              className="button-success"
             >
               {content.buttons[0]?.text}
             </Link>
           ) : (
             <SignUpButton>
-              <div className="bg-secondary-dark inline-block cursor-pointer px-4 py-2 text-white hover:underline">
-                I'm in! Sign me up to Echo.
-              </div>
+              <div className="button-primary">I'm in! Sign me up to Echo.</div>
             </SignUpButton>
           )}
 
           <Link
             href={content.buttons[1]?.link ?? defaultLink}
-            className="bg-secondary-dark min-w-10 inline-block cursor-pointer px-4 py-2 text-white hover:underline"
+            className="button-danger"
           >
             {content.buttons[1]?.text}
           </Link>
@@ -98,7 +96,7 @@ export default function Welcome({ params }: { params: { step?: string[] } }) {
       </Container>
       {step !== 2 && (
         <SignUpButton>
-          <div className="bg-tertiary-dark hover:bg-tertiary-light mt-4 cursor-pointer rounded px-4 py-2">
+          <div className="button-primary mt-4">
             I'm already registered, let's login
           </div>
         </SignUpButton>
