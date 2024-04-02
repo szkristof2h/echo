@@ -9,17 +9,17 @@ import {
 import { sql } from "drizzle-orm"
 import { createInsertSchema } from "drizzle-zod"
 
-const MAX_TEXT_LENGTH = 512
+const MAX_TEXT_LENGTH = 8192
 const MAX_TITLE_LENGTH = 64
 
 export const echos = pgTable(
   "echos",
   {
     id: serial("id").primaryKey().notNull(),
-    idSender: varchar("idSender").notNull(),
-    idReceiver: varchar("idUser").notNull(),
+    idSender: varchar("id_sender").notNull(),
+    idReceiver: varchar("id_user").notNull(),
     idParent: integer("id_parent"),
-    text: varchar("display_name", { length: MAX_TEXT_LENGTH }).notNull(),
+    text: varchar("text", { length: MAX_TEXT_LENGTH }).notNull(),
     title: varchar("title", { length: MAX_TITLE_LENGTH }).notNull(),
     date: timestamp("date").default(sql`now()`),
   },
