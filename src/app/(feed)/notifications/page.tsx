@@ -14,7 +14,7 @@ export default async function Notifications() {
           New echos from your follows
         </Container>
         {!echos || echos.length === 0 ? (
-          <Container className="w-full">No notificaitons</Container>
+          <Container className="w-full">No notifications</Container>
         ) : (
           <Posts posts={echos} />
         )}
