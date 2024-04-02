@@ -10,7 +10,7 @@ export const Icon = (props: IconProps) => {
 
   return (
     <img
-      className={`h-6 ${isDark ? "" : "invert"} ${className}`}
+      className={`h-6 ${isDark ? "invert-[0.25]" : "invert"} ${className}`}
       src={`/icons/${iconName}.svg`}
       alt={iconName}
       {...rest}

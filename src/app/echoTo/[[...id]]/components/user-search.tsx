@@ -3,6 +3,8 @@
 import type { Dispatch, SetStateAction } from "react"
 import { useEffect, useState } from "react"
 import type { User } from "@clerk/nextjs/server"
+import { Button } from "~/app/components/button"
+import { Icon } from "~/app/components/icon"
 
 export default function UserSearch(props: {
   inputUserName: string
@@ -56,29 +58,28 @@ export default function UserSearch(props: {
           Results:
           {inputUserName &&
             users.map((user) => (
-              <li
-                key={user.id}
-                className="button-primary w-auto"
-                onClick={() => handleOnClick(user.id)}
-              >
-                {user.username}
+              <li key={user.id}>
+                <Button onClick={() => handleOnClick(user.id)}>
+                  {user.username}
+                </Button>
               </li>
             ))}
           {(users.length == 0 || !inputUserName) && " No results"}
         </ul>
       )}
       {idSelected && (
-        <div>
+        <div className="flex items-center">
           Selected:
-          <span className="button-primary ml-4 rounded-r-none">
+          <span className="button-primary ml-4 w-fit cursor-default rounded-r-none">
             {selectedUserName}
           </span>
-          <span
+          <Button
+            theme="danger"
             onClick={handleRemoveSelection}
-            className="button-danger rounded-l-none"
+            className="flex w-fit rounded-l-none"
           >
-            X
-          </span>
+            <Icon iconName="cross" />
+          </Button>
         </div>
       )}
     </>

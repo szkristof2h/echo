@@ -31,12 +31,20 @@ export default function User(props: {
         {displayName}
       </Link>
       {idUser !== idLoggedInUser && isPending && (
-        <Button theme="success" onClick={() => acceptConnection(idConnection)}>
+        <Button
+          theme="success"
+          iconName="plus"
+          onClick={() => acceptConnection(idConnection)}
+        >
           ✅ Accept
         </Button>
       )}
-      <Button theme="danger" onClick={() => handleDelete(idConnection)}>
-        ❌ {declineText}
+      <Button
+        theme="danger"
+        iconName="cross"
+        onClick={() => handleDelete(idConnection)}
+      >
+        {declineText}
       </Button>
     </li>
   )
