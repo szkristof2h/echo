@@ -1,5 +1,5 @@
 import type { HTMLAttributes } from "react"
-import Icon from "./icon"
+import Icon from "./icons"
 
 interface ButtonProps extends HTMLAttributes<HTMLButtonElement> {
   buttonType?: "button" | "submit" | "reset"
@@ -43,7 +43,7 @@ export const Button = (props: ButtonProps) => {
     >
       <div
         className={`${isRainbow ? rainbowInnerClassName : ""} ${
-          iconName ? "grid-cols-icon grid gap-2" : ""
+          iconName ? "grid grid-cols-icon gap-2" : ""
         }`}
       >
         {iconName && (
