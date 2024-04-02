@@ -29,7 +29,7 @@ export default function EchoForm(props: { id?: string; idParent?: number }) {
           placeholder="What's on your mind?"
         />
       </div>
-      <SubmitButton text="&#x1F680; SUBMIT" />
+      <SubmitButton text="Submit" />
     </form>
   )
 }
