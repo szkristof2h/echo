@@ -5,7 +5,7 @@ interface IconProps extends HTMLAttributes<HTMLImageElement> {
   isDark?: boolean
 }
 
-export const Icon = (props: IconProps) => {
+export default function Icon(props: IconProps) {
   const { className, iconName, isDark = false, ...rest } = props
 
   return (

@@ -4,7 +4,7 @@ import type { Dispatch, SetStateAction } from "react"
 import { useEffect, useState } from "react"
 import type { User } from "@clerk/nextjs/server"
 import { Button } from "~/app/components/button"
-import { Icon } from "~/app/components/icon"
+import Icon from "~/app/components/icon"
 
 export default function UserSearch(props: {
   inputUserName: string

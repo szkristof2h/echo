@@ -1,5 +1,5 @@
 import type { HTMLAttributes } from "react"
-import { Icon } from "./icon"
+import Icon from "./icon"
 
 interface ButtonProps extends HTMLAttributes<HTMLButtonElement> {
   buttonType?: "button" | "submit" | "reset"
