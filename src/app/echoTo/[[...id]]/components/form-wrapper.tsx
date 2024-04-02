@@ -13,18 +13,20 @@ export default function FormWrapper(props: {
   const [idSelected, setIdSelected] = useState(idDefault)
 
   return (
-    <div className="flex w-128 flex-col gap-4">
+    <div className="flex flex-col gap-4">
       {(!!echoCount || echoCount === 0) && (
         <Container theme="tertiary" className="text-center">
           Echos remaining today: {5 - echoCount}
         </Container>
       )}
-      <UserForm
-        defaultName={defaultName}
-        setIdSelected={setIdSelected}
-        idSelected={idSelected}
-      />
-      <EchoForm id={idSelected} />
+      <Container title="New echo">
+        <UserForm
+          defaultName={defaultName}
+          setIdSelected={setIdSelected}
+          idSelected={idSelected}
+        />
+        <EchoForm id={idSelected} />
+      </Container>
     </div>
   )
 }

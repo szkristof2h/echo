@@ -2,6 +2,7 @@ import type { ChangeEvent, Dispatch, SetStateAction } from "react"
 import { useDeferredValue, useState } from "react"
 import UserSearch from "./user-search"
 import { Input } from "~/app/components/input"
+import Container from "~/app/components/container"
 
 export default function UserForm(props: {
   defaultName?: string | null
@@ -19,19 +20,23 @@ export default function UserForm(props: {
   }
 
   return (
-    <>
-      <Input
-        name="displayName"
-        autoFocus
-        placeholder="Echo to"
-        onChange={handleOnChange}
-      />
-      <UserSearch
-        inputUserName={deferredUserName}
-        setIdSelected={setIdSelected}
-        idSelected={idSelected}
-        defaultName={defaultName}
-      />
-    </>
+    <div className="border-primary-light bg-primary-light/10 rounded-xl border-2 p-4 shadow-xl">
+      <div className="flex flex-col gap-4">
+        <Input
+          name="displayName"
+          autoFocus
+          label="Echo to"
+          placeholder="Echo to"
+          onChange={handleOnChange}
+        />
+
+        <UserSearch
+          inputUserName={deferredUserName}
+          setIdSelected={setIdSelected}
+          idSelected={idSelected}
+          defaultName={defaultName}
+        />
+      </div>
+    </div>
   )
 }

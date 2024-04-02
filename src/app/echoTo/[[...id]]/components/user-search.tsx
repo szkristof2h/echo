@@ -53,7 +53,7 @@ export default function UserSearch(props: {
     <>
       {!idSelected && (
         <ul className="flex flex-wrap items-center gap-4">
-          Send to:
+          Results:
           {inputUserName &&
             users.map((user) => (
               <li
@@ -64,11 +64,12 @@ export default function UserSearch(props: {
                 {user.username}
               </li>
             ))}
+          {(users.length == 0 || !inputUserName) && " No results"}
         </ul>
       )}
       {idSelected && (
         <div>
-          Send to:
+          Selected:
           <span className="button-primary ml-4 rounded-r-none">
             {selectedUserName}
           </span>
