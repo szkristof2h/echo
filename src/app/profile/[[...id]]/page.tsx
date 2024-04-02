@@ -14,6 +14,7 @@ export default async function Profile({
 }) {
   const id = params.id?.[0] ?? null
   const user = id ? await getUser(id) : await getCurrentUser()
+  const isOwnProfile = id === user?.id
   const displayName = user?.username ?? ""
   const imageUrl = user?.imageUrl ?? ""
   const bio = (user?.publicMetadata?.bio as string | undefined) ?? ""
@@ -39,7 +40,7 @@ export default async function Profile({
             </Container>
           </div>
           <div className="flex flex-col gap-4">
-            {id ? (
+            {!isOwnProfile && id ? (
               <>
                 <ConnectionButton
                   idConnection={id}
@@ -55,7 +56,7 @@ export default async function Profile({
             ) : (
               <>
                 <Link href="/settings" className="button-primary">
-                  edit
+                  Edit
                 </Link>
                 <Link href="/connections" className="button-primary">
                   Connections
