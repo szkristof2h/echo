@@ -23,8 +23,8 @@ export default function Post(props: Props) {
       }
     >
       <div
-        className={`mb-4 overflow-hidden whitespace-pre-line ${
-          isShort ? "h-56" : ""
+        className={`mb-4 whitespace-pre-line ${
+          isShort ? "line-clamp-[10]" : ""
         }`}
       >
         {text}
