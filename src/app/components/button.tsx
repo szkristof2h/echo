@@ -1,4 +1,5 @@
 import type { HTMLAttributes } from "react"
+import { Icon } from "./icon"
 
 interface ButtonProps extends HTMLAttributes<HTMLButtonElement> {
   buttonType?: "button" | "submit" | "reset"
@@ -10,6 +11,7 @@ interface ButtonProps extends HTMLAttributes<HTMLButtonElement> {
     | "danger"
     | "success"
     | "rainbow"
+  iconName?: string
 }
 
 export const Button = (props: ButtonProps) => {
@@ -18,6 +20,7 @@ export const Button = (props: ButtonProps) => {
     buttonType = "button",
     theme = "primary",
     children,
+    iconName,
     ...rest
   } = props
 
@@ -27,19 +30,23 @@ export const Button = (props: ButtonProps) => {
     ? "rainbow-border rounded-lg border-4"
     : `button-${theme}`
 
+  const rainbowInnerClassName =
+    "bg-primary-light hover:bg-primary-dark rounded-md p-2 text-white"
+
   return (
     <button
       type={buttonType}
-      className={`${buttonTheme} ${className ?? ""}`}
+      className={`${buttonTheme} ${className ?? ""} text-center`}
       {...rest}
     >
-      {isRainbow ? (
-        <div className="bg-primary-light hover:bg-primary-dark rounded-md p-2 text-white">
-          {children}
-        </div>
-      ) : (
-        children
-      )}
+      <div
+        className={`${isRainbow ? rainbowInnerClassName : ""} ${
+          iconName ? "grid-cols-icon grid gap-2" : ""
+        }`}
+      >
+        {iconName && <Icon iconName={iconName} className="" />}
+        {children}
+      </div>
     </button>
   )
 }

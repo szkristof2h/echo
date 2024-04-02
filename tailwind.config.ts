@@ -33,6 +33,9 @@ export default {
           dark: "#61df69",
         },
       },
+      gridTemplateColumns: {
+        icon: "1.5rem auto",
+      },
     },
   },
   plugins: [],
