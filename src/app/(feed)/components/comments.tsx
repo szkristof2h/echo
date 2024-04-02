@@ -9,8 +9,8 @@ export default async function Comments(props: { id: number; idUser: string }) {
 
   const subEchos = await getEchos(0, id)
   const commentCount = subEchos.length
-  const idReceivers = subEchos?.map(({ idReceiver }) => idReceiver.toString())
-  const users = await getUsers(Array.from(new Set([...idReceivers])))
+  const idSenders = subEchos?.map(({ idSender }) => idSender)
+  const users = await getUsers(Array.from(new Set([...idSenders])))
 
   return (
     <>
@@ -18,17 +18,18 @@ export default async function Comments(props: { id: number; idUser: string }) {
       <div className="text-bold mt-4 text-xl">Comments ({commentCount})</div>
       <ul>
         {subEchos.map((subEcho) => {
-          const postedTo = users?.find((user) => user.id === idUser.toString())
+          const postedBy = users?.find((user) => user.id === subEcho.idSender)
+
           return (
             <Link href={`/echo/${subEcho.id}`}>
               <li
                 key={subEcho.id}
-                className="bg-primary-light hover:bg-primary-dark ml-8 mt-4 overflow-hidden rounded-lg p-4 text-white shadow-xl"
+                className="ml-8 mt-4 overflow-hidden rounded-lg bg-primary-light p-4 text-white shadow-xl hover:bg-primary-dark"
               >
-                {postedTo?.username && (
+                {postedBy?.username && (
                   <ProfileLink
-                    idUser={postedTo.id}
-                    displayName={postedTo.username}
+                    idUser={postedBy.id}
+                    displayName={postedBy.username}
                   />
                 )}{" "}
                 {subEcho.text}
