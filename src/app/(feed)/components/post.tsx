@@ -7,10 +7,10 @@ import type { User } from "@clerk/nextjs/server"
 type Props = Omit<Echo, "idSender" | "idReceiver"> & {
   postedBy?: Pick<User, "id" | "username" | "publicMetadata"> | null
   postedTo?: Pick<User, "id" | "username" | "publicMetadata"> | null
-}
+} & { isShort?: boolean }
 
 export default function Post(props: Props) {
-  const { id, title, date, text, postedBy, postedTo, idParent } = props
+  const { id, title, date, text, postedBy, postedTo, idParent, isShort } = props
   const echoUrl = `/echo/${id}`
 
   return (
@@ -22,7 +22,13 @@ export default function Post(props: Props) {
         </Link>
       }
     >
-      <div className="mb-4 overflow-hidden whitespace-pre-line">{text}</div>
+      <div
+        className={`mb-4 overflow-hidden whitespace-pre-line ${
+          isShort ? "h-56" : ""
+        }`}
+      >
+        {text}
+      </div>
       <div className="flex justify-between text-sm">
         <span>
           {postedBy?.username ? (

@@ -34,6 +34,7 @@ export default async function Posts(props: Props) {
             postedBy={postedBy}
             postedTo={postedTo}
             idParent={null}
+            isShort={true}
           />
         )
       })}
