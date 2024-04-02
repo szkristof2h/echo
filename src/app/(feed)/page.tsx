@@ -17,7 +17,9 @@ export default async function Home() {
         This week's topic is {topic?.[0]?.text}
       </Container>
       <Link href="/echoTo">
-        <Button className="mb-4 inline-block w-full p-4">Write Echo</Button>
+        <Button iconName="pencil" theme="rainbow" className="mb-4 w-full">
+          Write Echo
+        </Button>
       </Link>
       <Posts posts={echos} />
     </>

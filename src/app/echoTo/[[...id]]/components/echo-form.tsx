@@ -17,15 +17,19 @@ export default function EchoForm(props: { id?: string; idParent?: number }) {
   return state?.status === "success" ? (
     <p>Echo posted successfully!</p>
   ) : (
-    <form
-      action={formAction}
-      className="mt-4 flex flex-col items-center gap-4 text-white"
-    >
+    <form action={formAction} className="mt-4 flex flex-col items-center gap-4">
       <div className="flex w-full flex-col gap-y-4">
-        {!idParent && <Input name="title" autoFocus placeholder="Title" />}
-        <Textarea name="text" autoFocus placeholder="What's on your mind?" />
+        {!idParent && (
+          <Input label="Title" name="title" autoFocus placeholder="Title" />
+        )}
+        <Textarea
+          label="Your post"
+          name="text"
+          autoFocus
+          placeholder="What's on your mind?"
+        />
       </div>
-      <SubmitButton text="&#x1F680; SUBMIT" />
+      <SubmitButton text="Submit" />
     </form>
   )
 }

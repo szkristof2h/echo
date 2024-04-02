@@ -19,13 +19,13 @@ export default function RootLayout({
         <body>
           <nav className="absolute right-2 top-2 flex flex-col gap-4">
             <Link href="/echoTo">
-              <Button>⭐️ Echo ⭐️</Button>
+              <Button iconName="pencil">Echo</Button>
             </Link>
             <Link href="/profile">
-              <Button>🧒 Profile 🧒</Button>
+              <Button iconName="person">Profile</Button>
             </Link>
             <Link href="/notifications">
-              <Button>🔔 Notifications 🔔</Button>
+              <Button iconName="bell">Notifications</Button>
             </Link>
           </nav>
           <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#00BFB2] to-[#f0f3bd] bg-fixed text-slate-600">

@@ -35,18 +35,18 @@ export default function FormWrapper(props: Props) {
         ))}
       </ul>
       <form action={formAction} className="flex flex-col gap-y-6">
-        <div className="flex flex-col gap-2">
-          <label>Username</label>
-          <Input name="username" autoFocus defaultValue={username ?? ""} />
-        </div>
-        <div className="flex flex-col gap-2">
-          <label>Bio</label>
-          <Textarea name="bio" defaultValue={bio} />
-        </div>
-        <div className="flex flex-col gap-2">
-          <label>Interests (seperate with comma)</label>
-          <Textarea name="interests" defaultValue={interests} />
-        </div>
+        <Input
+          name="username"
+          label="Username"
+          autoFocus
+          defaultValue={username ?? ""}
+        />
+        <Textarea label="Bio" name="bio" defaultValue={bio} />
+        <Textarea
+          label="Interests (seperate with comma)"
+          name="interests"
+          defaultValue={interests}
+        />
         <SubmitButton text="Save" />
       </form>
     </Container>

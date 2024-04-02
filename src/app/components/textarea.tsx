@@ -1,13 +1,15 @@
-import type { HTMLAttributes } from "react"
+import type { HTMLAttributes, ReactElement } from "react"
 
 interface TextareaProps extends HTMLAttributes<HTMLTextAreaElement> {
   name: string
   placeholder?: string
+  label?: ReactElement | string
 }
 
 export const Textarea = (props: TextareaProps) => {
-  const { name, onChange, className, ...rest } = props
-  return (
+  const { name, onChange, className, label, ...rest } = props
+
+  const styledTextarea = (
     <textarea
       name={name}
       onChange={onChange}
@@ -16,5 +18,14 @@ export const Textarea = (props: TextareaProps) => {
       }`}
       {...rest}
     />
+  )
+
+  return label ? (
+    <div className="flex flex-col gap-2">
+      <label>{label}</label>
+      {styledTextarea}
+    </div>
+  ) : (
+    styledTextarea
   )
 }
