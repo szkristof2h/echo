@@ -33,7 +33,7 @@ export const Button = (props: ButtonProps) => {
   const rainbowInnerClassName =
     "bg-primary-light hover:bg-primary-dark rounded-md p-2 text-white"
 
-  const isIconDark = theme !== ("primary" || "rainbow")
+  const isIconDark = theme !== "primary" && theme !== "rainbow"
 
   return (
     <button
