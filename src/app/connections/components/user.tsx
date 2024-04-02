@@ -36,7 +36,7 @@ export default function User(props: {
           iconName="plus"
           onClick={() => acceptConnection(idConnection)}
         >
-          ✅ Accept
+          Accept
         </Button>
       )}
       <Button
