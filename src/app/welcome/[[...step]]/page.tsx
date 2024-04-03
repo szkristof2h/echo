@@ -1,7 +1,8 @@
 import Link from "next/link"
 import Container from "~/app/components/container"
 import Head from "~/app/components/head"
-import { SignUpButton } from "@clerk/nextjs"
+import { SignUpButton, auth } from "@clerk/nextjs"
+import { redirect } from "next/navigation"
 
 const stepsContent = [
   {
@@ -63,6 +64,10 @@ export default function Welcome({ params }: { params: { step?: string[] } }) {
   const step = params.step?.[0] ? parseInt(params.step?.[0], 10) : 0
   const content = stepsContent[step] ?? stepsContent[0]!
   const defaultLink = "/0"
+  const { userId: idUser } = auth()
+
+  // Temp fix until I figure out how clerk's redirect actually work
+  if (!!idUser) redirect("/")
 
   return (
     <>
