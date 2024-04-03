@@ -17,19 +17,19 @@ export default function Goodbye() {
           </Link>
           <Link
             href="https://facebook.com"
-            className="button-primary bg-blue-600 hover:bg-blue-800 hover:bg-none"
+            className="button-primary bg-blue-600 hover:from-blue-600 hover:to-blue-800"
           >
             Facebook, the site we can trust with our data!
           </Link>
           <Link
             href="https://reddit.com"
-            className="button-primary bg-orange-400 hover:bg-orange-600 hover:bg-none"
+            className="button-primary bg-orange-400 hover:from-orange-400 hover:to-orange-600"
           >
             Reddit, where AI doesn't steal my content
           </Link>
           <Link
             href="https://tiktok.com"
-            className="button-primary bg-slate-700 hover:bg-slate-900 hover:bg-none"
+            className="button-primary bg-slate-700 hover:from-slate-700 hover:to-slate-900"
           >
             TikTok, attention span is overrated!
           </Link>

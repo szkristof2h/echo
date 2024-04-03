@@ -87,7 +87,7 @@ export default function Welcome({ params }: { params: { step?: string[] } }) {
             </Link>
           ) : (
             <SignUpButton>
-              <div className="button-primary">I'm in! Sign me up to Echo.</div>
+              <div className="button-success">I'm in! Sign me up to Echo.</div>
             </SignUpButton>
           )}
 
