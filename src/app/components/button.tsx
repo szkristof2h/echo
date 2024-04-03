@@ -33,7 +33,11 @@ export const Button = (props: ButtonProps) => {
   const rainbowInnerClassName =
     "bg-primary-light hover:bg-primary-dark rounded-md p-2 text-white"
 
-  const isIconDark = theme !== "primary" && theme !== "rainbow"
+  const isIconDark =
+    theme !== "primary" &&
+    theme !== "rainbow" &&
+    theme !== "danger" &&
+    theme !== "success"
 
   return (
     <button
@@ -43,7 +47,7 @@ export const Button = (props: ButtonProps) => {
     >
       <div
         className={`${isRainbow ? rainbowInnerClassName : ""} ${
-          iconName ? "grid grid-cols-icon gap-2" : ""
+          iconName ? "grid-cols-icon grid gap-2" : ""
         }`}
       >
         {iconName && (

@@ -13,10 +13,10 @@
     @apply hover:from-tertiary-light hover:to-tertiary-dark bg-tertiary-light w-full cursor-pointer rounded-lg p-2 text-center shadow-xl hover:bg-gradient-to-b;
   }
   .button-danger {
-    @apply hover:from-danger-light hover:to-danger-dark bg-danger-light w-full cursor-pointer rounded-lg p-2 text-center shadow-xl hover:bg-gradient-to-b;
+    @apply hover:from-danger-light hover:to-danger-dark bg-danger-light w-full cursor-pointer rounded-lg p-2 text-center text-white shadow-xl hover:bg-gradient-to-b;
   }
   .button-success {
-    @apply hover:from-success-light hover:to-success-dark bg-success-light w-full cursor-pointer rounded-lg p-2 text-center shadow-xl hover:bg-gradient-to-b;
+    @apply hover:from-success-light hover:to-success-dark bg-success-light w-full cursor-pointer rounded-lg p-2 text-center text-white shadow-xl hover:bg-gradient-to-b;
   }
 }
 

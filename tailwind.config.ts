@@ -25,12 +25,12 @@ export default {
           dark: "rgba(210, 242, 167, 0.9)",
         },
         danger: {
-          light: "#ed8585",
-          dark: "#ec6d6d",
+          light: "#c33c3c",
+          dark: "#b03636",
         },
         success: {
-          light: "#7de583",
-          dark: "#61df69",
+          light: "#16c021",
+          dark: "#14a91d",
         },
       },
       gridTemplateColumns: {

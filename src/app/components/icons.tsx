@@ -11,7 +11,7 @@ export default function Icon(props: IconProps) {
 
   return (
     <Image
-      className={`h-6 ${isDark ? "invert-[0.25]" : "invert"} ${className}`}
+      className={`h-6 ${isDark ? "invert-[0.35]" : "invert"} ${className}`}
       src={`/icons/${iconName}.svg`}
       alt={iconName}
       width={24}
