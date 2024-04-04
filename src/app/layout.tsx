@@ -1,7 +1,7 @@
 import Link from "next/link"
 import { ClerkProvider } from "@clerk/nextjs"
 import "~/styles/globals.css"
-import { Button } from "./components/button"
+import Navigation from "~/app/components/nav"
 
 export const metadata = {
   title: "Echo",
@@ -17,17 +17,7 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body>
-          <nav className="absolute right-2 top-2 flex flex-col gap-4">
-            <Link href="/echoTo">
-              <Button iconName="pencil">Echo</Button>
-            </Link>
-            <Link href="/profile">
-              <Button iconName="person">Profile</Button>
-            </Link>
-            <Link href="/notifications">
-              <Button iconName="bell">Notifications</Button>
-            </Link>
-          </nav>
+          <Navigation />
           <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#00BFB2] to-[#f0f3bd] bg-fixed text-slate-600">
             <Link href="/">
               <h1 className="my-8 font-mono text-7xl subpixel-antialiased drop-shadow-lg">
