@@ -3,7 +3,7 @@ export default function FormError(props: { errors?: (string | undefined)[] }) {
 
   return (
     errors && (
-      <ul className="mt-4 text-red-500">
+      <ul className="mt-4 rounded-md bg-danger-dark px-4 py-2 text-white">
         {errors.map((error, i) => (
           <li key={i}>{error}</li>
         ))}
