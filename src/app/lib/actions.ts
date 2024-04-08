@@ -12,7 +12,7 @@ import { createEcho as createEchoData } from "~/data/echos"
 import { getUser, updateUser } from "~/data/users"
 
 export type ActionResponse = {
-  errors?: string[]
+  errors?: (string | undefined)[]
   status: string
 }
 
@@ -40,8 +40,7 @@ export async function createEcho(
 
   const res = await createEchoData(rawFormData)
 
-  if (res && "message" in res)
-    return { errors: [res.message], status: "failure" }
+  if (res && "message" in res) return { errors: res.message, status: "failure" }
 
   if (!idParent) redirect(`/echo/${res.id}`)
   else {
@@ -49,6 +48,7 @@ export async function createEcho(
     return { errors: [], status: "success" }
   }
 }
+
 export async function updateProfile(
   _: ActionResponse | undefined,
   formData: FormData,

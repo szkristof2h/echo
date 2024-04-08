@@ -50,9 +50,11 @@ export async function createEcho(echo: CreateEchoData) {
 
     return result[0]
   } catch (error) {
-    validationErrorHandler(error)
+    console.error("Database error: failed echo creation")
+    const errors = validationErrorHandler(error)
+    const message = !!errors?.length && errors?.length > 0 ? errors : []
 
-    return { message: "Database error: failed echo creation" }
+    return { message }
   }
 }
 
