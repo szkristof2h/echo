@@ -31,8 +31,18 @@ export const echos = pgTable(
 )
 
 export const insertEchoSchema = createInsertSchema(echos, {
-  title: (schema) => schema.title.min(3).max(MAX_TITLE_LENGTH),
-  text: (schema) => schema.text.min(3).max(MAX_TEXT_LENGTH),
+  title: (schema) =>
+    schema.title
+      .min(3, { message: "The title must be at least 3 characters long" })
+      .max(MAX_TITLE_LENGTH, {
+        message: `The title can't be more than ${MAX_TITLE_LENGTH} characters long`,
+      }),
+  text: (schema) =>
+    schema.text
+      .min(60, { message: "The post text must be at least 60 characters long" })
+      .max(MAX_TEXT_LENGTH, {
+        message: `The title can't be more than ${MAX_TEXT_LENGTH} characters long`,
+      }),
 })
 
 export type Echo = typeof echos.$inferSelect // return type when queried
