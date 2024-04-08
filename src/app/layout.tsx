@@ -2,6 +2,7 @@ import Link from "next/link"
 import { ClerkProvider } from "@clerk/nextjs"
 import "~/styles/globals.css"
 import Navigation from "~/app/components/nav"
+import { Analytics } from "@vercel/analytics/react"
 
 export const metadata = {
   title: "Echo",
@@ -25,6 +26,7 @@ export default function RootLayout({
               </h1>
             </Link>
             <div className="mb-12 h-full w-128">{children}</div>
+            <Analytics />
           </main>
         </body>
       </html>
