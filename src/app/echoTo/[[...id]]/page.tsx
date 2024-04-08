@@ -17,7 +17,7 @@ export default async function Submit({
 
   return (
     <>
-      <Head title="Echo" />
+      <Head title="Break the Echo" />
       <FormWrapper
         echoCount={echoCount}
         idDefault={idDefault}

@@ -19,7 +19,7 @@ export default function FormWrapper(props: {
           Echos remaining today: {5 - echoCount}
         </Container>
       )}
-      <Container title="New echo">
+      <Container title="Break the Echo">
         <UserForm
           defaultName={defaultName}
           setIdSelected={setIdSelected}
