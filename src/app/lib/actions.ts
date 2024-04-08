@@ -69,7 +69,7 @@ export async function updateProfile(
 
   if (!rawFormData.username)
     return {
-      errors: ["no username"],
+      errors: ["You must have a username"],
       status: "failure",
     }
 
