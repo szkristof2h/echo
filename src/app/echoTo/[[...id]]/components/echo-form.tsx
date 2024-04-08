@@ -25,9 +25,16 @@ export default function EchoForm(props: { id?: string; idParent?: number }) {
       >
         <div className="flex w-full flex-col gap-y-4">
           {!idParent && (
-            <Input label="Title" name="title" autoFocus placeholder="Title" />
+            <Input
+              required
+              label="Title"
+              name="title"
+              autoFocus
+              placeholder="Title"
+            />
           )}
           <Textarea
+            required
             label="Your post"
             name="text"
             autoFocus
