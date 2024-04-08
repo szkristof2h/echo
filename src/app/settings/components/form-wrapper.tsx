@@ -6,6 +6,7 @@ import { SubmitButton } from "~/app/echoTo/[[...id]]/components/submit-button"
 import { Input } from "~/app/components/input"
 import { Textarea } from "~/app/components/textarea"
 import Container from "~/app/components/container"
+import FormError from "~/app/components/form-error"
 
 type Props = Pick<User, "username"> & {
   bio: string
@@ -24,16 +25,6 @@ export default function FormWrapper(props: Props) {
 
   return (
     <Container title="Edit profile">
-      <ul>
-        {state?.errors?.map((error, i) => (
-          <li
-            className="bg-danger-dark mb-4 rounded-md px-4 py-2 text-white"
-            key={i}
-          >
-            Couldn't update profile: {error}
-          </li>
-        ))}
-      </ul>
       <form action={formAction} className="flex flex-col gap-y-6">
         <Input
           name="username"
@@ -49,6 +40,7 @@ export default function FormWrapper(props: Props) {
         />
         <SubmitButton text="Save" />
       </form>
+      <FormError errors={state?.errors} />
     </Container>
   )
 }
