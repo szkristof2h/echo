@@ -4,19 +4,19 @@
 
 @layer components {
   .button-primary {
-    @apply hover:from-primary-light hover:to-primary-dark bg-primary-light w-full cursor-pointer rounded-lg p-2 text-center text-white shadow-xl hover:bg-gradient-to-b;
+    @apply w-full cursor-pointer rounded-lg bg-primary-light p-2 text-center text-white shadow-xl hover:bg-gradient-to-b hover:from-primary-light hover:to-primary-dark;
   }
   .button-secondary {
-    @apply hover:from-secondary-light hover:to-secondary-dark bg-secondary-light w-full cursor-pointer rounded-lg p-2 text-center shadow-xl hover:bg-gradient-to-b;
+    @apply w-full cursor-pointer rounded-lg bg-secondary-light p-2 text-center shadow-xl hover:bg-gradient-to-b hover:from-secondary-light hover:to-secondary-dark;
   }
   .button-tertiary {
-    @apply hover:from-tertiary-light hover:to-tertiary-dark bg-tertiary-light w-full cursor-pointer rounded-lg p-2 text-center shadow-xl hover:bg-gradient-to-b;
+    @apply w-full cursor-pointer rounded-lg bg-tertiary-light p-2 text-center shadow-xl hover:bg-gradient-to-b hover:from-tertiary-light hover:to-tertiary-dark;
   }
   .button-danger {
-    @apply hover:from-danger-light hover:to-danger-dark bg-danger-light w-full cursor-pointer rounded-lg p-2 text-center text-white shadow-xl hover:bg-gradient-to-b;
+    @apply w-full cursor-pointer rounded-lg bg-danger-light p-2 text-center text-white shadow-xl hover:bg-gradient-to-b hover:from-danger-light hover:to-danger-dark;
   }
   .button-success {
-    @apply hover:from-success-light hover:to-success-dark bg-success-light w-full cursor-pointer rounded-lg p-2 text-center text-white shadow-xl hover:bg-gradient-to-b;
+    @apply w-full cursor-pointer rounded-lg bg-success-light p-2 text-center text-white shadow-xl hover:bg-gradient-to-b hover:from-success-light hover:to-success-dark;
   }
 }
 
