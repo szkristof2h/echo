@@ -6,6 +6,7 @@ import { Input } from "~/app/components/input"
 import { Textarea } from "~/app/components/textarea"
 import FormError from "~/app/components/form-error"
 import { Button } from "~/app/components/button"
+import { useState } from "react"
 
 export default function EchoForm(props: { id?: string; idParent?: number }) {
   const { id, idParent } = props
@@ -72,6 +73,15 @@ export default function EchoForm(props: { id?: string; idParent?: number }) {
         >
           Review with Echo Breaker
         </Button>
+
+        {suggestion && (
+          <div className="my-4">
+            Our assistant <i>Echo Breaker</i> is still green and learning how to
+            help the best. Please be understanding for the mistakes.
+          </div>
+        )}
+        {suggestion && <div className="whitespace-pre-line">{suggestion}</div>}
+
         <SubmitButton text="Submit" theme="secondary" />
       </form>
       <FormError errors={state.errors} />
