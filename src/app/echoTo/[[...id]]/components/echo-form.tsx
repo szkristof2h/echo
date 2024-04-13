@@ -5,6 +5,7 @@ import { useFormState } from "react-dom"
 import { Input } from "~/app/components/input"
 import { Textarea } from "~/app/components/textarea"
 import FormError from "~/app/components/form-error"
+import { Button } from "~/app/components/button"
 
 export default function EchoForm(props: { id?: string; idParent?: number }) {
   const { id, idParent } = props
@@ -41,7 +42,11 @@ export default function EchoForm(props: { id?: string; idParent?: number }) {
             placeholder="What's on your mind?"
           />
         </div>
-        <SubmitButton text="Submit" />
+        <Button buttonType="button" theme="primary" iconName="search">
+          Review with Echo Breaker
+        </Button>
+        <SubmitButton text="Review with Echo Breaker" theme="primary" />
+        <SubmitButton text="Submit" theme="secondary" />
       </form>
       <FormError errors={state.errors} />
     </>
