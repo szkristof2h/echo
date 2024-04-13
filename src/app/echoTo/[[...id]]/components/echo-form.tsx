@@ -16,6 +16,19 @@ export default function EchoForm(props: { id?: string; idParent?: number }) {
     errors: [],
   })
 
+  const handleOnClick = async () => {
+    try {
+      const res = await fetch("/api/suggestion", {
+        method: "POST",
+      })
+      const data = await res.json()
+
+      console.log(data)
+    } catch (error) {
+      console.error("Error", error)
+    }
+  }
+
   return state?.status === "success" ? (
     <p>Echo posted successfully!</p>
   ) : (
@@ -42,10 +55,14 @@ export default function EchoForm(props: { id?: string; idParent?: number }) {
             placeholder="What's on your mind?"
           />
         </div>
-        <Button buttonType="button" theme="primary" iconName="search">
+        <Button
+          buttonType="button"
+          theme="primary"
+          iconName="search"
+          onClick={handleOnClick}
+        >
           Review with Echo Breaker
         </Button>
-        <SubmitButton text="Review with Echo Breaker" theme="primary" />
         <SubmitButton text="Submit" theme="secondary" />
       </form>
       <FormError errors={state.errors} />
