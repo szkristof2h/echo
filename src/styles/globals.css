@@ -25,24 +25,38 @@
 
 .rainbow-border {
   --angle: 0deg;
-  background-image: conic-gradient(
-    from var(--angle),
-    red,
-    yellow,
-    lime,
-    aqua,
-    blue,
-    magenta,
-    red
-  );
-  background-origin: border-box;
-  border-color: transparent;
-  animation: 3s rotate linear infinite;
+  padding: 2px;
+  animation:
+    rotate 1.5s linear infinite,
+    showHide 60s step-start infinite;
 }
 
 @keyframes rotate {
   to {
     --angle: 360deg;
+  }
+}
+
+@keyframes showHide {
+  0%,
+  10% {
+    background-image: conic-gradient(
+      from var(--angle),
+      red,
+      orange,
+      yellow,
+      lime,
+      aqua,
+      blue,
+      darkviolet,
+      magenta,
+      red
+    );
+  }
+  11%,
+  100% {
+    background-image: none;
+    background-color: #0f6c6c;
   }
 }
 

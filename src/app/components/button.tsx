@@ -40,7 +40,7 @@ export const Button = (props: ButtonProps) => {
   const buttonTheme = isDisabled
     ? "button-disabled"
     : isRainbow
-      ? "rainbow-border rounded-lg border-2"
+      ? "rainbow-border rounded-lg"
       : themes[theme]
 
   const rainbowInnerClassName =
