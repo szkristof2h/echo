@@ -1,6 +1,6 @@
-import type { HTMLAttributes, ReactElement } from "react"
+import type { TextareaHTMLAttributes, ReactElement } from "react"
 
-interface TextareaProps extends HTMLAttributes<HTMLTextAreaElement> {
+interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   name: string
   placeholder?: string
   required?: boolean

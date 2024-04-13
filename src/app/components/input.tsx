@@ -1,6 +1,6 @@
-import type { HTMLAttributes, ReactElement } from "react"
+import type { InputHTMLAttributes, ReactElement } from "react"
 
-interface InputProps extends HTMLAttributes<HTMLInputElement> {
+interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   name: string
   placeholder?: string
   required?: boolean
