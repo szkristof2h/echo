@@ -1,21 +1,67 @@
 import { NextResponse } from "next/server"
 
-export async function POST() {
-  try {
-    const res = await fetch("https://echo-breaker-production.up.railway.app/", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        "X-API-Key": process.env.ECHO_BREAKER_API_KEY!,
-      },
-    })
+export async function POST(request: Request) {
+  const res = (await request.json()) as unknown
 
-    const data = await res.json()
-    console.log("data")
-    console.log(data)
-    return NextResponse.json(data)
-  } catch (error) {
-    console.error("Error", error)
-    return NextResponse.json({ users: [] }, { status: 400 })
-  }
+  if (
+    !!res &&
+    typeof res === "object" &&
+    "title" in res &&
+    "text" in res &&
+    !!res.title &&
+    !!request.body
+  ) {
+    try {
+      const body = JSON.stringify({
+        text: `title: ${res.title}\n${res.text}`,
+      })
+
+      const resSuggestion = await fetch(
+        "https://echo-breaker-production.up.railway.app/suggestion",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "X-API-Key": process.env.ECHO_BREAKER_API_KEY!,
+          },
+          body,
+        },
+      )
+
+      const data = await resSuggestion.json()
+
+      if (
+        !!data &&
+        typeof data === "object" &&
+        "suggestion" in data &&
+        !!data.suggestion &&
+        typeof data.suggestion === "object" &&
+        "content" in data.suggestion &&
+        typeof data.suggestion.content === "string"
+      ) {
+        const content = JSON.parse(data.suggestion.content) as unknown
+
+        if (
+          !!content &&
+          typeof content === "object" &&
+          "suggestion" in content &&
+          !!content.suggestion &&
+          typeof content.suggestion === "string"
+        )
+          return NextResponse.json(content.suggestion)
+      }
+
+      NextResponse.json("Unfortunately the request run into an error.", {
+        status: 400,
+      })
+    } catch (error) {
+      console.error("Error", error)
+      return NextResponse.json("Unfortunately the request run into an error.", {
+        status: 400,
+      })
+    }
+  } else
+    return NextResponse.json("Unfortunately the request run into an error.", {
+      status: 400,
+    })
 }
