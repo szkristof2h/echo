@@ -15,15 +15,20 @@ export default function EchoForm(props: { id?: string; idParent?: number }) {
     status: "",
     errors: [],
   })
+  const [suggestion, setSuggestion] = useState<string>()
 
   const handleOnClick = async () => {
     try {
       const res = await fetch("/api/suggestion", {
         method: "POST",
+        body: JSON.stringify({
+          title,
+          text,
+        }),
       })
-      const data = await res.json()
+      const data = (await res.json()) as unknown
 
-      console.log(data)
+      if (!!data && typeof data === "string") setSuggestion(data)
     } catch (error) {
       console.error("Error", error)
     }
