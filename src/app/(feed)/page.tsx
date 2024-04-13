@@ -18,7 +18,7 @@ export default async function Home() {
       </Container>
       <Link href="/echoTo">
         <Button iconName="pencil" theme="rainbow" className="mb-4 w-full">
-          Write Echo
+          Break the Echo with our new guide, Echo Breaker!
         </Button>
       </Link>
       <Posts posts={echos} />
