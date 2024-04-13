@@ -15,6 +15,8 @@ export default function EchoForm(props: { id?: string; idParent?: number }) {
     status: "",
     errors: [],
   })
+  const [title, setTitle] = useState("")
+  const [text, setText] = useState("")
   const [suggestion, setSuggestion] = useState<string>()
 
   const handleOnClick = async () => {
@@ -50,6 +52,7 @@ export default function EchoForm(props: { id?: string; idParent?: number }) {
               name="title"
               autoFocus
               placeholder="Title"
+              onChange={(e) => setTitle(e.target.value)}
             />
           )}
           <Textarea
@@ -58,6 +61,7 @@ export default function EchoForm(props: { id?: string; idParent?: number }) {
             name="text"
             autoFocus
             placeholder="What's on your mind?"
+            onChange={(e) => setText(e.target.value)}
           />
         </div>
         <Button
