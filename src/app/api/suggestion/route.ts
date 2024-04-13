@@ -9,7 +9,9 @@ export async function POST(request: Request) {
     "title" in res &&
     "text" in res &&
     !!res.title &&
-    !!request.body
+    typeof res.title === "string" &&
+    !!res.text &&
+    typeof res.text === "string"
   ) {
     try {
       const body = JSON.stringify({
@@ -28,7 +30,7 @@ export async function POST(request: Request) {
         },
       )
 
-      const data = await resSuggestion.json()
+      const data = (await resSuggestion.json()) as unknown
 
       if (
         !!data &&
