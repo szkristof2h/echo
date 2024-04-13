@@ -12,6 +12,7 @@ export interface ButtonProps extends HTMLAttributes<HTMLButtonElement> {
     | "success"
     | "rainbow"
   iconName?: string
+  isDisabled?: boolean
 }
 
 const themes = {
@@ -30,14 +31,17 @@ export const Button = (props: ButtonProps) => {
     theme = "primary",
     children,
     iconName,
+    isDisabled = false,
     ...rest
   } = props
 
-  const isRainbow = theme === "rainbow"
+  const isRainbow = theme === "rainbow" && !isDisabled
 
-  const buttonTheme = isRainbow
-    ? "rainbow-border rounded-lg border-2"
-    : themes[theme]
+  const buttonTheme = isDisabled
+    ? "button-disabled"
+    : isRainbow
+      ? "rainbow-border rounded-lg border-2"
+      : themes[theme]
 
   const rainbowInnerClassName =
     "bg-primary-light hover:bg-primary-dark rounded-md p-2 text-white"

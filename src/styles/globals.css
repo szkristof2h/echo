@@ -18,6 +18,9 @@
   .button-success {
     @apply w-full cursor-pointer rounded-lg bg-success-light p-2 text-center text-white shadow-xl hover:bg-gradient-to-b hover:from-success-light hover:to-success-dark;
   }
+  .button-disabled {
+    @apply w-full cursor-not-allowed rounded-lg bg-slate-500 p-2 text-center text-white shadow-xl;
+  }
 }
 
 .rainbow-border {
