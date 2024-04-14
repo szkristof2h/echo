@@ -31,6 +31,7 @@ export const Button = (props: ButtonProps) => {
     theme = "primary",
     children,
     iconName,
+    onClick,
     isDisabled = false,
     ...rest
   } = props
@@ -55,6 +56,7 @@ export const Button = (props: ButtonProps) => {
   return (
     <button
       type={buttonType}
+      onClick={isDisabled ? () => {} : onClick}
       className={`${buttonTheme} ${className ?? ""} text-center`}
       {...rest}
     >
