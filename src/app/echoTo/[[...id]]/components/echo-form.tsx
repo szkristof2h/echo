@@ -80,7 +80,8 @@ export default function EchoForm(props: { id?: string; idParent?: number }) {
 
         <Button
           buttonType="button"
-          theme="primary"
+          theme="rainbow"
+          className="w-full"
           iconName="search"
           onClick={handleOnClick}
         >
