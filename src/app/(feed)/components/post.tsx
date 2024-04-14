@@ -5,8 +5,14 @@ import ProfileLink from "./profile-link"
 import type { User } from "@clerk/nextjs/server"
 
 type Props = Omit<Echo, "idSender" | "idReceiver"> & {
-  postedBy?: Pick<User, "id" | "username" | "publicMetadata"> | null
-  postedTo?: Pick<User, "id" | "username" | "publicMetadata"> | null
+  postedBy?: Pick<
+    User,
+    "id" | "username" | "publicMetadata" | "imageUrl"
+  > | null
+  postedTo?: Pick<
+    User,
+    "id" | "username" | "publicMetadata" | "imageUrl"
+  > | null
 } & { isShort?: boolean }
 
 export default function Post(props: Props) {
@@ -32,7 +38,11 @@ export default function Post(props: Props) {
       <div className="flex justify-between text-sm">
         <span>
           {postedBy?.username ? (
-            <ProfileLink idUser={postedBy.id} displayName={postedBy.username} />
+            <ProfileLink
+              idUser={postedBy.id}
+              imageUrl={postedBy.imageUrl}
+              displayName={postedBy.username}
+            />
           ) : (
             "..."
           )}
@@ -40,7 +50,11 @@ export default function Post(props: Props) {
           {postedBy?.id === postedTo?.id ? (
             ""
           ) : postedTo?.username ? (
-            <ProfileLink idUser={postedTo.id} displayName={postedTo.username} />
+            <ProfileLink
+              idUser={postedTo.id}
+              imageUrl={postedTo.imageUrl}
+              displayName={postedTo.username}
+            />
           ) : (
             "..."
           )}

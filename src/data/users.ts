@@ -29,10 +29,11 @@ export async function getUsers(ids: string[]) {
 
     if (!users) return null
 
-    return users.map(({ id, username, publicMetadata }) => ({
+    return users.map(({ id, username, publicMetadata, imageUrl }) => ({
       id,
       username,
       publicMetadata,
+      imageUrl,
     }))
   } catch (error) {
     console.error("Clerk error: failed getting users")
