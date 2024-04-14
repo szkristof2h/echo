@@ -1,5 +1,6 @@
 import { auth } from "@clerk/nextjs"
 import { NextResponse } from "next/server"
+import { createSuggestion } from "~/data/suggestions"
 
 export async function POST(request: Request) {
   const { userId: idUser } = auth()
@@ -19,24 +20,25 @@ export async function POST(request: Request) {
     !!res.title &&
     typeof res.title === "string" &&
     !!res.text &&
-    typeof res.text === "string"
+    typeof res.text === "string" &&
+    process.env.ECHO_BREAKER_URL
   ) {
+    const title = res.title
+    const text = res.text
+
     try {
       const body = JSON.stringify({
-        text: `title: ${res.title}\n${res.text}`,
+        text: `title: ${title}\n${text}`,
       })
 
-      const resSuggestion = await fetch(
-        "https://echo-breaker-production.up.railway.app/suggestion",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "X-API-Key": process.env.ECHO_BREAKER_API_KEY!,
-          },
-          body,
+      const resSuggestion = await fetch(process.env.ECHO_BREAKER_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-API-Key": process.env.ECHO_BREAKER_API_KEY!,
         },
-      )
+        body,
+      })
 
       const data = (await resSuggestion.json()) as unknown
 
@@ -54,11 +56,33 @@ export async function POST(request: Request) {
         if (
           !!content &&
           typeof content === "object" &&
+          "analysis" in content &&
+          "filter" in content &&
           "suggestion" in content &&
+          !!content.analysis &&
+          !!content.filter &&
           !!content.suggestion &&
+          typeof content.analysis === "string" &&
+          typeof content.filter === "string" &&
           typeof content.suggestion === "string"
-        )
-          return NextResponse.json(content.suggestion)
+        ) {
+          const { analysis, filter, suggestion } = content
+
+          try {
+            await createSuggestion({
+              analysis,
+              filter,
+              suggestion,
+              title,
+              text,
+              idUser,
+            })
+          } catch (error) {
+            console.error("Database error: failed suggestion creation at route")
+          }
+
+          return NextResponse.json(suggestion)
+        }
       }
 
       NextResponse.json("Unfortunately the request run into an error.", {
