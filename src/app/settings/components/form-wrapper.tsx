@@ -7,14 +7,17 @@ import { Input } from "~/app/components/input"
 import { Textarea } from "~/app/components/textarea"
 import Container from "~/app/components/container"
 import FormError from "~/app/components/form-error"
+import Image from "next/image"
+import { useState } from "react"
 
 type Props = Pick<User, "username"> & {
   bio: string
   interests: string[]
+  imageUrl: string
 }
 
 export default function FormWrapper(props: Props) {
-  const { username, bio, interests } = props
+  const { username, bio, interests, imageUrl } = props
   const [state, formAction] = useFormState<
     ActionResponse | undefined,
     FormData
@@ -22,6 +25,7 @@ export default function FormWrapper(props: Props) {
     status: "",
     errors: [],
   })
+  // const [url, setUrl] = useState(imageUrl)
 
   return (
     <Container title="Edit profile">
@@ -32,6 +36,20 @@ export default function FormWrapper(props: Props) {
           autoFocus
           defaultValue={username ?? ""}
         />
+        {/* <Input
+          name="profile-picture"
+          label="Profile Picture"
+          autoFocus
+          defaultValue={imageUrl ?? ""}
+          onChange={(e) => setUrl(e.target.value)}
+        /> */}
+        {/* <img
+          className={`mr-2 inline-block`}
+          src={url}
+          alt="profile picture"
+          width={60}
+          height={60}
+        /> */}
         <Textarea label="Bio" name="bio" defaultValue={bio} />
         <Textarea
           label="Interests (seperate with comma)"

@@ -5,6 +5,7 @@ import FormWrapper from "./components/form-wrapper"
 export default async function Settings() {
   const user = await getCurrentUser()
   const username = user?.username ?? ""
+  const imageUrl = user?.imageUrl ?? ""
   const bio = (user?.publicMetadata?.bio as string | undefined) ?? ""
   const interests =
     (user?.publicMetadata?.interests as string[] | undefined) ?? []
@@ -12,7 +13,12 @@ export default async function Settings() {
   return (
     <>
       <Head title="Settings" />
-      <FormWrapper username={username} bio={bio} interests={interests} />
+      <FormWrapper
+        username={username}
+        bio={bio}
+        interests={interests}
+        imageUrl={imageUrl}
+      />
     </>
   )
 }
