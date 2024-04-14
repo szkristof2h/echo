@@ -24,7 +24,7 @@ export default async function Comments(props: { id: number; idUser: string }) {
             <Link href={`/echo/${subEcho.id}`}>
               <li
                 key={subEcho.id}
-                className="ml-8 mt-4 overflow-hidden rounded-lg bg-primary-light p-4 text-white shadow-xl hover:bg-primary-dark"
+                className="ml-8 mt-4 overflow-hidden whitespace-pre-line rounded-lg bg-primary-light p-4 text-white shadow-xl hover:bg-primary-dark"
               >
                 {postedBy?.username && (
                   <ProfileLink
