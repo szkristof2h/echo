@@ -20,6 +20,7 @@ export const env = createEnv({
     POSTGRES_URL_NON_POOLING: z.string(),
     POSTGRES_USER: z.string(),
     ECHO_BREAKER_API_KEY: z.string(),
+    ECHO_BREAKER_URL: z.string(),
   },
 
   /**
@@ -57,6 +58,7 @@ export const env = createEnv({
     POSTGRES_URL: process.env.POSTGRES_URL,
     POSTGRES_URL_NON_POOLING: process.env.POSTGRES_URL_NON_POOLING,
     POSTGRES_USER: process.env.POSTGRES_USER,
+    ECHO_BREAKER_URL: process.env.ECHO_BREAKER_URL,
     ECHO_BREAKER_API_KEY: process.env.ECHO_BREAKER_API_KEY,
   },
   /**
