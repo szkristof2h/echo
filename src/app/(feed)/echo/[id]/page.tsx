@@ -23,7 +23,13 @@ export default async function Home({ params }: { params: { id?: string } }) {
         "Couldn't load echo"
       )}
 
-      {echo && <Comments idUser={echo?.idSender} id={id} />}
+      {echo && (
+        <Comments
+          idUser={echo?.idSender}
+          id={id}
+          defaultTitle={`Reply to: ${echo?.title}`}
+        />
+      )}
     </>
   )
 }

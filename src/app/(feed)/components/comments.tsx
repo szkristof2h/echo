@@ -4,8 +4,12 @@ import FormWrapper from "./form-wrapper"
 import ProfileLink from "./profile-link"
 import { getUsers } from "~/data/users"
 
-export default async function Comments(props: { id: number; idUser: string }) {
-  const { id, idUser } = props
+export default async function Comments(props: {
+  id: number
+  idUser: string
+  defaultTitle?: string
+}) {
+  const { id, idUser, defaultTitle } = props
 
   const subEchos = await getEchos(0, id)
   const commentCount = subEchos.length
@@ -14,7 +18,7 @@ export default async function Comments(props: { id: number; idUser: string }) {
 
   return (
     <>
-      <FormWrapper idUser={idUser} idParent={id} />
+      <FormWrapper idUser={idUser} idParent={id} defaultTitle={defaultTitle} />
       <div className="text-bold mt-4 text-xl">Comments ({commentCount})</div>
       <ul>
         {subEchos.map((subEcho) => {

@@ -9,15 +9,19 @@ import { Button } from "~/app/components/button"
 import { useState } from "react"
 import Container from "~/app/components/container"
 
-export default function EchoForm(props: { id?: string; idParent?: number }) {
-  const { id, idParent } = props
+export default function EchoForm(props: {
+  id?: string
+  idParent?: number
+  defaultTitle?: string
+}) {
+  const { id, idParent, defaultTitle } = props
   const handleSubmit = (prevState: ActionResponse, formData: FormData) =>
     createEcho(formData, id, idParent)
   const [state, formAction] = useFormState(handleSubmit, {
     status: "",
     errors: [],
   })
-  const [title, setTitle] = useState("")
+  const [title, setTitle] = useState(defaultTitle)
   const [text, setText] = useState("")
   const [suggestion, setSuggestion] = useState<string>()
   const [isLoading, setIsLoading] = useState(false)
