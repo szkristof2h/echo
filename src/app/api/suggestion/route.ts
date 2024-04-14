@@ -1,6 +1,14 @@
+import { auth } from "@clerk/nextjs"
 import { NextResponse } from "next/server"
 
 export async function POST(request: Request) {
+  const { userId: idUser } = auth()
+
+  if (!idUser)
+    return NextResponse.json("Please login.", {
+      status: 401,
+    })
+
   const res = (await request.json()) as unknown
 
   if (

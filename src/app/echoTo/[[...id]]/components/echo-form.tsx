@@ -66,14 +66,6 @@ export default function EchoForm(props: { id?: string; idParent?: number }) {
             onChange={(e) => setText(e.target.value)}
           />
         </div>
-        <Button
-          buttonType="button"
-          theme="primary"
-          iconName="search"
-          onClick={handleOnClick}
-        >
-          Review with Echo Breaker
-        </Button>
         {suggestion && (
           <Container theme="tertiary">
             Our assistant <i>Echo Breaker</i> is still green and learning how to
@@ -86,6 +78,14 @@ export default function EchoForm(props: { id?: string; idParent?: number }) {
           </Container>
         )}
 
+        <Button
+          buttonType="button"
+          theme="primary"
+          iconName="search"
+          onClick={handleOnClick}
+        >
+          Review with Echo Breaker
+        </Button>
         <SubmitButton text="Submit" theme="secondary" />
       </form>
       <FormError errors={state.errors} />
