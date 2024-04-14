@@ -9,7 +9,7 @@ import {
 import { sql } from "drizzle-orm"
 import { createInsertSchema } from "drizzle-zod"
 
-const MAX_TEXT_LENGTH = 8192
+export const MAX_TEXT_LENGTH = 8192
 const MAX_TITLE_LENGTH = 64
 
 export const echos = pgTable(

@@ -1,0 +1,1 @@
+ALTER TABLE "suggestions" ADD COLUMN "text" varchar(8192) NOT NULL;
