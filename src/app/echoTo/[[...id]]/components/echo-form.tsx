@@ -20,8 +20,10 @@ export default function EchoForm(props: { id?: string; idParent?: number }) {
   const [title, setTitle] = useState("")
   const [text, setText] = useState("")
   const [suggestion, setSuggestion] = useState<string>()
+  const [isLoading, setIsLoading] = useState(false)
 
   const handleOnClick = async () => {
+    setIsLoading(true)
     try {
       const res = await fetch("/api/suggestion", {
         method: "POST",
@@ -36,6 +38,7 @@ export default function EchoForm(props: { id?: string; idParent?: number }) {
     } catch (error) {
       console.error("Error", error)
     }
+    setIsLoading(false)
   }
 
   return state?.status === "success" ? (
@@ -77,15 +80,16 @@ export default function EchoForm(props: { id?: string; idParent?: number }) {
             {suggestion}
           </Container>
         )}
-
         <Button
           buttonType="button"
           theme="rainbow"
           className="w-full"
           iconName="search"
           onClick={handleOnClick}
+          isDisabled={isLoading}
+          aria-disabled={isLoading}
         >
-          Review with Echo Breaker
+          {!isLoading ? "Review with Echo Breaker" : "Loading..."}
         </Button>
         <SubmitButton text="Submit" theme="secondary" />
       </form>

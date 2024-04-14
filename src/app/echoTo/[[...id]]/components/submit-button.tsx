@@ -16,6 +16,7 @@ export function SubmitButton(props: Props) {
       buttonType="submit"
       theme={theme}
       iconName="upload"
+      isDisabled={pending}
       aria-disabled={pending}
     >
       {pending ? "Loading..." : text}
