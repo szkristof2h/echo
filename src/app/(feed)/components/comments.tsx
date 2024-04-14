@@ -29,6 +29,7 @@ export default async function Comments(props: { id: number; idUser: string }) {
                 {postedBy?.username && (
                   <ProfileLink
                     idUser={postedBy.id}
+                    imageUrl={postedBy.imageUrl}
                     displayName={postedBy.username}
                   />
                 )}{" "}
