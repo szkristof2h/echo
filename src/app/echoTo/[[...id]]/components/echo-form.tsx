@@ -81,7 +81,9 @@ export default function EchoForm(props: { id?: string; idParent?: number }) {
           </Container>
         )}
         {suggestion && (
-          <Container className="whitespace-pre-line">{suggestion}</Container>
+          <Container className="w-full whitespace-pre-line">
+            {suggestion}
+          </Container>
         )}
 
         <SubmitButton text="Submit" theme="secondary" />
