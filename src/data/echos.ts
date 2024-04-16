@@ -1,3 +1,4 @@
+import "server-only"
 import { echos, insertEchoSchema } from "~/db/schema/echos"
 import db from "~/db"
 import { eq, and, gt, desc, isNull, inArray } from "drizzle-orm"

@@ -1,3 +1,4 @@
+import "server-only"
 import db from "~/db"
 import { desc } from "drizzle-orm"
 import validationErrorHandler from "./validationErrorHandler"
