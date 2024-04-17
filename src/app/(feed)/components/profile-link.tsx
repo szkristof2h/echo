@@ -16,20 +16,18 @@ export default function ProfileLink(props: {
   }
 
   return (
-    <>
+    <div
+      className="w-fit pb-1 hover:cursor-pointer hover:underline"
+      onClick={handleOnClick}
+    >
       <Image
-        className={`mr-2 inline-block`}
+        className={`mr-2 inline-block h-10 w-10 rounded-full shadow-sm`}
         src={imageUrl}
         alt="profile picture"
-        width={20}
-        height={20}
+        width={30}
+        height={30}
       />
-      <span
-        className="hover:cursor-pointer hover:underline"
-        onClick={handleOnClick}
-      >
-        @{displayName}
-      </span>
-    </>
+      <span className="">@{displayName}</span>
+    </div>
   )
 }
