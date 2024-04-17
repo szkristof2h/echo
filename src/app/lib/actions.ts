@@ -64,6 +64,9 @@ export async function updateProfile(
     image: formData.get("profile-picture"),
   }
 
+  const image =
+    rawFormData.image instanceof File ? rawFormData.image : undefined
+
   const interestsArray =
     rawFormData.interests?.split(",").filter((interest) => Boolean(interest)) ??
     []
@@ -78,13 +81,13 @@ export async function updateProfile(
     const user = await currentUser()
     const isUsernameSame = user?.username === rawFormData.username
     const isBioSame = user?.publicMetadata.bio === rawFormData.bio
-    const isImageSame = !rawFormData.image
+    const isImageChosen = !!image
 
     const isInterestsSame =
       Array.isArray(user?.publicMetadata.interests) &&
       user?.publicMetadata.interests?.join(",") === interestsArray.join(",")
     const hasChange =
-      !isUsernameSame || !isBioSame || !isInterestsSame || !isImageSame
+      !isUsernameSame || !isBioSame || !isInterestsSame || isImageChosen
 
     if (!hasChange) return { errors: ["no changes"], status: "failure" }
 
@@ -111,7 +114,7 @@ export async function updateProfile(
       username: rawFormData.username,
       bio: rawFormData.bio,
       interests: interestsArray,
-      image: rawFormData.image, //TODO fix type error
+      image: image,
     })
   } catch (error) {
     console.error("Action error: failed updating profile")
