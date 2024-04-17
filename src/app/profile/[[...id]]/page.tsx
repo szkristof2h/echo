@@ -37,7 +37,7 @@ export default async function Profile({
             <Container title={displayName} className="h-full">
               <img
                 src={imageUrl}
-                className="mx-auto my-4 h-40 w-auto rounded-full shadow-xl"
+                className="mx-auto h-44 w-44 rounded-full shadow-xl"
               ></img>
             </Container>
           </div>

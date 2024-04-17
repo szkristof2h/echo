@@ -36,24 +36,25 @@ export default function FormWrapper(props: Props) {
           autoFocus
           defaultValue={username ?? ""}
         />
-        <Input
-          name="profile-picture"
-          label="Profile picture"
-          type="file"
-          onChange={(e) => {
-            const file = e.target.files && e.target.files[0]
-            if (file) {
-              setUrl(URL.createObjectURL(file))
-            }
-          }}
-        />
-        <img
-          className={`mr-2 inline-block`}
-          src={url ?? imageUrl}
-          alt="profile picture"
-          width={60}
-          height={60}
-        />
+        <div className="flex justify-between">
+          <Input
+            className="w-72"
+            name="profile-picture"
+            label="Profile picture"
+            type="file"
+            onChange={(e) => {
+              const file = e.target.files && e.target.files[0]
+              if (file) {
+                setUrl(URL.createObjectURL(file))
+              }
+            }}
+          />
+          <img
+            className="h-36 w-36 rounded-full shadow-xl"
+            src={url ?? imageUrl}
+            alt="profile picture"
+          />
+        </div>
         <Textarea label="Bio" name="bio" defaultValue={bio} />
         <Textarea
           label="Interests (seperate with comma)"
