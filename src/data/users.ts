@@ -60,7 +60,8 @@ export async function updateUser(user: {
   const { id, username, bio, interests, image } = user
 
   try {
-    // if (!!imageUrl) await clerkClient.users.updateUserProfileImage()
+    if (!!image)
+      await clerkClient.users.updateUserProfileImage(id, { file: image })
 
     await clerkClient.users.updateUser(id, {
       username,

@@ -25,7 +25,7 @@ export default function FormWrapper(props: Props) {
     status: "",
     errors: [],
   })
-  // const [url, setUrl] = useState(imageUrl)
+  const [url, setUrl] = useState(imageUrl)
 
   return (
     <Container title="Edit profile">
@@ -36,20 +36,24 @@ export default function FormWrapper(props: Props) {
           autoFocus
           defaultValue={username ?? ""}
         />
-        {/* <Input
+        <Input
           name="profile-picture"
-          label="Profile Picture"
-          autoFocus
-          defaultValue={imageUrl ?? ""}
-          onChange={(e) => setUrl(e.target.value)}
-        /> */}
-        {/* <img
+          label="Profile picture"
+          type="file"
+          onChange={(e) => {
+            const file = e.target.files && e.target.files[0]
+            if (file) {
+              setUrl(URL.createObjectURL(file))
+            }
+          }}
+        />
+        <img
           className={`mr-2 inline-block`}
-          src={url}
+          src={url ?? imageUrl}
           alt="profile picture"
           width={60}
           height={60}
-        /> */}
+        />
         <Textarea label="Bio" name="bio" defaultValue={bio} />
         <Textarea
           label="Interests (seperate with comma)"
