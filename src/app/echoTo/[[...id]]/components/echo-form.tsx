@@ -1,6 +1,6 @@
 import type { ActionResponse } from "~/app/lib/actions"
 import { createEcho } from "~/app/lib/actions"
-import { SubmitButton } from "./submit-button"
+import { SubmitButton } from "../../../components/submit-button"
 import { useFormState } from "react-dom"
 import { Input } from "~/app/components/input"
 import { Textarea } from "~/app/components/textarea"
