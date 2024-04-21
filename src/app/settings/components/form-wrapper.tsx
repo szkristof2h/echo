@@ -7,7 +7,6 @@ import { Input } from "~/app/components/input"
 import { Textarea } from "~/app/components/textarea"
 import Container from "~/app/components/container"
 import FormError from "~/app/components/form-error"
-import Image from "next/image"
 import { useState } from "react"
 
 type Props = Pick<User, "username"> & {
@@ -43,10 +42,9 @@ export default function FormWrapper(props: Props) {
             label="Profile picture"
             type="file"
             onChange={(e) => {
-              const file = e.target.files && e.target.files[0]
-              if (file) {
-                setUrl(URL.createObjectURL(file))
-              }
+              const file = e.target.files?.[0]
+
+              if (file) setUrl(URL.createObjectURL(file))
             }}
           />
           <img
