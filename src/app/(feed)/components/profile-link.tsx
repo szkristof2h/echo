@@ -17,7 +17,7 @@ export default function ProfileLink(props: {
 
   return (
     <div
-      className="w-fit pb-1 hover:cursor-pointer hover:underline"
+      className="inline-block w-fit pb-1 hover:cursor-pointer hover:underline"
       onClick={handleOnClick}
     >
       <Image
