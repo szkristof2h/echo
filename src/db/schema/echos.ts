@@ -8,6 +8,7 @@ import {
 } from "drizzle-orm/pg-core"
 import { sql } from "drizzle-orm"
 import { createInsertSchema } from "drizzle-zod"
+import { topics } from "./topics"
 
 export const MAX_TEXT_LENGTH = 8192
 const MAX_TITLE_LENGTH = 64
@@ -22,10 +23,12 @@ export const echos = pgTable(
     text: varchar("text", { length: MAX_TEXT_LENGTH }).notNull(),
     title: varchar("title", { length: MAX_TITLE_LENGTH }).notNull(),
     date: timestamp("date").default(sql`now()`),
+    idTopic: integer("id_topic").references(() => topics.id),
   },
   (table) => {
     return {
-      nameIdx: index("date_idx").on(table.date),
+      dateIdx: index("date_idx").on(table.date),
+      topicIdx: index("topic_idx").on(table.idTopic),
     }
   },
 )
