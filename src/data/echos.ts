@@ -5,6 +5,7 @@ import { eq, and, gt, desc, isNull, inArray } from "drizzle-orm"
 import validationErrorHandler from "./validationErrorHandler"
 import { auth } from "@clerk/nextjs"
 import { getFollows } from "./connections"
+import { getTopicMatch } from "./topics"
 
 export type CreateEchoData = {
   idSender?: string
@@ -45,7 +46,17 @@ export async function createEcho(echo: CreateEchoData) {
       idParent,
     })
 
-    const result = await db.insert(echos).values(validatedEcho).returning()
+    const idTopic = await getTopicMatch(validatedEcho.title)
+
+    const validatedEchoWithTopicMatch = {
+      ...validatedEcho,
+      ...(idTopic ? { idTopic } : {}),
+    }
+
+    const result = await db
+      .insert(echos)
+      .values(validatedEchoWithTopicMatch)
+      .returning()
 
     if (!result[0]) throw new Error("some error")
 
