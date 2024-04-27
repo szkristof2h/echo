@@ -1,6 +1,6 @@
 import "server-only"
 import db from "~/db"
-import { desc, is } from "drizzle-orm"
+import { desc } from "drizzle-orm"
 import validationErrorHandler from "./validationErrorHandler"
 import { topics } from "~/db/schema/topics"
 import { env } from "~/env"
