@@ -1,8 +1,9 @@
 import "server-only"
 import db from "~/db"
-import { desc } from "drizzle-orm"
+import { desc, is } from "drizzle-orm"
 import validationErrorHandler from "./validationErrorHandler"
 import { topics } from "~/db/schema/topics"
+import { env } from "~/env"
 
 export type CreateEchoData = {
   idSender?: string
@@ -43,6 +44,60 @@ export async function getCurrentTopic() {
   } catch (error) {
     console.error("Database error: getting current topic")
     console.error(error)
+    return null
+  }
+}
+
+export async function getTopicMatch(title: string) {
+  try {
+    const topic = await getCurrentTopic()
+
+    if (!topic?.[0]?.id) return null
+
+    const body = JSON.stringify({
+      title,
+      topic: topic?.[0]?.text,
+    })
+
+    const res = await fetch(`${env.ECHO_BREAKER_URL}/weekly-match`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-API-Key": process.env.ECHO_BREAKER_API_KEY!,
+      },
+      body,
+    })
+
+    const data = (await res.json()) as unknown
+
+    if (
+      !!data &&
+      typeof data === "object" &&
+      "match" in data &&
+      !!data.match &&
+      typeof data.match === "object" &&
+      "content" in data.match &&
+      typeof data.match.content === "string"
+    ) {
+      const content = JSON.parse(data.match.content) as unknown
+
+      if (
+        !!content &&
+        typeof content === "object" &&
+        "is_match" in content &&
+        !!content.is_match &&
+        typeof content.is_match === "string"
+      ) {
+        const { is_match: isMatch } = content
+
+        if (isMatch === "yes") return topic?.[0]?.id
+        else if (isMatch === "no") return null
+        else return null
+      }
+    }
+  } catch (error) {
+    console.error("Error while getting topic match")
+
     return null
   }
 }
