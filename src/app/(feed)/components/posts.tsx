@@ -18,7 +18,7 @@ export default async function Posts(props: Props) {
   return (
     <div className="mb-16 flex flex-col gap-y-4">
       {posts.map((post) => {
-        const { id, title, date, text, idSender, idReceiver } = post
+        const { id, title, date, text, idSender, idReceiver, idTopic } = post
         const postedBy = users?.find((user) => user.id === idSender.toString())
         const postedTo = users?.find(
           (user) => user.id === idReceiver.toString(),
@@ -28,6 +28,7 @@ export default async function Posts(props: Props) {
           <Post
             key={id}
             id={id}
+            idTopic={idTopic}
             title={title}
             date={date}
             text={text}
