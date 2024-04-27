@@ -31,14 +31,17 @@ export async function POST(request: Request) {
         text: `title: ${title}\n${text}`,
       })
 
-      const resSuggestion = await fetch(process.env.ECHO_BREAKER_URL, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "X-API-Key": process.env.ECHO_BREAKER_API_KEY!,
+      const resSuggestion = await fetch(
+        `${process.env.ECHO_BREAKER_URL}/suggestion`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "X-API-Key": process.env.ECHO_BREAKER_API_KEY!,
+          },
+          body,
         },
-        body,
-      })
+      )
 
       const data = (await resSuggestion.json()) as unknown
 
