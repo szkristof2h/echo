@@ -1,6 +1,6 @@
 import "server-only"
 import db from "~/db"
-import { desc } from "drizzle-orm"
+import { desc, eq, inArray } from "drizzle-orm"
 import validationErrorHandler from "./validationErrorHandler"
 import { topics } from "~/db/schema/topics"
 import { env } from "~/env"
@@ -63,6 +63,23 @@ export async function getTopic(id: number) {
     return null
   }
 }
+
+export async function getTopics(ids: number[]) {
+  try {
+    const topicsById = await db.query.topics.findMany({
+      orderBy: [desc(topics.date)],
+      limit: 100,
+      where: inArray(topics.id, ids),
+    })
+
+    return topicsById
+  } catch (error) {
+    console.error("Database error: getting topics")
+    console.error(error)
+    return null
+  }
+}
+
 export async function getTopicMatch(title: string) {
   try {
     const topic = await getCurrentTopic()
