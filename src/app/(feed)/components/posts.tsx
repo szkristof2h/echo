@@ -1,6 +1,7 @@
 import type { Echo } from "~/db/schema/echos"
 import Post from "./post"
 import { getUsers } from "~/data/users"
+import { getTopics } from "~/data/topics"
 
 type Props = {
   posts: Echo[]
@@ -11,9 +12,13 @@ export default async function Posts(props: Props) {
 
   const idSenders = posts?.map(({ idSender }) => idSender.toString())
   const idReceivers = posts?.map(({ idReceiver }) => idReceiver.toString())
+  const idTopics = posts
+    ?.map(({ idTopic }) => idTopic)
+    .filter((x): x is number => typeof x === "number")
   const users = await getUsers(
     Array.from(new Set([...idSenders, ...idReceivers])),
   )
+  const topics = idTopics.length > 0 ? await getTopics(idTopics) : []
 
   return (
     <div className="mb-16 flex flex-col gap-y-4">
@@ -23,12 +28,14 @@ export default async function Posts(props: Props) {
         const postedTo = users?.find(
           (user) => user.id === idReceiver.toString(),
         )
+        const topic = topics?.find((topic) => topic.id === idTopic)
+        const topicName = topic?.text
 
         return (
           <Post
             key={id}
             id={id}
-            idTopic={idTopic}
+            topic={topicName}
             title={title}
             date={date}
             text={text}
