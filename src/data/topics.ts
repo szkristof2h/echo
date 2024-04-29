@@ -48,6 +48,21 @@ export async function getCurrentTopic() {
   }
 }
 
+export async function getTopic(id: number) {
+  try {
+    const topic = await db.query.topics.findFirst({
+      where: eq(topics.id, id),
+    })
+
+    if (!topic) return null
+
+    return topic
+  } catch (error) {
+    console.error("Database error: getting topic")
+    console.error(error)
+    return null
+  }
+}
 export async function getTopicMatch(title: string) {
   try {
     const topic = await getCurrentTopic()
