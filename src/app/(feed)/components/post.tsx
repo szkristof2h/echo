@@ -4,7 +4,7 @@ import type { Echo } from "~/db/schema/echos"
 import ProfileLink from "./profile-link"
 import type { User } from "@clerk/nextjs/server"
 
-type Props = Omit<Echo, "idSender" | "idReceiver"> & {
+type Props = Omit<Echo, "idSender" | "idReceiver" | "idTopic"> & {
   postedBy?: Pick<
     User,
     "id" | "username" | "publicMetadata" | "imageUrl"
@@ -13,10 +13,20 @@ type Props = Omit<Echo, "idSender" | "idReceiver"> & {
     User,
     "id" | "username" | "publicMetadata" | "imageUrl"
   > | null
-} & { isShort?: boolean }
+} & { isShort?: boolean; topic?: string }
 
 export default function Post(props: Props) {
-  const { id, title, date, text, postedBy, postedTo, idParent, isShort } = props
+  const {
+    id,
+    title,
+    date,
+    text,
+    postedBy,
+    postedTo,
+    idParent,
+    isShort,
+    topic,
+  } = props
   const echoUrl = `/echo/${id}`
 
   return (
