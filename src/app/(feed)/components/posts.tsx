@@ -14,7 +14,7 @@ export default async function Posts(props: Props) {
   const idReceivers = posts?.map(({ idReceiver }) => idReceiver.toString())
   const idTopics = posts
     ?.map(({ idTopic }) => idTopic)
-    .filter((x): x is number => typeof x === "number")
+    .filter((topic): topic is number => typeof topic === "number")
   const users = await getUsers(
     Array.from(new Set([...idSenders, ...idReceivers])),
   )
