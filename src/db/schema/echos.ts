@@ -5,6 +5,7 @@ import {
   varchar,
   timestamp,
   index,
+  boolean,
 } from "drizzle-orm/pg-core"
 import { sql } from "drizzle-orm"
 import { createInsertSchema } from "drizzle-zod"
@@ -24,11 +25,13 @@ export const echos = pgTable(
     title: varchar("title", { length: MAX_TITLE_LENGTH }).notNull(),
     date: timestamp("date").default(sql`now()`),
     idTopic: integer("id_topic").references(() => topics.id),
+    isTest: boolean("is_test").default(false),
   },
   (table) => {
     return {
       dateIdx: index("date_idx").on(table.date),
       topicIdx: index("topic_idx").on(table.idTopic),
+      testIdx: index("test_idx").on(table.isTest),
     }
   },
 )
