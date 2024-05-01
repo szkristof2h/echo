@@ -2,7 +2,7 @@ import Link from "next/link"
 import { getEchos } from "~/data/echos"
 import FormWrapper from "./form-wrapper"
 import ProfileLink from "./profile-link"
-import { getUsers } from "~/data/users"
+import { getUsers, isAdmin } from "~/data/users"
 
 export default async function Comments(props: {
   id: number
@@ -15,10 +15,16 @@ export default async function Comments(props: {
   const commentCount = subEchos.length
   const idSenders = subEchos?.map(({ idSender }) => idSender)
   const users = await getUsers(Array.from(new Set([...idSenders])))
+  const isUserAdmin = isAdmin()
 
   return (
     <>
-      <FormWrapper idUser={idUser} idParent={id} defaultTitle={defaultTitle} />
+      <FormWrapper
+        idUser={idUser}
+        idParent={id}
+        defaultTitle={defaultTitle}
+        isAdmin={isUserAdmin}
+      />
       <div className="text-bold mt-4 text-xl">Comments ({commentCount})</div>
       <ul>
         {subEchos.map((subEcho) => {
