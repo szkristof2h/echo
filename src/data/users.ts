@@ -84,6 +84,6 @@ export function isAdmin() {
     "user_2epS4QeONOgzdK8z2kwQZqFlgBo",
   ]
 
-  return idUser && idAdmins.includes(idUser)
+  return !!idUser && idAdmins.includes(idUser)
 }
 // export async function deleteUser(id: string) {}
