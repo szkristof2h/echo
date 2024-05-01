@@ -75,4 +75,15 @@ export async function updateUser(user: {
     console.error(error)
   }
 }
+
+export function isAdmin() {
+  const { userId: idUser } = auth()
+
+  const idAdmins = [
+    "user_2eZ8MjBNYvkxTyNAshC54WZxCRV",
+    "user_2epS4QeONOgzdK8z2kwQZqFlgBo",
+  ]
+
+  return idUser && idAdmins.includes(idUser)
+}
 // export async function deleteUser(id: string) {}
