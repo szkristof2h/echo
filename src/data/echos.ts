@@ -6,6 +6,7 @@ import validationErrorHandler from "./validationErrorHandler"
 import { auth } from "@clerk/nextjs"
 import { getFollows } from "./connections"
 import { getTopicMatch } from "./topics"
+import { isAdmin } from "./users"
 
 export type CreateEchoData = {
   idSender?: string
@@ -13,6 +14,7 @@ export type CreateEchoData = {
   idParent?: number
   text?: string
   title?: string
+  isTest: boolean
 }
 export type UpdateEchoData = {
   id?: number
@@ -22,6 +24,7 @@ export async function createEcho(echo: CreateEchoData) {
   const idSender = echo?.idSender
   const idParent = echo?.idParent
   const text = echo?.text
+  const isTest = echo?.isTest
 
   try {
     const echoParent = !!idParent
@@ -44,6 +47,7 @@ export async function createEcho(echo: CreateEchoData) {
       idSender,
       idReceiver,
       idParent,
+      isTest,
     })
 
     const idTopic = await getTopicMatch(validatedEcho.title)
@@ -76,7 +80,10 @@ export async function getEchos(offset = 0, idParent?: number) {
       orderBy: [desc(echos.date)],
       limit: 100,
       offset,
-      where: idParent ? eq(echos.idParent, idParent) : isNull(echos.idParent),
+      where: and(
+        idParent ? eq(echos.idParent, idParent) : isNull(echos.idParent),
+        eq(echos.isTest, false),
+      ),
     })
 
     return echosByDate
@@ -105,7 +112,7 @@ export async function getNotifications(offset = 0) {
       orderBy: [desc(echos.date)],
       limit: 100,
       offset,
-      where: inArray(echos.idSender, idUsers),
+      where: and(inArray(echos.idSender, idUsers), eq(echos.isTest, false)),
     })
 
     return echosByDate
@@ -124,6 +131,8 @@ export async function getEcho(id: number) {
     })
 
     if (!echo) return null
+
+    if (echo.isTest && !isAdmin()) return null
 
     return echo
   } catch (error) {

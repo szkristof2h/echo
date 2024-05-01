@@ -4,7 +4,7 @@ import type { Echo } from "~/db/schema/echos"
 import ProfileLink from "./profile-link"
 import type { User } from "@clerk/nextjs/server"
 
-type Props = Omit<Echo, "idSender" | "idReceiver" | "idTopic"> & {
+type Props = Omit<Echo, "idSender" | "idReceiver" | "idTopic" | "isTest"> & {
   postedBy?: Pick<
     User,
     "id" | "username" | "publicMetadata" | "imageUrl"

@@ -8,8 +8,9 @@ export default function FormWrapper(props: {
   idDefault?: string
   echoCount?: number | null
   defaultName?: string | null
+  isAdmin: boolean
 }) {
-  const { echoCount, idDefault, defaultName } = props
+  const { echoCount, idDefault, defaultName, isAdmin } = props
   const [idSelected, setIdSelected] = useState(idDefault)
 
   return (
@@ -25,7 +26,7 @@ export default function FormWrapper(props: {
           setIdSelected={setIdSelected}
           idSelected={idSelected}
         />
-        <EchoForm id={idSelected} />
+        <EchoForm id={idSelected} isAdmin={isAdmin} />
       </Container>
     </div>
   )

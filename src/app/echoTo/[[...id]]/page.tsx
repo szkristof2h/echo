@@ -1,6 +1,6 @@
 import Head from "~/app/components/head"
 import FormWrapper from "./components/form-wrapper"
-import { getUser } from "~/data/users"
+import { getUser, isAdmin } from "~/data/users"
 import { getDailyEchoCount } from "~/data/echos"
 
 export default async function Submit({
@@ -13,12 +13,14 @@ export default async function Submit({
   const echoCount = await getDailyEchoCount()
   const defaultName = defaultUser?.username
   const idDefault = defaultUser?.id
+  const isUserAdmin = isAdmin()
 
   return (
     <>
       <Head title="Break the Echo" />
       <FormWrapper
         echoCount={echoCount}
+        isAdmin={isUserAdmin}
         idDefault={idDefault}
         defaultName={defaultName}
       />

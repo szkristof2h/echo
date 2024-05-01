@@ -13,8 +13,9 @@ export default function EchoForm(props: {
   id?: string
   idParent?: number
   defaultTitle?: string
+  isAdmin: boolean
 }) {
-  const { id, idParent, defaultTitle } = props
+  const { id, idParent, defaultTitle, isAdmin } = props
   const handleSubmit = (prevState: ActionResponse, formData: FormData) =>
     createEcho(formData, id, idParent)
   const [state, formAction] = useFormState(handleSubmit, {
@@ -83,6 +84,12 @@ export default function EchoForm(props: {
           <Container className="w-full whitespace-pre-line">
             {suggestion}
           </Container>
+        )}
+        {isAdmin && (
+          <div className="flex w-full flex-col">
+            <label>🔧 Test</label>
+            <input type="checkbox" name="isTest" />
+          </div>
         )}
         <Button
           buttonType="button"

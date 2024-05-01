@@ -9,7 +9,7 @@ import {
   updateConnection,
 } from "~/data/connections"
 import { createEcho as createEchoData } from "~/data/echos"
-import { getUser, updateUser } from "~/data/users"
+import { getUser, updateUser, isAdmin } from "~/data/users"
 
 export type ActionResponse = {
   errors?: (string | undefined)[]
@@ -30,6 +30,7 @@ export async function createEcho(
     title: formData.get("title")?.toString(),
     idSender: idUser,
     idParent,
+    isTest: isAdmin() ? !!formData.get("isTest") : false,
     idReceiver: id ?? idUser,
   }
 
