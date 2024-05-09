@@ -21,6 +21,7 @@ export const echos = pgTable(
     idSender: varchar("id_sender").notNull(),
     idReceiver: varchar("id_user").notNull(),
     idParent: integer("id_parent"),
+    replyCount: integer("reply_count").default(0),
     text: varchar("text", { length: MAX_TEXT_LENGTH }).notNull(),
     title: varchar("title", { length: MAX_TITLE_LENGTH }).notNull(),
     date: timestamp("date").default(sql`now()`),
