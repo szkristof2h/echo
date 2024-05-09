@@ -1,0 +1,1 @@
+ALTER TABLE "echos" ADD COLUMN "reply_count" integer DEFAULT 0;
