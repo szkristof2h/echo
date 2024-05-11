@@ -65,7 +65,7 @@ export async function createEcho(echo: CreateEchoData) {
     if (!result[0]) throw new Error("some error")
 
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    if (!!idParent) updateReplyCount(idParent, 1)
+    if (!!idParent && !isTest) updateReplyCount(idParent, 1)
 
     return result[0]
   } catch (error) {
