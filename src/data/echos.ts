@@ -169,5 +169,18 @@ export async function getDailyEchoCount() {
   }
 }
 
+export async function updateReplyCount(id: number, increment: number) {
+  try {
+    await db
+      .update(echos)
+      .set({
+        replyCount: sql`${echos.replyCount} + ${increment}`,
+      })
+      .where(eq(echos.id, id))
+  } catch (error) {
+    console.error("Database error: failed updating reply count")
+  }
+}
+
 // export async function updateEcho(echo: UpdateEchoData) {}
 // export async function deleteEcho(id: string) {}
