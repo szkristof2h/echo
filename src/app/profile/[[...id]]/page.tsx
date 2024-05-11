@@ -6,6 +6,8 @@ import { getConnection, getFollow } from "~/data/connections"
 import { SignOutButton, auth } from "@clerk/nextjs"
 import Container from "~/app/components/container"
 import FollowButton from "./components/follow-button"
+import Icon from "~/app/components/icons"
+import { Button } from "~/app/components/button"
 
 export default async function Profile({
   params,
@@ -81,7 +83,14 @@ export default async function Profile({
         </Container>
         {!id && (
           <SignOutButton>
-            <span className="button-danger">Sign out</span>
+            <Button
+              buttonType="button"
+              theme="danger"
+              className="w-full"
+              iconName="exit"
+            >
+              Sign out
+            </Button>
           </SignOutButton>
         )}
       </div>
