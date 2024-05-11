@@ -3,6 +3,7 @@ import Container from "~/app/components/container"
 import type { Echo } from "~/db/schema/echos"
 import ProfileLink from "./profile-link"
 import type { User } from "@clerk/nextjs/server"
+import Icon from "~/app/components/icons"
 
 type Props = Omit<Echo, "idSender" | "idReceiver" | "idTopic" | "isTest"> & {
   postedBy?: Pick<
@@ -70,7 +71,18 @@ export default function Post(props: Props) {
             "..."
           )}
         </span>
-        <span>{new Date(date ?? "").toDateString()}</span>
+        <span className="ml-auto mr-4 flex items-center">
+          <Icon iconName="calendar" className="inline-block" isDark={true} />
+          <span className="ml-2">{new Date(date ?? "").toDateString()}</span>
+        </span>
+        <span className="flex items-center">
+          <Icon
+            iconName="speech-bubble"
+            className="inline-block"
+            isDark={true}
+          />
+          <span className="ml-2">{replyCount}</span>
+        </span>
       </div>
     </Container>
   )
