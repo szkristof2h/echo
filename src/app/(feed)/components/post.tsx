@@ -26,6 +26,7 @@ export default function Post(props: Props) {
     idParent,
     isShort,
     topic,
+    replyCount,
   } = props
   const echoUrl = `/echo/${id}`
 
