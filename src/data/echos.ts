@@ -1,7 +1,7 @@
 import "server-only"
 import { echos, insertEchoSchema } from "~/db/schema/echos"
 import db from "~/db"
-import { eq, and, gt, desc, isNull, inArray } from "drizzle-orm"
+import { eq, and, gt, desc, isNull, inArray, sql } from "drizzle-orm"
 import validationErrorHandler from "./validationErrorHandler"
 import { auth } from "@clerk/nextjs"
 import { getFollows } from "./connections"
@@ -63,6 +63,9 @@ export async function createEcho(echo: CreateEchoData) {
       .returning()
 
     if (!result[0]) throw new Error("some error")
+
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
+    if (!!idParent) updateReplyCount(idParent, 1)
 
     return result[0]
   } catch (error) {
