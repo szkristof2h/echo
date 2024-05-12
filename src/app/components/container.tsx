@@ -9,13 +9,7 @@ export default function Container(props: {
   const themeStyles = {
     primary: "from-primary-light to-primary-dark bg-gradient-to-b text-white",
     secondary: "bg-secondary-light",
-    tertiary: "bg-tertiary-light", //"from-tertiary-light to-tertiary-dark bg-gradient-to-b",
-  }
-
-  const themeStylesDark = {
-    primary: "bg-primary-dark",
-    secondary: "bg-secondary-dark text-white",
-    tertiary: "bg-tertiary-dark",
+    tertiary: "bg-tertiary-light",
   }
 
   const containerBaseStyle = `${themeStyles[theme]} rounded-lg shadow-xl`
