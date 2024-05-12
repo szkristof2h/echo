@@ -6,6 +6,7 @@ import {
   insertSuggestionschema,
   suggestions,
 } from "~/db/schema/suggestions"
+import { desc } from "drizzle-orm"
 
 export async function createSuggestion(data: Omit<Suggestion, "id" | "date">) {
   const idUser = data.idUser
@@ -30,5 +31,22 @@ export async function createSuggestion(data: Omit<Suggestion, "id" | "date">) {
     console.error("Database error: failed suggestion creation")
 
     validationErrorHandler(error)
+  }
+}
+
+export async function getSuggestions(offset = 0) {
+  try {
+    const suggestionsByDate = await db.query.suggestions.findMany({
+      orderBy: [desc(suggestions.date)],
+      limit: 100,
+      offset,
+    })
+
+    return suggestionsByDate
+  } catch (error) {
+    console.error("Database error: getting suggestions")
+    console.error(error)
+
+    return []
   }
 }
