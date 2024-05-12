@@ -22,6 +22,7 @@ export default async function Posts(props: Props) {
 
   return (
     <div className="mb-16 flex flex-col gap-y-4">
+      {posts.length === 0 && "Couldn't find any echos :("}
       {posts.map((post) => {
         const {
           id,
