@@ -5,7 +5,7 @@ import Comments from "../../components/comments"
 import { getUser } from "~/data/users"
 import { getTopic } from "~/data/topics"
 
-export default async function Home({ params }: { params: { id?: string } }) {
+export default async function Echo({ params }: { params: { id?: string } }) {
   const id = params?.id ? parseInt(params?.id, 10) : null
 
   // TODO: do this nicer
