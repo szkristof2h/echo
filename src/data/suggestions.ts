@@ -34,11 +34,13 @@ export async function createSuggestion(data: Omit<Suggestion, "id" | "date">) {
   }
 }
 
-export async function getSuggestions(offset = 0) {
+export async function getSuggestions(offset = 0, limit = 100) {
+  const checkedLimit = limit > 100 ? 100 : limit
+
   try {
     const suggestionsByDate = await db.query.suggestions.findMany({
       orderBy: [desc(suggestions.date)],
-      limit: 100,
+      limit: checkedLimit,
       offset,
     })
 

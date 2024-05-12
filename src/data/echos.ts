@@ -77,16 +77,25 @@ export async function createEcho(echo: CreateEchoData) {
   }
 }
 
-export async function getEchos(offset = 0, idParent?: number) {
+export async function getEchos(
+  offset = 0,
+  idParent?: number,
+  shouldIncludeComments?: boolean,
+  limit = 100,
+) {
+  const checkedLimit = limit > 100 ? 100 : limit
+
   try {
     const echosByDate = await db.query.echos.findMany({
       orderBy: [desc(echos.date)],
-      limit: 100,
+      limit: checkedLimit,
       offset,
-      where: and(
-        idParent ? eq(echos.idParent, idParent) : isNull(echos.idParent),
-        eq(echos.isTest, false),
-      ),
+      where: shouldIncludeComments
+        ? eq(echos.isTest, false)
+        : and(
+            idParent ? eq(echos.idParent, idParent) : isNull(echos.idParent),
+            eq(echos.isTest, false),
+          ),
     })
 
     return echosByDate
