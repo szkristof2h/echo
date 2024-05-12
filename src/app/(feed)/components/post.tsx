@@ -4,6 +4,7 @@ import type { Echo } from "~/db/schema/echos"
 import ProfileLink from "./profile-link"
 import type { User } from "@clerk/nextjs/server"
 import Icon from "~/app/components/icons"
+import { Tag } from "~/app/components/tag"
 
 type Props = Omit<Echo, "idSender" | "idReceiver" | "idTopic" | "isTest"> & {
   postedBy?: Pick<
@@ -34,10 +35,13 @@ export default function Post(props: Props) {
   return (
     <Container
       title={
-        <Link href={echoUrl}>
-          {idParent ? "Reply to: " : ""}
-          {title}
-        </Link>
+        <div className="flex flex-col gap-2">
+          <Link href={echoUrl}>
+            {idParent ? "Reply to: " : ""}
+            {title}
+          </Link>
+          {topic && <Tag>{topic}</Tag>}
+        </div>
       }
     >
       <div
