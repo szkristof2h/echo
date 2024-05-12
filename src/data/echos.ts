@@ -98,6 +98,23 @@ export async function getEchos(offset = 0, idParent?: number) {
   }
 }
 
+export async function getEchosByTopic(idTopic: number, offset = 0) {
+  try {
+    const echosByTopic = await db.query.echos.findMany({
+      orderBy: [desc(echos.date)],
+      limit: 100,
+      offset,
+      where: and(eq(echos.isTest, false), eq(echos.idTopic, idTopic)),
+    })
+
+    return echosByTopic
+  } catch (error) {
+    console.error("Database error: getting echos by topic")
+    console.error(error)
+
+    return []
+  }
+}
 export async function getNotifications(offset = 0) {
   console.log("should be at server")
   const { userId: idUser } = auth()
