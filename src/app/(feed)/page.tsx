@@ -4,7 +4,7 @@ import { getEchos } from "~/data/echos"
 import { getCurrentTopic } from "~/data/topics"
 import { Button } from "~/app/components/button"
 import Link from "next/link"
-import Container from "../components/container"
+import Container from "~/app/components/container"
 
 export default async function Home() {
   const echos = await getEchos()
