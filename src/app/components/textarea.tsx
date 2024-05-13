@@ -5,19 +5,39 @@ interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   placeholder?: string
   required?: boolean
   label?: ReactElement | string
+  isDisabled?: boolean
+  isErrored?: boolean
 }
 
 export const Textarea = (props: TextareaProps) => {
-  const { name, onChange, className, label, required, ...rest } = props
+  const {
+    name,
+    onChange,
+    className,
+    label,
+    required,
+    isDisabled = false,
+    isErrored = false,
+    ...rest
+  } = props
+
+  const baseStyles =
+    "h-36 rounded-lg bg-white px-4 py-2 text-slate-600 shadow-lg outline-none ring-inset ring-primary-light placeholder:text-slate-300 focus:ring-2"
+
+  const errorStyles = "ring-2 ring-danger-light"
+  const disabledStyles = "cursor-not-allowed bg-secondary-dark"
+
+  const textareaStyles = `${baseStyles} ${className ?? ""} ${
+    isErrored ? errorStyles : ""
+  } ${isDisabled ? disabledStyles : ""}`
 
   const styledTextarea = (
     <textarea
       name={name}
       onChange={onChange}
-      className={`h-36 rounded-lg bg-white px-4 py-2 text-slate-600 shadow-lg outline-none ring-inset ring-primary-light placeholder:text-slate-300 focus:ring-2 ${
-        className ?? ""
-      }`}
+      className={textareaStyles}
       required={required}
+      disabled={isDisabled}
       {...rest}
     />
   )
