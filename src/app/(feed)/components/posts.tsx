@@ -45,6 +45,7 @@ export default async function Posts(props: Props) {
           <Post
             key={id}
             id={id}
+            idTopic={idTopic}
             topic={topicName}
             title={title}
             date={date}

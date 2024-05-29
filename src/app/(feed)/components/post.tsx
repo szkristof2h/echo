@@ -7,7 +7,7 @@ import Icon from "~/app/components/icons"
 import { Tag } from "~/app/components/tag"
 import { Linkify } from "~/app/components/linkify"
 
-type Props = Omit<Echo, "idSender" | "idReceiver" | "idTopic" | "isTest"> & {
+type Props = Omit<Echo, "idSender" | "idReceiver" | "isTest"> & {
   postedBy?: Pick<
     User,
     "id" | "username" | "publicMetadata" | "imageUrl"
@@ -28,10 +28,12 @@ export default function Post(props: Props) {
     postedTo,
     idParent,
     isShort,
+    idTopic,
     topic,
     replyCount,
   } = props
   const echoUrl = `/echo/${id}`
+  const topicUrl = `/echos/${idTopic}`
 
   return (
     <Container
@@ -41,7 +43,11 @@ export default function Post(props: Props) {
             {idParent ? "Reply to: " : ""}
             {title}
           </Link>
-          {topic && <Tag>{topic}</Tag>}
+          {topic && (
+            <Link href={topicUrl}>
+              <Tag>{topic}</Tag>
+            </Link>
+          )}
         </div>
       }
     >
