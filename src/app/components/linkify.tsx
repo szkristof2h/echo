@@ -13,19 +13,21 @@ export const Linkify = (props: LinkifyProps) => {
     attributes,
     content,
   }: {
-    attributes: any
+    attributes: Record<string, string>
     content: string
   }) => {
     const { href, ...props } = attributes
     return (
-      <Link
-        href={href}
-        target="_blank"
-        className="text-blue-700 hover:underline"
-        {...props}
-      >
-        {content}
-      </Link>
+      !!href && (
+        <Link
+          href={href}
+          target="_blank"
+          className="text-blue-700 hover:underline"
+          {...props}
+        >
+          {content}
+        </Link>
+      )
     )
   }
 
