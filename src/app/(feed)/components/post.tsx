@@ -5,6 +5,7 @@ import ProfileLink from "./profile-link"
 import type { User } from "@clerk/nextjs/server"
 import Icon from "~/app/components/icons"
 import { Tag } from "~/app/components/tag"
+import { Linkify } from "~/app/components/linkify"
 
 type Props = Omit<Echo, "idSender" | "idReceiver" | "idTopic" | "isTest"> & {
   postedBy?: Pick<
@@ -44,12 +45,8 @@ export default function Post(props: Props) {
         </div>
       }
     >
-      <div
-        className={`mb-4 whitespace-pre-line ${
-          isShort ? "line-clamp-[10]" : ""
-        }`}
-      >
-        {text}
+      <div className={`mb-4  ${isShort ? "line-clamp-[10]" : ""}`}>
+        <Linkify>{text}</Linkify>
       </div>
       <div className="flex justify-between text-sm">
         <span>
