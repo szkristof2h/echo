@@ -15,9 +15,17 @@ export default function User(props: {
   displayName: string
   isPending: boolean
   type: "connection" | "follow"
+  imageUrl: string
 }) {
-  const { idConnection, displayName, isPending, idUser, idLoggedInUser, type } =
-    props
+  const {
+    idConnection,
+    displayName,
+    isPending,
+    idUser,
+    idLoggedInUser,
+    type,
+    imageUrl,
+  } = props
   const handleDelete = async (id: string) => {
     if (type === "follow") await deleteFollow(id)
     else await deleteConnection(id)
@@ -28,6 +36,10 @@ export default function User(props: {
   return (
     <li key={idConnection} className="mb-4 grid grid-cols-3 gap-4">
       <Link className="button-primary" href={`/profile/${idConnection}`}>
+        <img
+          src={imageUrl}
+          className="mx-auto w-10 rounded-full shadow-xl"
+        ></img>
         {displayName}
       </Link>
       {idUser !== idLoggedInUser && isPending && (
