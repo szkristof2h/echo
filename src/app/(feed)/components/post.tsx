@@ -43,11 +43,7 @@ export default function Post(props: Props) {
             {idParent ? "Reply to: " : ""}
             {title}
           </Link>
-          {topic && (
-            <Link href={topicUrl}>
-              <Tag>{topic}</Tag>
-            </Link>
-          )}
+          {topic && <Tag href={topicUrl}>{topic}</Tag>}
         </div>
       }
     >
