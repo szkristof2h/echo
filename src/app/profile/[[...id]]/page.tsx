@@ -7,6 +7,7 @@ import { SignOutButton, auth } from "@clerk/nextjs"
 import Container from "~/app/components/container"
 import FollowButton from "./components/follow-button"
 import { Button } from "~/app/components/button"
+import Frame from "~/app/components/frame"
 
 export default async function Profile({
   params,
@@ -32,16 +33,14 @@ export default async function Profile({
   return (
     <>
       <Head title="Profile" />
-      <div className="flex flex-col gap-4">
+      <Container>
         <div className="grid grid-cols-3 gap-4">
-          <div className="col-span-2">
-            <Container title={displayName} className="h-full">
-              <img
-                src={imageUrl}
-                className="mx-auto h-44 w-44 rounded-full shadow-xl"
-              ></img>
-            </Container>
-          </div>
+          <Frame title={displayName} className="col-span-2 h-full">
+            <img
+              src={imageUrl}
+              className="mx-auto h-44 w-44 rounded-full shadow-xl"
+            ></img>
+          </Frame>
           <div className="flex flex-col gap-4">
             {!isOwnProfile && id ? (
               <>
@@ -67,32 +66,38 @@ export default async function Profile({
               </>
             )}
           </div>
+          <Frame title="Bio" className="col-span-3">
+            {bio}
+          </Frame>
+          <Frame title="I like" className="col-span-3">
+            <div className="flex flex-wrap gap-4">
+              {interests.map((interest) => (
+                <Container
+                  className="shadow-sm"
+                  theme="tertiary"
+                  key={interest}
+                >
+                  {interest}
+                </Container>
+              ))}
+            </div>
+          </Frame>
+          {!id && (
+            <div className="col-span-3">
+              <SignOutButton>
+                <Button
+                  buttonType="button"
+                  theme="danger"
+                  className="w-full"
+                  iconName="exit"
+                >
+                  Sign out
+                </Button>
+              </SignOutButton>
+            </div>
+          )}
         </div>
-        <Container title="Bio" theme="secondary">
-          {bio}
-        </Container>
-        <Container theme="secondary" title="I like">
-          <div className="flex flex-wrap gap-4">
-            {interests.map((interest) => (
-              <Container className="shadow-sm" theme="tertiary" key={interest}>
-                {interest}
-              </Container>
-            ))}
-          </div>
-        </Container>
-        {!id && (
-          <SignOutButton>
-            <Button
-              buttonType="button"
-              theme="danger"
-              className="w-full"
-              iconName="exit"
-            >
-              Sign out
-            </Button>
-          </SignOutButton>
-        )}
-      </div>
+      </Container>
     </>
   )
 }
