@@ -9,6 +9,11 @@ import {
   updateConnection,
 } from "~/data/connections"
 import { createEcho as createEchoData } from "~/data/echos"
+import {
+  addReaction,
+  getReaction,
+  updateReaction,
+} from "~/data/reactions"
 import { getUser, updateUser, isAdmin } from "~/data/users"
 
 export type ActionResponse = {
@@ -197,4 +202,22 @@ export async function acceptConnection(id: string) {
   //   return { errors: [res.message], status: "failure" }
 
   revalidatePath("/connections", "page")
+}
+
+export async function createReaction(idEcho: string, type: "agree" | "disagree") {
+  const reaction = await getReaction(idEcho)
+
+  if (reaction && "id" in reaction) {
+    const result = await updateReaction({ idEcho, type })
+    revalidatePath("/echo/[[...id]]", "page")
+
+    if (result && "message" in result)
+      return { errors: result.message, status: "failure" }
+  } else {
+    const result = await addReaction({ idEcho, type })
+    revalidatePath("/echo/[[...id]]", "page")
+
+    if (result && "message" in result)
+      return { errors: result.message, status: "failure" }
+  }
 }

@@ -35,11 +35,11 @@ export async function getReaction(idEcho: string) {
     console.error("Database error: getting reactions")
     console.error(error)
 
-    return []
+    return null
   }
 }
 
-export async function createReaction({
+export async function addReaction({
   idEcho,
   type,
 }: {
@@ -105,6 +105,6 @@ export async function updateReaction({
   } catch (error) {
     validationErrorHandler(error)
 
-    return { message: "Database error: failed reaction creation" }
+    return { message: "Database error: failed updating reaction" }
   }
 }

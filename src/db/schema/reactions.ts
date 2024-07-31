@@ -17,7 +17,7 @@ export const reactions = pgTable(
     id: serial("id").primaryKey().notNull(),
     idUser: varchar("id_user").notNull(),
     idEcho: varchar("id_echo").notNull(),
-    type: typeEnum('type').notNull(),
+    type: typeEnum("type").notNull(),
     date: timestamp("date").default(sql`now()`),
   },
   (table) => ({
