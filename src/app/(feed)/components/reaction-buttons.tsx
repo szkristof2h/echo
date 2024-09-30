@@ -8,8 +8,8 @@ type Props = {
 }
 
 export default function ReactionButtons({ idEcho, currentReaction }: Props) {
-  const isDisagreeing = currentReaction === "disagree"
   const isAgreeing = currentReaction === "agree"
+  const isDisagreeing = currentReaction === "disagree"
 
   const handleOnAgreeClick = async () => {
     if (isAgreeing) return
@@ -23,16 +23,16 @@ export default function ReactionButtons({ idEcho, currentReaction }: Props) {
   return (
     <div className="mt-3 flex justify-end gap-2">
       <Button
-        iconName="dislike"
-        className={`w-min`}
-        theme={isDisagreeing ? "primary" : "secondary"}
-        onClick={handleOnDisagreeClick}
-      />
-      <Button
         iconName="like"
         className="w-min"
         theme={isAgreeing ? "primary" : "secondary"}
         onClick={handleOnAgreeClick}
+      />
+      <Button
+        iconName="dislike"
+        className={`w-min`}
+        theme={isDisagreeing ? "primary" : "secondary"}
+        onClick={handleOnDisagreeClick}
       />
     </div>
   )
